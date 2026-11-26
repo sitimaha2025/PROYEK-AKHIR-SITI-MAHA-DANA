@@ -22,3 +22,25 @@ Klik pada tautan **PDF** di bawah ini untuk membuka laporan hasil akhir masing-m
 | 5 | **Visualisasi & Grafik 2D** |[MT4Geometry%20.pdf](EMT4Geometry%20.pdf)| [EMT4Plot2D.en](EMT4Plot2D.en) |[emt_4_plot_2d_latex (1).tex](emt_4_plot_2d_latex%20(1).tex) |
 | 6 | **Pendahuluan & Cara Kerja EMT** |[EMT4Geometry%20(5).pdf](EMT4Geometry%20(5).pdf)| [Aplikom 2.en](Aplikom%202.en) |[aplikom_2_latex.tex](aplikom_2_latex.tex) |
 | 7 | **Geometri dengan EMT** | [EMT4Geometry%20(6).pdf](EMT4Geometry%20(6).pdf)| [EMT4Geometry.en](EMT4Geometry.en) |[EMT4Geometry.tex](EMT4Geometry.tex) |
+
+---
+
+## Daftar Aset Gambar Grafik (`images/`)
+
+Berikut adalah kumpulan file gambar hasil render grafik dari Euler Math Toolbox (EMT):
+
+### 1. Grafik Materi Kalkulus
+* ![EMT Kalkulus-001](images/EMT%20Kalkulus-001.png) — `EMT Kalkulus-001.png`
+* ![EMT Kalkulus-002](images/EMT%20Kalkulus-002.png) — `EMT Kalkulus-002.png`
+* ![EMT Kalkulus-003](images/EMT%20Kalkulus-003.png) — `EMT Kalkulus-003.png`
+* ![EMT Kalkulus-004](images/EMT%20Kalkulus-004.png) — `EMT Kalkulus-004.png`
+* ![EMT Kalkulus-005](images/EMT%20Kalkulus-005.png) — `EMT Kalkulus-005.png`
+* ![EMT Kalkulus-006](images/EMT%20Kalkulus-006.png) — `EMT Kalkulus-006.png`
+
+### 2. Grafik Materi Geometri
+* ![EMT4Geometry-001](images/EMT4Geometry-001.png) — `EMT4Geometry-001.png`
+* ![EMT4Geometry-002](images/EMT4Geometry-002.png) — `EMT4Geometry-002.png`
+* ![EMT4Geometry-003](images/EMT4Geometry-003.png) — `EMT4Geometry-003.png`
+* ![EMT4Geometry-004](images/EMT4Geometry-004.png) — `EMT4Geometry-004.png`
+* ![EMT4Geometry-005](images/EMT4Geometry-005.png) — `EMT4Geometry-005.png`
+* ![EMT4Geometry-006](images/EMT4Geometry-006.png) — `EMT4Geometry-006.png`
