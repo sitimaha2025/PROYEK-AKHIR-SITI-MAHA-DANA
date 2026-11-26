@@ -15,10 +15,10 @@ Repository ini berisi kumpulan dokumen tugas dan laporan praktikum mata kuliah *
 Klik pada tautan **PDF** di bawah ini untuk membuka laporan hasil akhir masing-masing materi:
 | No | Materi / Topik | Laporan Akhir (PDF) | Notebook EMT (`.en`) | Dokumen Sumber (`.tex` / `.md`) |
 | :-: | :--- | :--- | :--- | :--- |
-| 1 | **Aljabar Lanjut & Latihan Soal** |[EMT4Geometry%20(4).pdf](EMT4Geometry%20(4).pdf)| [Aplikom3-4.en](Aplikom3-4.en) |
-| 2 | **Kalkulus dengan EMT** |[EMT4Geometry%20(1).pdf](EMT4Geometry%20(1).pdf)| [EMT Kalkulus.en](EMT%20Kalkulus.en) |
-| 3 | **Pengenalan & Langkah Awal EMT** |[EMT4Geometry%20(3).pdf](EMT4Geometry%20(3).pdf)|[EMT00-FisrtSteps.en](EMT00-FisrtSteps(1).en) |
-| 4 | **Aljabar dengan EMT** |[EMT4Geometry%20(2).pdf](EMT4Geometry%20(2).pdf)| [EMT4aljabar.en](EMT4aljabar.en) |
-| 5 | **Visualisasi & Grafik 2D** |[MT4Geometry%20.pdf](EMT4Geometry%20.pdf)| [EMT4Plot2D.en](EMT4Plot2D.en) |
-| 6 | **Pendahuluan & Cara Kerja EMT** |[EMT4Geometry%20(5).pdf](EMT4Geometry%20(5).pdf)| [Aplikom 2.en](Aplikom%202.en) |
-| 7 | **Geometri dengan EMT** | [EMT4Geometry%20(6).pdf](EMT4Geometry%20(6).pdf)| [EMT4Geometry.en](EMT4Geometry.en) |
+| 1 | **Aljabar Lanjut & Latihan Soal** |[EMT4Geometry%20(4).pdf](EMT4Geometry%20(4).pdf)| [Aplikom3-4.en](Aplikom3-4.en) |[aplikom_3_4_latex.tex](aplikom_3_4_latex.tex) |
+| 2 | **Kalkulus dengan EMT** |[EMT4Geometry%20(1).pdf](EMT4Geometry%20(1).pdf)| [EMT Kalkulus.en](EMT%20Kalkulus.en) |[emt_kalkulus_latex.tex](emt_kalkulus_latex.tex) |
+| 3 | **Pengenalan & Langkah Awal EMT** |[EMT4Geometry%20(3).pdf](EMT4Geometry%20(3).pdf)|[EMT00-FisrtSteps.en](EMT00-FisrtSteps(1).en) |[emt_00_first_steps_latex.tex](emt_00_first_steps_latex.tex) |
+| 4 | **Aljabar dengan EMT** |[EMT4Geometry%20(2).pdf](EMT4Geometry%20(2).pdf)| [EMT4aljabar.en](EMT4aljabar.en) |[emt_4_aljabar_latex.tex](emt_4_aljabar_latex.tex) |
+| 5 | **Visualisasi & Grafik 2D** |[MT4Geometry%20.pdf](EMT4Geometry%20.pdf)| [EMT4Plot2D.en](EMT4Plot2D.en) |[emt_4_plot_2d_latex (1).tex](emt_4_plot_2d_latex%20(1).tex) |
+| 6 | **Pendahuluan & Cara Kerja EMT** |[EMT4Geometry%20(5).pdf](EMT4Geometry%20(5).pdf)| [Aplikom 2.en](Aplikom%202.en) |[aplikom_2_latex.tex](aplikom_2_latex.tex) |
+| 7 | **Geometri dengan EMT** | [EMT4Geometry%20(6).pdf](EMT4Geometry%20(6).pdf)| [EMT4Geometry.en](EMT4Geometry.en) |[EMT4Geometry.tex](EMT4Geometry.tex) |
