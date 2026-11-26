@@ -1,0 +1,1411 @@
+﻿% * EMT untuk Perhitungan Aljabar
+% 
+% Pada notebook ini Anda belajar menggunakan EMT untuk melakukan berbagai perhitungan
+% terkait dengan materi atau topik dalam Aljabar. Kegiatan yang harus Anda lakukan adalah
+% sebagai berikut:
+% 
+% - Membaca secara cermat dan teliti notebook ini;
+%%  - Menerjemahkan teks bahasa Inggris ke bahasa Indonesia;
+%%  - Mencoba contoh-contoh perhitungan (perintah EMT) dengan cara meng-ENTER setiap
+% perintah EMT yang ada (pindahkan kursor ke baris perintah)
+%%  - Jika perlu Anda dapat memodifikasi perintah yang ada dan memberikan
+% keterangan/penjelasan tambahan terkait hasilnya.
+%%  - Menyisipkan baris-baris perintah baru untuk mengerjakan soal-soal Aljabar dari file
+% PDF yang saya berikan;
+%%  - Memberi catatan hasilnya.
+%%  - Jika perlu tuliskan soalnya pada teks notebook (menggunakan format LaTeX).
+%%  - Gunakan tampilan hasil semua perhitungan yang eksak atau simbolik dengan format
+% LaTeX. (Seperti contoh-contoh pada notebook ini.)
+% 
+% ** Contoh pertama
+% 
+% Menyederhanakan bentuk aljabar:
+% 
+% latex: 6x^{-3}y^5\times -7x^2y^{-9}
+% 
+>$&6*x^(-3)*y^5*-7*x^2*y^(-9)
+
+% 
+% Menjabarkan:
+% 
+% latex: (6x^{-3}+y^5)(-7x^2-y^{-9})
+% 
+>$&showev('expand((6*x^(-3)+y^5)*(-7*x^2-y^(-9))))
+% 
+% ** Baris Perintah (The Command Line)
+% 
+% Sebuah baris perintah pada Euler terdiri dari satu atau beberapa perintah Euler yang diikuti oleh
+% tanda titik koma ";" atau tanda koma ",". Tanda titik koma mencegah pencetakan
+% hasil perhitungan. Tanda koma setelah perintah terakhir dapat dihilangkan.
+% 
+% Baris perintah berikut hanya akan mencetak hasil dari ekspresi matematika, bukan
+% perintah pendefinisian variabel (assignment) atau perintah format.
+>r:=2; h:=4; pi*r^2*h/3
+% Perintah-perintah harus dipisahkan dengan spasi. Baris perintah berikut mencetak
+% kedua hasilnya.
+>pi*2*r*h, %+2*pi*r*h // Ingat tanda % menyatakan hasil perhitungan terakhir sebelumnya
+% Baris perintah dieksekusi sesuai urutan pengguna menekan tombol Enter (Return). Jadi Anda akan mendapatkan
+% nilai baru setiap kali mengeksekusi baris kedua.
+>x := 1;
+>x := cos(x) // nilai cosinus (x dalam radian)
+>x := cos(x)
+% Jika dua baris dihubungkan dengan tanda "...", kedua baris tersebut akan selalu dieksekusi
+% secara bersamaan.
+>x := 1.5; ...
+>x := (x+2/x)/2, x := (x+2/x)/2, x := (x+2/x)/2, 
+% Ini juga merupakan cara yang baik untuk memecah perintah yang panjang menjadi dua baris atau lebih. Anda
+% dapat menekan Ctrl+Return untuk memisahkan baris menjadi dua pada posisi kursor saat ini,
+% atau Ctrl+Back untuk menggabungkan baris kembali.
+% 
+% Untuk melipat (menyembunyikan) semua baris ganda (multi-lines), tekan Ctrl+L. Baris-baris berikutnya hanya akan
+% terlihat jika salah satunya sedang aktif (difokuskan). Untuk melipat satu baris ganda, mulailah
+% baris pertama dengan "%+ ".
+>%+ x=4+5; ...
+> // Baris ini tidak akan terlihat jika kursor berada di luar baris ini
+% Baris yang diawali dengan tanda %% akan sepenuhnya disembunyikan (tidak terlihat).
+>%% x^2 // Baris ini tidak akan terlihat.
+% Euler mendukung perulangan (loops) di dalam baris perintah, selama muat dalam satu
+% baris tunggal atau baris ganda. Dalam program penuh, batasan ini tentu saja tidak berlaku.
+% Untuk informasi lebih lanjut, lihat panduan pengenalan berikut.
+% 
+>x=1; for i=1 to 5; x := (x+2/x)/2, end; // menghitung akar 2
+% Penggunaan baris ganda (multi-line) diperbolehkan. Pastikan setiap baris diakhiri dengan tanda " ...".
+>x := 1.5; // komentar diletakkan di sini sebelum tanda ...
+>repeat xnew:=(x+2/x)/2; until xnew~=x; ...
+>   x := xnew; ...
+>end; ...
+>x,
+% Struktur percabangan bersyarat (conditional) juga dapat digunakan.
+>if E^pi>pi^E; then "Thought so!", endif;
+% 
+% Saat Anda mengeksekusi suatu perintah, kursor dapat berada di posisi mana saja pada baris perintah tersebut.
+% Anda dapat kembali ke perintah sebelumnya atau melompat ke perintah berikutnya menggunakan
+% tombol panah. Atau Anda dapat mengeklik bagian komentar di atas perintah
+% untuk menuju ke perintah tersebut.
+% 
+% Ketika Anda menggerakkan kursor di sepanjang baris, pasangan tanda kurung buka dan kurung tutup
+% akan disorot (highlight). Perhatikan juga baris status di bagian bawah. Setelah
+% tanda kurung buka fungsi sqrt(), baris status akan menampilkan
+% teks bantuan untuk fungsi tersebut. Eksekusi perintah dengan tombol Enter.
+>sqrt(sin(10°)/cos(20°))
+% Untuk melihat bantuan mengenai perintah terbaru, buka jendela bantuan dengan menekan F1. Di sana,
+% Anda dapat mengetikkan teks untuk dicari. Pada baris yang kosong, bantuan mengenai cara menggunakan jendela
+% bantuan akan ditampilkan. Anda dapat menekan Escape untuk menghapus baris pencarian, atau untuk menutup
+% jendela bantuan.
+% 
+% Anda dapat mengeklik ganda pada perintah apa pun untuk membuka bantuan mengenai perintah tersebut. Cobalah
+% klik ganda pada perintah exp di bawah ini pada baris perintah.
+>exp(log(2.5))
+% Anda juga dapat menyalin dan menempel (copy and paste) di Euler. Gunakan Ctrl-C dan Ctrl-V untuk melakukannya. Untuk menandai
+% teks, seret mouse atau gunakan tombol Shift bersamaan dengan tombol panah mana pun. Selain itu,
+% Anda dapat menyalin tanda kurung yang sedang disorot.
+>//
+% 
+% ** Sintaks Dasar (Basic Syntax)
+% 
+% Euler mengenali fungsi-fungsi matematika yang umum. Seperti yang telah Anda lihat di atas, fungsi
+% trigonometri bekerja dalam satuan radian maupun derajat. Untuk mengonversi ke derajat, tambahkan simbol derajat
+% (dengan tombol F7) pada nilainya, atau gunakan fungsi rad(x). Fungsi akar kuadrat
+% disebut sqrt di Euler. Tentu saja, penulisan x^(1/2) juga dimungkinkan.
+% 
+% Untuk mendefinisikan variabel, gunakan "=" atau ":=". Demi kejelasan, pengenalan ini
+% menggunakan bentuk yang kedua (:=). Spasi tidak berpengaruh dalam ekspresi, tetapi spasi antarperintah diperlukan.
+% 
+% Beberapa perintah dalam satu baris dipisahkan dengan "," atau ";". Tanda titik koma menyembunyikan
+% keluaran (output) dari perintah. Pada akhir baris perintah, tanda "," dianggap ada secara otomatis jika ";"
+% tidak dituliskan.
+>g:=9.81; t:=2.5; 1/2*g*t^2
+% EMT menggunakan sintaks pemrograman untuk menulis ekspresi matematika. Untuk memasukkan
+% 
+% latex: e^2 \cdot \left( \frac{1}{3+4 \log(0.6)}+\frac{1}{7} \right)
+% 
+% Anda harus memasang tanda kurung yang tepat dan menggunakan tanda / untuk pecahan. Perhatikan tanda kurung
+% yang disorot sebagai bantuan. Perhatikan pula bahwa konstanta Euler e dinamai E di EMT.
+>E^2*(1/(3+4*log(0.6))+1/7)
+% Untuk menghitung ekspresi yang rumit seperti
+% 
+% latex: \left(\frac{\frac17 + \frac18 + 2}{\frac13 + \frac12}\right)^2 \pi
+% 
+% Anda perlu menuliskannya dalam bentuk satu baris mendatar.
+>((1/7 + 1/8 + 2) / (1/3 + 1/2))^2 * pi
+% Letakkan tanda kurung secara hati-hati di sekitar sub-ekspresi yang perlu dihitung terlebih dahulu.
+% EMT membantu Anda dengan menyorot ekspresi yang ditutup oleh tanda kurung tutup tersebut.
+% Anda juga harus mengetikkan nama "pi" untuk huruf Yunani pi.
+% 
+% Hasil dari perhitungan ini adalah bilangan titik ambang (floating point). Secara baku (default),
+% hasil dicetak dengan ketelitian sekitar 12 digit.
+% Pada baris perintah berikut, kita juga mempelajari cara merujuk pada hasil
+% sebelumnya di dalam baris yang sama menggunakan tanda %.
+>1/3+1/7, fraction %
+% 
+% Sebuah perintah Euler dapat berupa ekspresi matematika atau perintah primitif. Suatu ekspresi
+% tersusun atas operator dan fungsi. Jika diperlukan, ekspresi harus memuat tanda kurung untuk
+% memastikan urutan pengerjaan yang benar. Jika ragu, menambahkan tanda kurung adalah langkah yang
+% tepat. Perhatikan bahwa EMT menampilkan pasangan kurung buka dan tutup saat baris perintah diedit.
+>(cos(pi/4)+1)^3*(sin(pi/4)+1)^2
+% Operator numerik di dalam Euler meliputi:
+% 
+%  + tanda plus uner atau operator penjumlahan
+%%   - tanda minus uner atau operator pengurangan
+%%   *, / perkalian dan pembagian
+%%   . perkalian matriks (dot product)
+%%   a^b perpangkatan untuk a positif atau b bilangan bulat (a**b juga berfungsi)
+%%   n! operator faktorial
+% 
+% dan masih banyak lagi.
+% 
+% Berikut adalah beberapa fungsi yang mungkin Anda perlukan. Masih banyak fungsi lainnya di EMT:
+% 
+%  sin,cos,tan,atan,asin,acos,rad,deg
+%%   log,exp,log10,sqrt,logbase
+%%   bin,logbin,logfac,mod,floor,ceil,round,abs,sign
+%%   conj,re,im,arg,conj,real,complex
+%%   beta,betai,gamma,complexgamma,ellrf,ellf,ellrd,elle
+%%   bitand,bitor,bitxor,bitnot
+% 
+% Beberapa perintah memiliki nama alias, misalnya ln untuk log.
+>ln(E^2), arctan(tan(0.5))
+>sin(30°)
+% Pastikan untuk menggunakan tanda kurung biasa (round brackets) setiap kali ada keraguan mengenai
+% urutan eksekusi! Perhitungan berikut tidak sama dengan (2^3)^4, yang merupakan
+% aturan baku untuk 2^3^4 di EMT (beberapa sistem numerik lain mengerjakannya dengan urutan berbeda).
+>2^3^4, (2^3)^4, 2^(3^4)
+% ** Bilangan Real (Real Numbers)
+% 
+% Tipe data utama di Euler adalah bilangan real. Bilangan real
+% direpresentasikan dalam format IEEE dengan ketelitian sekitar 16 digit desimal.
+>longest 1/3
+% Representasi biner (dual) internalnya membutuhkan memori sebesar 8 byte.
+>printdual(1/3)
+>printhex(1/3)
+% ** String (Teks)
+% 
+% Sebuah string di Euler didefinisikan dengan tanda kutip ganda "...".
+>"A string can contain anything."
+% String dapat digabungkan menggunakan operator | atau +. Cara ini juga berlaku untuk angka,
+% yang pada kasus tersebut akan otomatis dikonversi menjadi string.
+>"The area of the circle with radius " + 2 + " cm is " + pi*4 + " cm^2."
+% Fungsi print juga dapat mengonversi angka menjadi string. Fungsi ini dapat menerima parameter
+% jumlah digit dan jumlah tempat desimal (0 untuk keluaran rapat/padat), serta satuan yang opsional.
+>"Golden Ratio : " + print((1+sqrt(5))/2,5,0)
+% Terdapat string khusus bernama none, yang tidak akan dicetak. Nilai ini dikembalikan oleh beberapa
+% fungsi ketika hasilnya tidak diperlukan. (Nilai ini dikembalikan secara otomatis jika
+% suatu fungsi tidak memiliki pernyataan return.)
+>none
+% Untuk mengonversi string menjadi angka, cukup evaluasi string tersebut dengan tanda kurung (). Cara ini berlaku
+% juga untuk ekspresi matematika (lihat di bawah).
+>"1234.5"()
+% Untuk mendefinisikan vektor string, gunakan notasi vektor [...].
+>v:=["affe","charlie","bravo"]
+% Vektor string kosong dilambangkan dengan [none]. Vektor-vektor string dapat
+% digabungkan.
+>w:=[none]; w|v|v
+% String dapat memuat karakter Unicode. Secara internal, string ini menggunakan
+% pengodean UTF-8. Untuk membuat string semacam itu, gunakan awalan u"..." dan salah satu entitas
+% HTML.
+% 
+% String Unicode dapat digabungkan seperti string lainnya.
+>u"&alpha; = " + 45 + u"&deg;" // pdfLaTeX mungkin gagal menampilkan secara benar
+% Di dalam komentar, entitas yang sama seperti &alpha;, &beta;, dan sebagainya dapat digunakan. Ini bisa menjadi
+% alternatif cepat selain LaTeX. (Detail lebih lanjut mengenai komentar dijelaskan di bawah).
+>//
+% Terdapat beberapa fungsi untuk membuat atau menganalisis string Unicode. Fungsi
+% strtochar() akan mengenali string Unicode dan menerjemahkannya dengan benar ke kode karakter.
+>v=strtochar(u"&Auml; is a German letter")
+% Hasilnya adalah vektor berisi bilangan Unicode. Fungsi kebalikannya adalah
+% chartoutf().
+>v[1]=strtochar(u"&Uuml;")[1]; chartoutf(v)
+% Fungsi utf() dapat menerjemahkan string yang berisi entitas di dalam sebuah variabel menjadi
+% string Unicode.
+>s="We have &alpha;=&beta;."; utf(s) // pdfLaTeX mungkin gagal menampilkan secara benar
+% Penggunaan entitas numerik juga dimungkinkan.
+>u"&#196;hnliches"
+% ** Nilai Boolean (Boolean Values)
+% 
+% Nilai Boolean direpresentasikan dengan angka 1 = benar (true) atau 0 = salah (false) di Euler.
+% String dapat dibandingkan, sama seperti perbandingan pada angka.
+>2<1, "apel"<"banana"
+% Operator logika "dan" adalah "&&" sedangkan "atau" adalah "||", seperti pada bahasa pemrograman
+% C. (Kata "and" dan "or" hanya dapat digunakan di dalam kondisi pernyataan "if".)
+>2<E && E<3
+% Operator Boolean mematuhi aturan bahasa matriks di Euler.
+>(1:10)>5, nonzeros(%)
+% Anda dapat menggunakan fungsi nonzeros() untuk mengekstrak elemen-elemen tertentu dari sebuah
+% vektor. Pada contoh berikut, kita menggunakan fungsi kondisional isprime(n).
+>N=2|3:2:99 // N berisi elemen 2 dan bilangan-bilangan ganjil dari 3 s.d. 99
+>N[nonzeros(isprime(N))] // pilih anggota-anggota N yang merupakan bilangan prima
+% ** Format Keluaran (Output Formats)
+% 
+% Format keluaran baku dari EMT mencetak 12 digit. Untuk memastikan
+% kita melihat format bakunya, kita atur ulang formatnya.
+>defformat; pi
+% Secara internal, EMT menggunakan standar IEEE untuk bilangan presisi ganda (double) dengan sekitar 16
+% digit desimal. Untuk melihat jumlah digit secara penuh, gunakan perintah
+% "longestformat", atau gunakan operator "longest" untuk menampilkan hasil dalam
+% format terpanjang.
+>longest pi
+% Berikut adalah representasi heksadesimal internal dari sebuah bilangan double.
+>printhex(pi)
+% Format keluaran dapat diubah secara permanen menggunakan perintah format.
+>format(12,5); 1/3, pi, sin(1)
+% Format bakunya adalah format(12).
+>format(12); 1/3
+% Fungsi-fungsi seperti "shortestformat", "shortformat", "longformat" bekerja untuk vektor
+% dengan cara berikut.
+>shortestformat; random(3,8)
+% Format baku untuk skalar adalah format(12), tetapi ini dapat diubah.
+>setscalarformat(5); pi
+% Fungsi "longestformat" juga mengatur format skalar tersebut.
+>longestformat; pi
+% Sebagai referensi, berikut adalah daftar format keluaran yang paling penting:
+% 
+%  shortestformat shortformat longformat, longestformat
+%%   format(length,digits) goodformat(length)
+%%   fracformat(length)
+%%   defformat
+% 
+% Ketelitian internal EMT adalah sekitar 16 tempat desimal, sesuai dengan standar
+% IEEE. Angka disimpan dalam format internal ini.
+% 
+% Namun, format tampilan keluaran EMT dapat diatur secara fleksibel.
+>longestformat; pi,
+>format(10,5); pi
+% Format bakunya adalah defformat().
+>defformat; // default
+% Terdapat operator singkat yang hanya mencetak satu nilai. Operator "longest"
+% akan mencetak semua digit valid dari suatu bilangan.
+>longest pi^2/2
+% Terdapat pula operator singkat untuk mencetak hasil dalam format pecahan. Kita
+% telah menggunakannya di atas.
+>fraction 1+1/2+1/3+1/4
+% Karena format internal menggunakan cara biner untuk menyimpan bilangan, nilai 0.1
+% tidak dapat direpresentasikan secara eksak. Galat pembulatan akan sedikit terakumulasi, seperti terlihat pada
+% perhitungan berikut.
+>longest 0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1-1
+% Namun dengan format baku "longformat", Anda tidak akan menyadari selisih kecil ini. Demi kenyamanan,
+% keluaran bilangan yang sangat kecil akan ditampilkan sebagai 0.
+>0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1-1
+% * Ekspresi (Expressions)
+% 
+% String atau nama variabel dapat digunakan untuk menyimpan ekspresi matematika, yang dapat dievaluasi
+% oleh EMT. Untuk melakukannya, gunakan tanda kurung setelah nama ekspresi. Jika Anda ingin menggunakan string
+% sebagai ekspresi, gunakan konvensi penamaan "fx" atau "fxy", dan sebagainya. Ekspresi memiliki prioritas
+% lebih tinggi daripada fungsi.
+% 
+% Variabel global dapat digunakan dalam evaluasi ekspresi.
+>r:=2; fx:="pi*r^2"; longest fx()
+% Parameter diberikan kepada variabel x, y, dan z secara berurutan. Parameter tambahan
+% dapat disertakan menggunakan parameter yang ditetapkan nilainya (assigned parameters).
+>fx:="a*sin(x)^2"; fx(5,a=-1)
+% Perhatikan bahwa ekspresi akan selalu menggunakan variabel global, meskipun terdapat
+% variabel di dalam fungsi dengan nama yang sama. (Jika tidak demikian, evaluasi
+% ekspresi di dalam fungsi dapat memberikan hasil yang sangat membingungkan bagi pengguna yang
+% memanggil fungsi tersebut.)
+>at:=4; function f(expr,x,at) := expr(x); ...
+>f("at*x^2",3,5) // menghitung 4*3^2 bukan 5*3^2
+% Jika Anda ingin menggunakan nilai lain untuk "at" selain nilai globalnya, Anda perlu
+% menambahkan "at=nilai".
+>at:=4; function f(expr,x,a) := expr(x,at=a); ...
+>f("at*x^2",3,5)
+% Sebagai referensi, perlu dicatat bahwa koleksi panggilan (call collections) dapat
+% memuat ekspresi. Dengan demikian kita dapat membuat contoh di atas menjadi seperti berikut.
+>at:=4; function f(expr,x) := expr(x); ...
+>f({{"at*x^2",at=5}},3)
+% Ekspresi dalam variabel x sering digunakan persis seperti fungsi.
+%%  Perhatikan bahwa mendefinisikan fungsi dengan nama yang sama dengan ekspresi simbolik global
+% akan menghapus variabel simbolik tersebut untuk menghindari kerancuan antara ekspresi
+% simbolik dan fungsi.
+>f &= 5*x;
+>function f(x) := 6*x;
+>f(2)
+% Sesuai konvensi, ekspresi simbolik maupun numerik sebaiknya dinamai fx,
+% fxy, dan sebagainya. Skema penamaan ini sebaiknya tidak digunakan untuk fungsi.
+>fx &= diff(x^x,x); $&fx
+% Bentuk khusus dari sebuah ekspresi memungkinkan penggunaan variabel apa pun sebagai parameter tanpa nama
+% untuk evaluasi ekspresi, tidak hanya "x", "y", dan seterusnya. Untuk itu, awali
+% ekspresi dengan "@(variabel) ...".
+>"@(a,b) a^2+b^2", %(4,5)
+% Hal ini memungkinkan manipulasi ekspresi dalam variabel lain untuk fungsi-fungsi EMT
+% yang membutuhkan ekspresi dalam variabel "x".
+% 
+% Cara paling dasar untuk mendefinisikan fungsi sederhana adalah dengan menyimpan rumusnya
+% ke dalam ekspresi simbolik atau numerik. Jika variabel utamanya adalah x,
+% ekspresi tersebut dapat dievaluasi persis seperti fungsi.
+% 
+% Seperti yang terlihat pada contoh berikut, variabel global terbaca selama proses
+% evaluasi.
+>fx &= x^3-a*x;  ...
+>a=1.2; fx(0.5)
+% Semua variabel lain di dalam ekspresi dapat ditentukan nilainya saat evaluasi
+% menggunakan parameter yang ditetapkan.
+>fx(0.5,a=1.1)
+% Sebuah ekspresi tidak harus bersifat simbolik. Hal ini diperlukan apabila ekspresi tersebut
+% memuat fungsi-fungsi yang hanya dikenali oleh kernel numerik, dan tidak dikenali di dalam
+% Maxima.
+% 
+% * Matematika Simbolik (Symbolic Mathematics)
+% 
+% EMT melakukan perhitungan matematika simbolik dengan bantuan Maxima. Untuk detailnya, mulailah dengan
+% tutorial berikut, atau telusuri referensi Maxima. Pengguna yang sudah mahir Maxima
+% perlu memperhatikan adanya perbedaan sintaks antara sintaks asli
+% Maxima dengan sintaks baku ekspresi simbolik di EMT.
+% 
+% Matematika simbolik terintegrasi secara mulus ke dalam Euler menggunakan tanda &. Setiap ekspresi
+% yang diawali dengan & merupakan ekspresi simbolik. Ekspresi ini dievaluasi dan dicetak oleh
+% Maxima.
+% 
+% Pertama-tama, Maxima memiliki aritmetika "tak terhingga" yang dapat menangani
+% bilangan yang sangat besar.
+>$&44!
+% Dengan cara ini, Anda dapat menghitung hasil bilangan besar secara eksak. Mari kita hitung
+% 
+% latex: C(44,10) = \frac{44!}{34! \cdot 10!}
+% 
+>$& 44!/(34!*10!) // nilai C(44,10)
+% Tentu saja, Maxima memiliki fungsi yang lebih efisien untuk perhitungan ini (begitu pula
+% bagian numerik EMT).
+>$binomial(44,10) // menghitung C(44,10) menggunakan fungsi binomial()
+% Untuk mempelajari lebih lanjut tentang fungsi tertentu, klik ganda pada fungsi tersebut. Misalnya, coba klik ganda
+% pada "&binomial" pada baris perintah sebelumnya. Tindakan ini akan membuka dokumentasi Maxima seperti yang
+% disediakan oleh pembuat program tersebut.
+% 
+% Anda akan mengetahui bahwa bentuk aljabar berikut juga dapat dikerjakan.
+% 
+% latex: C(x,3)=\frac{x!}{(x-3)!3!}=\frac{(x-2)(x-1)x}{6}
+% 
+>$binomial(x,3) // C(x,3)
+% Jika Anda ingin mengganti x dengan nilai tertentu, gunakan kata kunci "with".
+>$&binomial(x,3) with x=10 // substitusi x=10 ke C(x,3)
+% Dengan cara tersebut, Anda dapat menggunakan solusi dari suatu persamaan ke dalam persamaan lainnya.
+% 
+% Ekspresi simbolik dicetak oleh Maxima dalam bentuk 2D. Penyebabnya adalah adanya penanda
+% simbolik khusus di dalam string tersebut.
+% 
+% Seperti yang telah Anda lihat pada contoh-contoh sebelumnya dan berikutnya, jika Anda telah memasang LaTeX,
+% Anda dapat mencetak ekspresi simbolik dengan format LaTeX. Jika tidak terpasang, perintah berikut akan
+% menampilkan pesan galat.
+% 
+% Untuk mencetak ekspresi simbolik dengan LaTeX, gunakan tanda $ di depan & (atau Anda dapat menghilangkan &)
+% sebelum perintah. Jangan jalankan perintah Maxima dengan tanda $ jika Anda tidak memiliki LaTeX
+% terpasang di komputer Anda.
+>$(3+x)/(x^2+1)
+% Ekspresi simbolik diuraikan (parsed) oleh Euler. Jika Anda memerlukan sintaks yang kompleks dalam satu
+% ekspresi, Anda dapat mengapit ekspresi tersebut di dalam tanda kutip "...". Menggunakan lebih dari satu
+% ekspresi sederhana sebenarnya dimungkinkan, tetapi sangat tidak disarankan.
+>&"v := 5; v^2"
+% Sebagai pelengkap, perlu dicatat bahwa ekspresi simbolik dapat digunakan di dalam
+% program, tetapi harus diapit tanda kutip. Selain itu, jauh lebih
+% efektif memanggil Maxima pada waktu kompilasi (compile time) jika memungkinkan.
+>$&expand((1+x)^4), $&factor(diff(%,x)) // diff: turunan, factor: pemfaktoran
+% Sekali lagi, tanda % merujuk pada hasil perhitungan sebelumnya.
+% 
+% Untuk mempermudah pekerjaan, kita dapat menyimpan solusi ke dalam variabel simbolik.
+% Variabel simbolik didefinisikan dengan operator "&=".
+>fx &= (x+1)/(x^4+1); $&fx
+% Variabel ekspresi simbolik dapat digunakan di dalam ekspresi simbolik lainnya.
+>$&factor(diff(fx,x))
+% Input langsung perintah Maxima juga tersedia. Awali baris perintah
+% dengan tanda "::". Sintaks Maxima disesuaikan dengan sintaks EMT (yang disebut
+% "mode kompatibilitas").
+>&factor(20!)
+>::: factor(10!)
+>:: factor(20!)
+% Jika Anda sudah mahir menggunakan Maxima, Anda mungkin ingin memakai sintaks asli
+% Maxima. Anda dapat melakukannya dengan awalan ":::".
+>::: av:g$ av^2;
+>fx &= x^3*exp(x), $fx
+% Variabel semacam ini dapat digunakan dalam ekspresi simbolik lainnya. Perhatikan bahwa pada
+% perintah berikut, ruas kanan dari &= dievaluasi terlebih dahulu sebelum
+% dimasukkan ke variabel.
+>&(fx with x=5), $%, &float(%)
+>fx(5)
+>
+% Untuk mengevaluasi suatu ekspresi pada nilai variabel tertentu,
+% Anda dapat menggunakan operator "with".
+% 
+% Baris perintah berikut juga menunjukkan bahwa Maxima dapat mengevaluasi
+% ekspresi secara numerik menggunakan fungsi float().
+>&(fx with x=10)-(fx with x=5), &float(%)
+>$factor(diff(fx,x,2))
+% Untuk mendapatkan kode LaTeX dari suatu ekspresi, Anda dapat menggunakan perintah tex.
+>tex(fx)
+% Ekspresi simbolik dapat dievaluasi layaknya ekspresi numerik.
+>fx(0.5)
+% Di dalam ekspresi simbolik, pemanggilan langsung seperti di atas tidak berfungsi karena Maxima tidak
+% mendukungnya. Sebagai gantinya, gunakan sintaks "with" (bentuk yang lebih rapi dari perintah at(...) milik
+% Maxima).
+>$&fx with x=1/2
+% Substitusi nilai menggunakan "with" juga dapat berupa bentuk simbolik.
+>$&fx with x=1+t
+>
+% Perintah solve menyelesaikan ekspresi simbolik terhadap suatu variabel di Maxima.
+% Hasilnya berupa vektor solusi.
+>$&solve(x^2+x=4,x)
+% Bandingkan dengan perintah numerik "solve" di Euler, yang membutuhkan nilai
+% tebakan awal, dan secara opsional nilai target.
+>solve("x^2+x",1,y=4)
+% Nilai numerik dari solusi simbolik dapat dihitung dengan mengevaluasi
+% hasil simbolik tersebut. Euler akan membaca melewati tanda x= dan seterusnya. Jika Anda
+% tidak membutuhkan hasil numerik untuk perhitungan lanjutan, Anda juga dapat membiarkan
+% Maxima mencari nilai numeriknya.
+>sol &= solve(x^2+2*x=4,x); $&sol, sol(), $&float(sol)
+% Untuk mengambil satu solusi simbolik tertentu, seseorang dapat menggunakan "with" beserta indeksnya.
+>$&solve(x^2+x=1,x), x2 &= x with %[2]; $&x2
+% Untuk menyelesaikan sistem persamaan, gunakan vektor persamaan. Hasilnya berupa
+% vektor berisi himpunan solusi.
+>sol &= solve([x+y=3,x^2+y^2=5],[x,y]); $&sol, $&x*y with sol[1]
+% Ekspresi simbolik dapat memiliki penanda (flags), yang menunjukkan perlakuan khusus di dalam
+% Maxima. Beberapa flag dapat digunakan sebagai perintah mandiri, sementara yang lain tidak. Flag
+% ditambahkan dengan tanda "|" (bentuk yang lebih ringkas dari "ev(...,flags)").
+>$& diff((x^3-1)/(x+1),x) // turunan bentuk pecahan
+>$& diff((x^3-1)/(x+1),x) | ratsimp // menyederhanakan pecahan rasional
+>$&factor(%)
+% * Fungsi (Functions)
+% 
+% Di dalam EMT, fungsi adalah program yang didefinisikan dengan perintah "function". Fungsi dapat berupa
+% fungsi satu baris (one-line function) maupun fungsi multibaris (multiline function).
+%%  Fungsi satu baris dapat bersifat numerik atau simbolik. Fungsi numerik satu baris
+% didefinisikan dengan ":=".
+>function f(x) := x*sqrt(x^2+1)
+% Sebagai gambaran umum, kita tunjukkan semua kemungkinan definisi fungsi satu baris. Sebuah
+% fungsi dapat dievaluasi persis seperti fungsi bawaan Euler.
+>f(2)
+% Fungsi ini juga akan bekerja untuk input vektor, mengikuti aturan bahasa matriks
+% Euler, karena ekspresi yang digunakan di dalam fungsi sudah tervektorisasi.
+>f(0:0.1:1)
+% Fungsi dapat digambarkan grafiknya maupun dicari akarnya. Alih-alih menuliskan ekspresi, kita cukup memberikan
+% nama fungsinya saja.
+% 
+% Berbeda dengan ekspresi simbolik atau numerik, nama fungsi harus
+% dituliskan di dalam tanda kutip (string).
+>solve("f",1,y=1)
+% Secara baku, jika Anda perlu menimpa (overwrite) fungsi bawaan, Anda harus menambahkan
+% kata kunci "overwrite". Menimpa fungsi bawaan cukup berisiko dan dapat
+% menimbulkan masalah bagi fungsi lain yang bergantung padanya.
+% 
+% Anda tetap dapat memanggil fungsi bawaan aslinya dengan awalan "_...", jika fungsi tersebut berada di dalam
+% inti (core) Euler.
+>function overwrite sin (x) := _sin(x°) // mendefinisikan ulang sinus dalam derajat
+>sin(45)
+% Sebaiknya kita hapus pendefinisian ulang fungsi sin ini agar kembali normal.
+>forget sin; sin(pi/4)
+% ** Parameter Bawaan (Default Parameters)
+% 
+% Fungsi numerik dapat memiliki parameter bawaan (default).
+>function f(x,a=1) := a*x^2
+% Mengabaikan parameter kedua akan membuat fungsi menggunakan nilai bawaannya.
+>f(4)
+% Mengisikan nilai parameter akan menimpa nilai bawaan tersebut.
+>f(4,5)
+% Parameter yang ditetapkan nilainya (assigned parameter) juga akan menimpanya. Cara ini digunakan oleh banyak fungsi Euler
+% seperti plot2d dan plot3d.
+>f(4,a=1)
+% Jika suatu variabel bukan merupakan parameter, variabel tersebut harus bersifat global. Fungsi satu baris dapat
+% membaca variabel global.
+>function f(x) := a*x^2
+>a=6; f(2)
+% Namun, parameter yang ditetapkan nilainya saat pemanggilan akan menimpa nilai global tersebut.
+% 
+% Jika argumen tidak berada dalam daftar parameter yang telah didefinisikan sebelumnya, argumen tersebut harus
+% dideklarasikan menggunakan ":="!
+>f(2,a:=5)
+% Fungsi simbolik didefinisikan dengan "&=". Fungsi ini dikenali baik di Euler maupun
+% Maxima, dan bekerja di kedua lingkungan tersebut. Ekspresi pendefinisiannya diproses melalui
+% Maxima terlebih dahulu sebelum disimpan.
+>function g(x) &= x^3-x*exp(-x); $&g(x)
+% Fungsi simbolik dapat digunakan di dalam ekspresi simbolik lainnya.
+>$&diff(g(x),x), $&% with x=4/3
+% Fungsi simbolik juga dapat digunakan dalam ekspresi numerik. Tentu saja, ini hanya akan
+% berhasil jika EMT dapat menerjemahkan semua komponen di dalam fungsi tersebut secara numerik.
+>g(5+g(1))
+% Fungsi simbolik dapat digunakan untuk mendefinisikan fungsi atau ekspresi simbolik lainnya.
+>function G(x) &= factor(integrate(g(x),x)); $&G(c) // integrate: mengintegralkan
+>
+>solve(&g(x),0.5)
+% Perintah berikut juga berfungsi, karena Euler akan menggunakan ekspresi simbolik di dalam
+% fungsi g apabila tidak menemukan variabel simbolik g, selama terdapat
+% fungsi simbolik bernama g.
+>solve(&g,0.5)
+>function P(x,n) &= (2*x-1)^n; $&P(x,n)
+>function Q(x,n) &= (x+2)^n; $&Q(x,n)
+>$&P(x,4), $&expand(%)
+>P(3,4)
+>$&P(x,4)+ Q(x,3), $&expand(%)
+>$&P(x,4)-Q(x,3), $&expand(%), $&factor(%)
+>$&P(x,4)*Q(x,3), $&expand(%), $&factor(%)
+>$&P(x,4)/Q(x,1), $&expand(%), $&factor(%)
+>function f(x) &= x^3-x; $&f(x)
+% Dengan "&=", fungsi bersifat simbolik, dan dapat digunakan dalam ekspresi
+% simbolik lainnya.
+>$&integrate(f(x),x)
+% Dengan ":=", fungsi bersifat numerik. Contoh yang tepat adalah integral tentu seperti
+% 
+% latex: f(x) = \int_1^x t^t \, dt,
+% 
+% yang tidak dapat dievaluasi secara simbolik.
+% 
+% Jika kita mendefinisikan ulang fungsi tersebut dengan kata kunci "map", fungsi dapat digunakan untuk vektor
+% x. Secara internal, fungsi dipanggil satu per satu untuk setiap nilai x, dan
+% hasilnya disimpan ke dalam sebuah vektor.
+>function map f(x) := integrate("x^x",1,x)
+>f(0:0.5:2)
+% Fungsi dapat memiliki nilai bawaan untuk parameternya.
+>function mylog (x,base=10) := ln(x)/ln(base);
+% Sekarang fungsi dapat dipanggil dengan atau tanpa menyertakan parameter "base".
+>mylog(100), mylog(2^6.7,2)
+% Selain itu, penggunaan parameter yang ditetapkan nilainya saat pemanggilan juga dimungkinkan.
+>mylog(E^2,base=E)
+% 
+% Sering kali kita ingin menggunakan fungsi untuk vektor di satu tempat, dan untuk elemen
+% individual di tempat lain. Hal ini dimungkinkan menggunakan parameter vektor.
+>function f([a,b]) &= a^2+b^2-a*b+b; $&f(a,b), $&f(x,y)
+% Fungsi simbolik semacam ini dapat digunakan untuk variabel-variabel simbolik.
+% 
+% Namun, fungsi tersebut juga dapat dipanggil menggunakan vektor numerik.
+>v=[3,4]; f(v)
+% Terdapat juga fungsi yang murni simbolik, yang tidak dapat dievaluasi secara numerik.
+>function lapl(expr,x,y) &&= diff(expr,x,2)+diff(expr,y,2) // turunan parsial kedua
+>$&realpart((x+I*y)^4), $&lapl(%,x,y)
+% Namun tentu saja, fungsi murni simbolik dapat digunakan dalam ekspresi simbolik atau dalam pendefinisian
+% fungsi simbolik lainnya.
+>function f(x,y) &= factor(lapl((x+y^2)^5,x,y)); $&f(x,y)
+% Sebagai ringkasan:
+% 
+% - &= mendefinisikan fungsi simbolik,
+%%  - := mendefinisikan fungsi numerik,
+%%  - &&= mendefinisikan fungsi murni simbolik.
+% 
+% * Menyelesaikan Persamaan / Ekspresi (Solving Expressions)
+% 
+% Ekspresi matematika dapat diselesaikan baik secara numerik maupun simbolik.
+% 
+% Untuk menyelesaikan ekspresi sederhana satu variabel, kita dapat menggunakan fungsi solve().
+% Fungsi ini membutuhkan nilai tebakan awal untuk memulai pencarian akar. Secara internal,
+% solve() menggunakan metode sekan (secant method).
+>solve("x^2-2",1)
+% Penyelesaian persamaan juga bekerja untuk ekspresi simbolik. Perhatikan fungsi berikut.
+>$&solve(x^2=2,x)
+>$&solve(x^2-2,x)
+>$&solve(a*x^2+b*x+c=0,x)
+>$&solve([a*x+b*y=c,d*x+e*y=f],[x,y])
+>
+>
+>px &= 4*x^8+x^7-x^4-x; $&px
+% Sekarang kita mencari titik di mana polinomial tersebut bernilai 2. Di dalam solve(), nilai target
+% baku y=0 dapat diubah menggunakan variabel yang ditetapkan nilainya.
+%%  Kita gunakan y=2 dan memeriksa kebenarannya dengan mengevaluasi polinomial pada hasil yang diperoleh.
+>solve(px,1,y=2), px(%)
+% Menyelesaikan ekspresi simbolik dalam bentuk simbolik akan mengembalikan daftar solusi.
+% Kita menggunakan penyelesai simbolik solve() yang disediakan oleh Maxima.
+>sol &= solve(x^2-x-1,x); $&sol
+% Cara termudah untuk mendapatkan nilai numeriknya adalah dengan mengevaluasi solusi tersebut
+% secara numerik layaknya suatu ekspresi.
+>longest sol()
+% Untuk menggunakan solusi simbolik tersebut di dalam ekspresi lain, cara termudah adalah
+% memakai kata kunci "with".
+>$&x^2 with sol[1], $&expand(x^2-x-1 with sol[2])
+% 
+% Penyelesaian sistem persamaan secara simbolik dapat dilakukan dengan vektor
+% persamaan dan fungsi simbolik solve(). Jawabannya berupa daftar dari daftar
+% persamaan solusi.
+>$&solve([x+y=2,x^3+2*y+x=4],[x,y])
+% Fungsi f() dapat mengakses variabel global. Namun sering kali kita ingin menggunakan
+% parameter lokal.
+% 
+% latex: a^x-x^a = 0.1
+% 
+% dengan a=3.
+>function f(x,a) := x^a-a^x;
+% Salah satu cara meneruskan parameter tambahan ke f() adalah menggunakan daftar (list) berisi
+% nama fungsi dan parameternya (cara lainnya adalah menggunakan parameter titik koma).
+>solve({{"f",3}},2,y=0.1)
+% Cara ini juga berlaku untuk ekspresi. Namun pada kasus ekspresi, elemen daftar yang diberi nama
+% harus digunakan. (Pembahasan lebih lanjut tentang list ada di tutorial sintaks EMT).
+>solve({{"x^a-a^x",a=3}},2,y=0.1)
+% * Menyelesaikan Pertidaksamaan
+% 
+% Untuk menyelesaikan pertidaksamaan, EMT tidak akan dapat melakukannya,
+% melainkan dengan bantuan Maxima, artinya secara eksak (simbolik).
+% Perintah Maxima yang digunakan adalah fourier_elim(), yang harus
+% dipanggil dengan perintah "load(fourier_elim)" terlebih dahulu.
+>&load(fourier_elim)
+>$&fourier_elim([x^2 - 1>0],[x]) // x^2-1 > 0
+>$&fourier_elim([x^2 - 1<0],[x]) // x^2-1 < 0
+>$&fourier_elim([x^2 - 1 # 0],[x]) // x^2-1 <> 0
+>$&fourier_elim([x # 6],[x])
+>$&fourier_elim([x < 1, x > 1],[x]) // tidak memiliki penyelesaian
+>$&fourier_elim([minf < x, x < inf],[x]) // solusinya R
+>$&fourier_elim([x^3 - 1 > 0],[x])
+>$&fourier_elim([cos(x) < 1/2],[x]) // ??? gagal
+>
+>$&fourier_elim([y-x < 5, x - y < 7, 10 < y],[x,y]) // sistem pertidaksamaan
+>$&fourier_elim([y-x < 5, x - y < 7, 10 < y],[y,x])
+>$&fourier_elim((x + y < 5) and (x - y >8),[x,y])
+>$&fourier_elim(((x + y < 5) and x < 1) or  (x - y >8),[x,y])
+>&fourier_elim([max(x,y) > 6, x # 8, abs(y-1) > 12],[x,y])
+>$&fourier_elim([(x+6)/(x-9) <= 6],[x])
+>
+% * Bahasa Matriks (The Matrix Language)
+% 
+% Dokumentasi inti EMT memuat pembahasan terperinci mengenai
+% bahasa matriks di Euler.
+% 
+% Vektor dan matriks dimasukkan menggunakan tanda kurung siku, elemen-elemen dipisahkan oleh
+% tanda koma, dan baris-baris dipisahkan oleh tanda titik koma.
+>A=[1,2;3,4]
+% Perkalian matriks dilambangkan dengan tanda titik ".".
+>b=[3;4]
+>b' // transpos vektor b
+>inv(A) // invers matriks A
+>A.b // perkalian matriks
+>A.inv(A)
+% Poin utama dari bahasa matriks adalah bahwa semua fungsi dan operator bekerja
+% elemen demi elemen (element-wise).
+>A.A
+>A^2 // perpangkatan elemen-elemen A
+>A.A.A
+>power(A,3) // perpangkatan matriks
+>A/A // pembagian elemen-elemen matriks yang seletak
+>A/b // pembagian elemen-elemen A oleh elemen-elemen b kolom demi kolom (karena b vektor kolom)
+>A\b // hasil kali invers A dan b, A^(-1)b 
+>inv(A).b
+>A\A   // A^(-1)A
+>inv(A).A
+>A*A // perkalian elemen-elemen matriks seletak
+% Ini bukanlah perkalian matriks, melainkan perkalian elemen demi elemen. Hal yang
+% sama berlaku untuk vektor.
+>b^2 // perpangkatan elemen-elemen matriks/vektor
+% 
+% Jika salah satu operan berupa vektor atau skalar, operan tersebut diperluas dimensinya secara
+% alami (broadcasting).
+>2*A
+% Misalnya, jika operannya adalah vektor kolom, elemen-elemennya diterapkan ke
+% semua baris matriks A.
+>[1,2]*A
+% Jika operannya adalah vektor baris, elemen-elemennya diterapkan ke semua kolom matriks A.
+>A*[2,3]
+% Kita dapat membayangkan perkalian ini seolah-olah vektor baris v telah
+% diduplikasi membentuk matriks dengan ukuran yang sama dengan A.
+>dup([1,2],2) // dup: menduplikasi/menggandakan vektor [1,2] sebanyak 2 kali (baris)
+>A*dup([1,2],2) 
+% Hal ini juga berlaku untuk dua vektor di mana yang satu adalah vektor baris dan yang
+% lainnya adalah vektor kolom. Kita hitung i*j untuk i,j dari 1 sampai 5. Triknya adalah mengalikan 1:5
+% dengan transposnya. Bahasa matriks Euler secara otomatis
+% menghasilkan tabel perkalian nilai-nilai tersebut.
+>(1:5)*(1:5)' // hasil kali elemen-elemen vektor baris dan vektor kolom
+% Sekali lagi, ingatlah bahwa ini bukanlah perkalian matriks!
+>(1:5).(1:5)' // hasil kali titik (dot product) vektor baris dan vektor kolom
+>sum((1:5)*(1:5)) // sama hasilnya
+% Bahkan operator perbandingan seperti < atau == bekerja dengan cara yang sama.
+>(1:10)<6 // menguji elemen-elemen yang kurang dari 6
+% Misalnya, kita dapat menghitung banyaknya elemen yang memenuhi suatu
+% kondisi tertentu menggunakan fungsi sum().
+>sum((1:10)<6) // banyak elemen yang kurang dari 6
+% Euler memiliki operator perbandingan, seperti "==", yang memeriksa kesamaan nilai.
+% 
+% Kita akan mendapatkan vektor berisi angka 0 dan 1, di mana 1 berarti benar (true).
+>t=(1:10)^2; t==25 // menguji elemen-elemen t yang sama dengan 25 (hanya ada 1)
+% Dari vektor semacam itu, fungsi "nonzeros" memilih indeks elemen yang tidak nol.
+% 
+% Pada kasus ini, kita memperoleh indeks dari semua elemen yang lebih besar dari 50.
+>nonzeros(t>50) // indeks elemen-elemen t yang lebih besar daripada 50
+% Tentu saja, kita dapat menggunakan vektor indeks ini untuk mengambil nilai-nilai yang bersesuaian
+% di dalam t.
+>t[nonzeros(t>50)] // elemen-elemen t yang lebih besar daripada 50
+% Sebagai contoh, mari kita temukan semua bilangan kuadrat dari 1 sampai 1000 yang
+% bersisa 5 modulo 11 dan bersisa 3 modulo 13.
+>t=1:1000; nonzeros(mod(t^2,11)==5 && mod(t^2,13)==3)
+% EMT tidak sepenuhnya dirancang khusus untuk komputasi bilangan bulat murni karena menggunakan
+% titik ambang presisi ganda secara internal. Namun, fitur ini tetap sangat
+% bermanfaat.
+% 
+% Kita dapat menguji keprimaan suatu bilangan. Mari kita cari tahu berapa banyak bilangan kuadrat ditambah 1
+% yang merupakan bilangan prima.
+>t=1:1000; length(nonzeros(isprime(t^2+1)))
+% Fungsi nonzeros() hanya bekerja untuk vektor. Untuk matriks, tersedia fungsi
+% mnonzeros().
+>seed(2); A=random(3,4)
+% Fungsi ini mengembalikan pasangan indeks baris dan kolom dari elemen yang tidak nol.
+>k=mnonzeros(A<0.4) // indeks elemen-elemen A yang kurang dari 0,4
+% Indeks-indeks ini dapat digunakan untuk mengubah nilai elemen pada posisi tersebut.
+>mset(A,k,0) // mengganti elemen-elemen suatu matriks pada indeks tertentu
+% Fungsi mset() juga dapat mengisi elemen pada indeks tersebut dengan
+% entri dari matriks lain.
+>mset(A,k,-random(size(A)))
+% Kita juga dapat mengambil elemen-elemen pada indeks tersebut ke dalam bentuk vektor.
+>mget(A,k)
+% Fungsi lain yang berguna adalah extrema, yang mengembalikan nilai minimum dan
+% maksimum pada setiap baris matriks beserta posisi kolomnya.
+>ex=extrema(A)
+% Kita dapat menggunakannya untuk mengambil nilai maksimum pada setiap baris.
+>ex[,3]'
+% Hasil ini tentu saja sama dengan fungsi max().
+>max(A)'
+% Namun dengan mget(), kita dapat mengekstrak indeksnya dan menggunakan informasi ini
+% untuk mengambil elemen-elemen pada posisi yang sama dari matriks lain.
+>j=(1:rows(A))'|ex[,4], mget(-A,j)
+% 
+% * Fungsi Matriks Lainnya (Membangun Matriks)
+% 
+% Untuk menyusun matriks, kita dapat menumpuk satu matriks di atas matriks lainnya menggunakan "_". Jika keduanya
+% tidak memiliki jumlah kolom yang sama, matriks yang lebih pendek akan diisi
+% dengan angka 0.
+>v=1:3; v_v
+% Demikian pula, kita dapat menggabungkan matriks secara berdampingan menggunakan "|", jika keduanya
+% memiliki jumlah baris yang sama.
+>A=random(3,4); A|v'
+% Jika jumlah barisnya tidak sama, matriks yang lebih pendek akan
+% diisi dengan angka 0.
+% 
+% Ada pengecualian untuk aturan ini. Sebuah bilangan real yang digabungkan ke matriks
+% akan dijadikan satu kolom penuh yang berisi bilangan real tersebut.
+>A|1
+% Kita juga dapat membentuk matriks dari kumpulan vektor baris maupun vektor kolom.
+>[v;v]
+>[v',v']
+% Tujuan utama dari hal ini adalah untuk mengevaluasi vektor ekspresi terhadap
+% vektor-vektor kolom.
+>"[x,x^2]"(v')
+% Untuk mengetahui ukuran matriks A, kita dapat menggunakan fungsi-fungsi berikut.
+>C=zeros(2,4); rows(C), cols(C), size(C), length(C)
+% Untuk vektor, tersedia fungsi length().
+>length(2:10)
+% Terdapat banyak fungsi lain yang membangkitkan matriks khusus.
+>ones(2,2)
+% Fungsi ini juga dapat dipanggil dengan satu parameter. Untuk memperoleh vektor dengan elemen selain
+% angka 1, gunakan cara berikut.
+>ones(5)*6
+% Matriks berisi bilangan acak juga dapat dibangkitkan dengan random (distribusi
+% seragam) atau normal (distribusi Gauss).
+>random(2,2)
+% Berikut adalah fungsi lain yang berguna, yang menyusun ulang elemen-elemen suatu
+% matriks menjadi matriks dengan dimensi baru.
+>redim(1:9,3,3) // menyusun elemen-elemen 1, 2, 3, ..., 9 ke bentuk matriks 3x3
+% Dengan fungsi berikut, kita dapat memadukannya dengan fungsi dup untuk
+% membuat fungsi rep(), yang mengulang sebuah vektor sebanyak n kali.
+>function rep(v,n) := redim(dup(v,n),1,n*cols(v))
+% Mari kita uji fungsi tersebut.
+>rep(1:3,5)
+% Fungsi multdup() menggandakan setiap elemen dari sebuah vektor.
+>multdup(1:3,5), multdup(1:3,[2,3,2])
+% Fungsi flipx() dan flipy() membalik urutan kolom atau
+% baris suatu matriks. Artinya, fungsi flipx() membalik secara horizontal.
+>flipx(1:5) // membalik elemen-elemen vektor baris
+% Untuk rotasi elemen, Euler menyediakan rotleft() dan rotright().
+>rotleft(1:5) // memutar elemen-elemen vektor baris ke kiri
+% Fungsi khusus lainnya adalah drop(v,i), yang menghapus elemen-elemen dengan
+% indeks i dari vektor v.
+>drop(10:20,3)
+% Perhatikan bahwa vektor i pada drop(v,i) merujuk pada indeks posisi elemen di dalam
+% v, bukan nilai elemennya. Jika Anda ingin menghapus nilai tertentu, Anda
+% harus mencari indeksnya terlebih dahulu. Fungsi indexof(v,x) dapat digunakan
+% untuk menemukan posisi elemen x di dalam vektor terurut v.
+>v=primes(50), i=indexof(v,10:20), drop(v,i)
+% Seperti yang terlihat, tidak masalah jika menyertakan indeks di luar jangkauan (seperti 0),
+% indeks ganda, maupun indeks yang tidak berurutan.
+>drop(1:10,shuffle([0,0,5,5,7,12,12]))
+% Terdapat beberapa fungsi khusus untuk mengisi diagonal atau membentuk
+% matriks diagonal.
+% 
+% Kita mulai dari matriks identitas.
+>A=id(5) // matriks identitas 5x5
+% Kemudian kita atur diagonal bawah (-1) menjadi nilai 1:4.
+>setdiag(A,-1,1:4) // mengganti diagonal di bawah diagonal utama
+% Perhatikan bahwa perintah ini tidak mengubah matriks A secara langsung, melainkan menghasilkan matriks baru sebagai
+% keluaran dari setdiag().
+% 
+% Berikut adalah fungsi yang menghasilkan matriks tridiagonal.
+>function tridiag (n,a,b,c) := setdiag(setdiag(b*id(n),1,c),-1,a); ...
+>tridiag(5,1,2,3)
+% Diagonal suatu matriks juga dapat diekstrak dari matriks tersebut. Untuk
+% mendemonstrasikannya, kita ubah vektor 1:9 menjadi matriks 3x3.
+>A=redim(1:9,3,3)
+% Sekarang kita dapat mengambil diagonal utamanya.
+>d=getdiag(A,0)
+% Misalnya, kita dapat membagi matriks dengan elemen diagonalnya. Bahasa matriks
+% memastikan bahwa vektor kolom d diterapkan ke matriks baris demi
+% baris.
+>fraction A/d'
+% * Vektorisasi (Vectorization)
+% 
+% Hampir semua fungsi di Euler juga bekerja untuk input berupa matriks dan vektor,
+% selama operasi tersebut masuk akal secara matematis.
+% 
+% Misalnya, fungsi sqrt() menghitung akar kuadrat dari setiap elemen
+% vektor atau matriks.
+>sqrt(1:3)
+% Dengan demikian, Anda dapat dengan mudah membuat tabel nilai. Ini adalah salah satu cara untuk menggambar grafik
+% fungsi (alternatif lainnya adalah menggunakan ekspresi).
+>x=1:0.01:5; y=log(x)/x^2; // terlalu panjang untuk ditampilkan
+% Dengan cara ini serta operator titik dua a:delta:b, vektor nilai fungsi
+% dapat dibangkitkan dengan sangat mudah.
+% 
+% Pada contoh berikut, kita membangkitkan vektor nilai t[i] dengan selang
+% 0.1 dari -1 hingga 1. Lalu kita menghasilkan vektor nilai dari fungsi
+% 
+% latex: s = t^3-t
+% 
+>t=-1:0.1:1; s=t^3-t
+% EMT memperluas operator untuk skalar, vektor, dan matriks secara intuitif.
+% 
+% Misalnya, vektor kolom dikalikan dengan vektor baris akan meluas menjadi matriks jika operator *
+% diterapkan. Pada perintah berikut, v' adalah vektor transpos (vektor kolom).
+>shortest (1:5)*(1:5)'
+% Perhatikan bahwa operasi ini sangat berbeda dengan perkalian matriks. Perkalian
+% matriks dilambangkan dengan tanda titik "." di EMT.
+>(1:5).(1:5)'
+% 
+% Secara baku, vektor baris dicetak dalam format yang ringkas.
+>[1,2,3,4]
+% Untuk matriks, operator khusus . menyatakan perkalian matriks, dan A'
+% menyatakan transpos matriks. Matriks berukuran 1x1 dapat diperlakukan persis seperti bilangan real.
+>v:=[1,2]; v.v', %^2
+% Untuk mentranspos matriks, kita gunakan tanda apostrof (').
+>v=1:4; v'
+% Jadi kita dapat menghitung perkalian matriks A dengan vektor b.
+>A=[1,2,3,4;5,6,7,8]; A.v'
+% Perhatikan bahwa v tetap merupakan vektor baris. Oleh karena itu, v'.v berbeda dengan v.v'.
+>v'.v
+% v.v' menghitung kuadrat norma (norm) dari vektor baris v. Hasilnya adalah
+% vektor 1x1 yang bekerja seperti bilangan real.
+>v.v'
+% Tersedia juga fungsi norm (bersama banyak fungsi Aljabar Linear lainnya).
+>norm(v)^2
+% Operator dan fungsi mematuhi aturan bahasa matriks Euler.
+% 
+% Berikut adalah ringkasan aturannya:
+% 
+% - Fungsi yang diterapkan pada vektor atau matriks akan diterapkan pada setiap elemennya.
+% 
+% - Operator yang bekerja pada dua matriks berukuran sama diterapkan secara berpasangan pada
+% elemen-elemen matriks tersebut.
+% 
+% - Jika kedua matriks memiliki dimensi berbeda, keduanya akan diperluas secara
+% logis sehingga memiliki ukuran yang sama.
+% 
+% Misalnya, nilai skalar dikalikan vektor akan mengalikan skalar tersebut dengan setiap elemen
+% vektor. Atau matriks dikalikan vektor (dengan *, bukan .) akan memperluas vektor agar sesuai
+% ukuran matriks dengan cara menduplikasinya.
+% 
+% Berikut adalah kasus sederhana dengan operator pangkat ^.
+>[1,2,3]^2
+% Berikut adalah kasus yang lebih kompleks. Vektor baris dikalikan vektor kolom memperluas
+% keduanya melalui duplikasi.
+>v:=[1,2,3]; v*v'
+% Perhatikan bahwa hasil kali skalar (dot product) menggunakan perkalian matriks ".", bukan "*"!
+>v.v'
+% Terdapat banyak fungsi untuk matriks. Berikut adalah daftar singkatnya. Anda dapat melihat
+% dokumentasi untuk informasi lebih lengkap mengenai perintah-perintah ini:
+% 
+%   sum,prod menghitung jumlah dan hasil kali setiap baris
+%%    cumsum,cumprod melakukan hal yang sama secara kumulatif
+%%    extrema mengembalikan vektor berisi informasi nilai ekstrem
+%%    diag(A,i) mengembalikan diagonal ke-i
+%%    setdiag(A,i,v) mengisi diagonal ke-i
+%%    id(n) matriks identitas berukuran n
+%%    det(A) determinan matriks
+%%    charpoly(A) polinomial karakteristik
+%%    eigenvalues(A) nilai-nilai eigen
+>v*v, sum(v*v), cumsum(v*v)
+% Operator : menghasilkan vektor baris dengan jarak antar-elemen yang sama, secara opsional dengan ukuran langkah (step).
+>1:4, 1:2:10
+% Untuk menggabungkan matriks dan vektor, tersedia operator "|" dan "_".
+>[1,2,3]|[4,5], [1,2,3]_1
+% Elemen-elemen matriks dirujuk dengan notasi "A[i,j]".
+>A:=[1,2,3;4,5,6;7,8,9]; A[2,3]
+% Untuk vektor baris atau kolom, v[i] adalah elemen ke-i dari vektor. Untuk
+% matriks, perintah ini mengembalikan seluruh baris ke-i dari matriks tersebut.
+>v:=[2,4,6,8]; v[3], A[3]
+% Indeks juga dapat berupa vektor baris berisi indeks. Tanda : menyatakan seluruh indeks.
+>v[1:2], A[:,2]
+% Bentuk singkat dari : adalah mengosongkan posisi indeks tersebut sepenuhnya.
+>A[,2:3]
+% Untuk keperluan vektorisasi, elemen matriks dapat diakses seolah-olah
+% matriks tersebut adalah vektor satu dimensi.
+>A{4}
+% Matriks juga dapat diratakan (flattened) menjadi vektor baris menggunakan fungsi redim(). Hal ini
+% telah diimplementasikan dalam fungsi flatten().
+>redim(A,1,prod(size(A))), flatten(A)
+% 
+% Untuk menggunakan matriks sebagai tabel, mari kita atur ulang ke format baku, lalu
+% menghitung tabel nilai sinus dan kosinus. Perhatikan bahwa sudut secara
+% baku berada dalam satuan radian.
+>defformat; w=0°:45°:360°; w=w'; deg(w)
+% Sekarang kita gabungkan kolom-kolomnya menjadi sebuah matriks.
+>M = deg(w)|w|cos(w)|sin(w)
+% 
+% Menggunakan bahasa matriks, kita dapat membangkitkan beberapa tabel dari beberapa
+% fungsi sekaligus.
+% 
+% Pada contoh berikut, kita menghitung t[j]^i untuk i dari 1 hingga n. Kita memperoleh matriks
+% di mana setiap baris merupakan tabel t^i untuk suatu nilai i. Artinya, matriks memiliki
+% elemen:
+% latex: a_{i,j} = t_j^i, \quad 1 \le j \le 101, \quad 1 \le i \le n
+% 
+% Fungsi yang tidak mendukung input vektor harus "divektorisasi". Hal ini
+% dapat dicapai dengan kata kunci "map" pada definisi fungsi. Dengan demikian,
+% fungsi akan dievaluasi untuk setiap elemen parameter vektor.
+% 
+% Integrasi numerik integrate() hanya bekerja untuk batas interval berupa skalar.
+% Jadi kita perlu memvektorisasinya.
+>function map f(x) := integrate("x^x",1,x)
+% Kata kunci "map" memvektorisasi fungsi tersebut. Fungsi kini dapat bekerja
+%%  untuk input berupa vektor bilangan.
+>f([1:5])
+% * Sub-Matriks dan Elemen Matriks
+% 
+% Untuk mengakses elemen matriks, gunakan notasi kurung siku.
+>A=[1,2,3;4,5,6;7,8,9], A[2,2]
+% Kita dapat mengakses satu baris penuh dari matriks.
+>A[2]
+% Pada kasus vektor baris atau kolom, notasi ini mengembalikan satu elemen
+% vektor tersebut.
+>v=1:3; v[2]
+% Untuk memastikan Anda memperoleh baris pertama dari matriks 1xn maupun mxn,
+% tentukan semua kolom dengan mengosongkan indeks kedua.
+>A[2,]
+% Jika indeksnya berupa vektor indeks, Euler akan mengembalikan
+% baris-baris yang bersesuaian dari matriks.
+% 
+% Di sini kita mengambil baris pertama dan kedua dari A.
+>A[[1,2]]
+% Kita bahkan dapat menyusun ulang urutan baris A menggunakan vektor indeks. Tepatnya, kita
+% tidak mengubah matriks A asli di sini, melainkan menghitung versi susunan ulang dari A.
+>A[[3,2,1]]
+% Trik pengindeksan ini juga berlaku pada kolom.
+% 
+% Contoh berikut memilih semua baris dari A serta kolom kedua dan ketiga.
+>A[1:3,2:3]
+% Sebagai singkatan, tanda ":" menyatakan seluruh indeks baris atau kolom.
+>A[:,3]
+% Sebagai alternatif, biarkan indeks pertama kosong.
+>A[,2:3]
+% Kita juga dapat mengambil baris terakhir dari A menggunakan indeks -1.
+>A[-1]
+% Sekarang mari kita ubah elemen-elemen A dengan mengisi sub-matriks A dengan nilai
+% tertentu. Langkah ini benar-benar mengubah matriks A yang tersimpan di memori.
+>A[1,1]=4
+% Kita juga dapat menetapkan nilai baru untuk satu baris penuh dari A.
+>A[1]=[-1,-1,-1]
+% Kita bahkan dapat mengisi nilai ke suatu sub-matriks asalkan ukurannya sesuai.
+>A[1:2,1:2]=[5,6;7,8]
+% Selain itu, beberapa cara pintas (shortcuts) juga diperbolehkan.
+>A[1:2,1:2]=0
+% Peringatan: Indeks di luar batas ukuran matriks akan menghasilkan matriks kosong atau pesan
+% galat, bergantung pada pengaturan sistem. Pengaturan bakunya adalah menampilkan pesan
+% galat. Namun, perlu diingat bahwa indeks negatif dapat digunakan untuk
+% mengakses elemen matriks yang dihitung dari bagian akhir.
+>A[4]
+% * Pengurutan dan Pengacakan (Sorting and Shuffling)
+% 
+% Fungsi sort() mengurutkan elemen vektor baris.
+>sort([5,6,4,8,1,9])
+% Sering kali kita perlu mengetahui indeks asal dari elemen yang telah diurutkan di dalam
+% vektor semula. Informasi ini dapat digunakan untuk menyusun ulang vektor lain dengan urutan
+% yang sama.
+% 
+% Mari kita acak urutan sebuah vektor.
+>v=shuffle(1:10)
+% Vektor indeks menyimpan urutan posisi yang tepat dari v.
+>{vs,ind}=sort(v); v[ind]
+% Fungsi ini juga bekerja untuk vektor string.
+>s=["a","d","e","a","aa","e"]
+>{ss,ind}=sort(s); ss
+% Seperti yang terlihat, posisi entri yang kembar bersifat agak acak.
+>ind
+% Fungsi unique mengembalikan daftar terurut dari elemen-elemen unik suatu
+% vektor.
+>intrandom(1,10,10), unique(%)
+% Fungsi ini juga berlaku untuk vektor string.
+>unique(s)
+% * Aljabar Linear (Linear Algebra)
+% 
+% EMT memiliki banyak fungsi untuk menyelesaikan sistem persamaan linear, matriks jarang (sparse systems), maupun
+% masalah regresi.
+% 
+% Untuk sistem linear Ax=b, Anda dapat menggunakan algoritma eliminasi Gauss, matriks invers,
+% atau pencocokan linear (linear fit). Operator A\b menggunakan salah satu versi algoritma Gauss.
+>A=[1,2;3,4]; b=[5;6]; A\b
+% Sebagai contoh lain, kita bangkitkan matriks berukuran 200x200 beserta jumlah setiap barisnya.
+% Lalu kita selesaikan Ax=b menggunakan matriks invers. Kita ukur galatnya sebagai
+% deviasi maksimum semua elemen terhadap angka 1, yang tentu saja merupakan solusi
+% eksaknya.
+>A=normal(200,200); b=sum(A); longest totalmax(abs(inv(A).b-1))
+% Jika sistem persamaan tidak memiliki solusi eksak, pencocokan linear akan meminimalkan norma dari
+% galat Ax-b.
+>A=[1,2,3;4,5,6;7,8,9]
+% Determinan dari matriks ini adalah 0.
+>det(A)
+% * Matriks Simbolik (Symbolic Matrices)
+% 
+% Maxima mendukung matriks simbolik. Tentu saja, Maxima dapat digunakan untuk persoalan aljabar linear sederhana semacam ini.
+% Kita dapat mendefinisikan matriks untuk Euler dan Maxima menggunakan &:=, lalu menggunakannya
+% dalam ekspresi simbolik.
+% Bentuk kurung siku [...] yang biasa digunakan untuk mendefinisikan matriks di Euler juga dipakai untuk mendefinisikan matriks
+% simbolik.
+>A &= [a,1,1;1,a,1;1,1,a]; $A
+>$&det(A), $&factor(%)
+>$&invert(A) with a=0
+>A &= [1,a;b,2]; $A
+% Seperti semua variabel simbolik lainnya, matriks-matriks ini dapat digunakan dalam
+% ekspresi simbolik lain.
+>$&det(A-x*ident(2)), $&solve(%,x)
+% Nilai-nilai eigen juga dapat dihitung secara otomatis. Hasilnya adalah
+% vektor yang berisi dua sub-vektor, yaitu nilai eigen dan multiplisitasnya.
+>$&eigenvalues([a,1;1,a])
+% Untuk mengekstrak vektor eigen tertentu diperlukan pengindeksan yang cermat.
+>$&eigenvectors([a,1;1,a]), &%[2][1][1]
+% Matriks simbolik dapat dievaluasi secara numerik di Euler persis seperti
+% ekspresi simbolik lainnya.
+>A(a=4,b=5)
+% Di dalam ekspresi simbolik, gunakan kata kunci "with".
+>$&A with [a=4,b=5]
+% Pengaksesan baris pada matriks simbolik bekerja persis seperti pada matriks
+% numerik.
+>$&A[1]
+% Ekspresi simbolik dapat memuat pengisian nilai elemen, dan hal tersebut akan mengubah
+% matriks A.
+>&A[1,1]:=t+1; $&A
+% Terdapat pula fungsi simbolik di Maxima untuk membuat vektor dan matriks.
+% Untuk hal ini, silakan merujuk pada dokumentasi Maxima atau tutorial
+% mengenai Maxima di EMT.
+>v &= makelist(1/(i+j),i,1,3); $v
+%  
+>B &:= [1,2;3,4]; $B, $&invert(B)
+% Hasilnya dapat dievaluasi secara numerik di Euler. Untuk informasi lebih lanjut
+% mengenai Maxima, lihat bagian pengenalan Maxima.
+>$&invert(B)()
+% Euler juga memiliki fungsi tangguh bernama xinv(), yang melakukan komputasi lebih mendalam
+% untuk menghasilkan invers yang lebih akurat.
+% 
+% Perhatikan bahwa dengan &:=, matriks B telah didefinisikan sebagai simbolik di dalam
+% ekspresi simbolik dan sebagai numerik di dalam ekspresi numerik. Jadi kita
+% dapat menggunakannya di sini.
+>longest B.xinv(B)
+% Misalnya, nilai-nilai eigen dari A dapat dihitung secara numerik.
+>A=[1,2,3;4,5,6;7,8,9]; real(eigenvalues(A))
+% Atau secara simbolik. Lihat tutorial mengenai Maxima untuk rinciannya.
+>$&eigenvalues(@A)
+% * Nilai Numerik dalam Ekspresi Simbolik
+% 
+% Ekspresi simbolik pada dasarnya hanyalah string yang memuat ekspresi matematika. Jika kita
+% ingin mendefinisikan nilai baik untuk ekspresi simbolik maupun ekspresi
+% numerik secara bersamaan, kita harus menggunakan "&:=".
+>A &:= [1,pi;4,5]
+% Masih terdapat perbedaan antara bentuk numerik dan bentuk simboliknya. Saat
+% memindahkan matriks ke bentuk simbolik, hampiran pecahan untuk bilangan real akan digunakan.
+>$&A
+% Untuk menghindari pembulatan pecahan tersebut, gunakan fungsi "mxmset(variabel)".
+>mxmset(A); $&A
+% Maxima juga dapat menghitung menggunakan bilangan titik ambang, bahkan dengan bilangan titik ambang besar
+% (big floating numbers) hingga 32 digit. Namun proses evaluasinya jauh lebih
+% lambat.
+>$&bfloat(sqrt(2)), $&float(sqrt(2))
+% Ketelitian bilangan titik ambang besar ini dapat diubah sesuai kebutuhan.
+>&fpprec:=100; &bfloat(pi)
+% Variabel numerik dapat digunakan di dalam ekspresi simbolik mana pun menggunakan
+% awalan "@var".
+% 
+% Perhatikan bahwa hal ini hanya diperlukan jika variabel tersebut didefinisikan
+% dengan ":=" atau "=" sebagai variabel numerik.
+>B:=[1,pi;3,4]; $&det(@B)
+% 
+% * Demo - Suku Bunga (Interest Rates)
+% 
+% Di bawah ini, kita menggunakan Euler Math Toolbox (EMT) untuk menghitung suku bunga.
+% Kita melakukannya secara numerik dan simbolik untuk menunjukkan bagaimana Euler dapat digunakan
+% menyelesaikan permasalahan kehidupan nyata.
+% 
+% Misalkan Anda memiliki modal awal sebesar 5000 (katakanlah dalam dolar).
+>K=5000
+% Sekarang kita asumsikan suku bunga sebesar 3% per tahun. Mari kita tambahkan satu periode bunga sederhana dan
+% hitung hasilnya.
+>K*1.03
+% Euler juga memahami penulisan sintaks persen berikut.
+>K+K*3%
+% Namun jauh lebih mudah jika kita menggunakan faktor pengali bunga:
+>q=1+3%, K*q
+% Untuk jangka waktu 10 tahun, kita cukup mengalikan faktornya dan memperoleh nilai akhir dengan
+% bunga majemuk.
+>K*q^10
+% Untuk keperluan tampilan, kita dapat mengatur format menjadi 2 angka di belakang titik desimal.
+>format(12,2); K*q^10
+% Mari kita cetak hasil pembulatan 2 angka desimal tersebut dalam satu kalimat lengkap.
+>"Starting from " + K + "$ you get " + round(K*q^10,2) + "$."
+% Bagaimana jika kita ingin mengetahui saldo pada setiap tahun dari tahun ke-1 hingga tahun ke-9? Untuk
+% hal ini, bahasa matriks Euler sangat membantu. Anda tidak perlu menulis perulangan,
+% cukup masukkan perintah:
+>K*q^(0:10)
+% Bagaimana keajaiban ini bekerja? Pertama, ekspresi 0:10 menghasilkan vektor
+% bilangan bulat.
+>short 0:10
+% Kemudian semua operator dan fungsi di Euler dapat diterapkan pada vektor elemen
+% demi elemen. Jadi
+>short q^(0:10)
+% adalah vektor yang berisi faktor q^0 sampai q^10. Vektor ini dikalikan dengan K, sehingga kita memperoleh
+% vektor nilai saldo tiap tahun.
+>VK=K*q^(0:10);
+% Tentu saja, cara yang realistis untuk menghitung bunga ini adalah dengan
+% membulatkannya ke sen terdekat setiap akhir tahun. Mari kita buat fungsi untuk keperluan ini.
+>function oneyear (K) := round(K*q,2)
+% Mari kita bandingkan kedua hasil tersebut, dengan pembulatan dan tanpa pembulatan.
+>longest oneyear(1234.57), longest 1234.57*q
+% Sekarang tidak ada lagi rumus langsung untuk tahun ke-n, sehingga kita harus melakukan iterasi antar-tahun.
+% Euler menyediakan banyak cara untuk melakukannya.
+% 
+% Cara termudah adalah menggunakan fungsi iterate, yang mengulang pemanggilan suatu fungsi sebanyak
+% jumlah tertentu.
+>VKr=iterate("oneyear",5000,10)
+% Kita dapat mencetaknya dengan tampilan yang rapi menggunakan format tempat desimal
+% tetap.
+>VKr'
+% Untuk mengambil elemen tertentu dari vektor, kita gunakan indeks di dalam kurung siku.
+>VKr[2], VKr[1:3]
+% Menariknya, kita juga dapat menggunakan vektor indeks. Ingat bahwa 1:3 menghasilkan
+% vektor [1,2,3].
+% 
+% Mari kita bandingkan elemen terakhir dari nilai yang dibulatkan dengan nilai penuh tanpa pembulatan.
+>VKr[-1], VK[-1]
+% Selisihnya sangat kecil.
+% 
+% * Menyelesaikan Persamaan Keuangan (Solving Equations)
+% 
+% Sekarang kita gunakan fungsi yang lebih lanjut, yang menambahkan sejumlah uang tetap setiap
+% tahunnya.
+>function onepay (K) := K*q+R
+% Kita tidak perlu menentukan nilai q atau R saat mendefinisikan fungsi. Hanya ketika
+% kita menjalankan perintahnya, barulah nilai-nilai ini harus didefinisikan. Kita pilih R=200.
+>R=200; iterate("onepay",5000,10)
+% Bagaimana jika kita menarik sejumlah uang yang sama setiap tahun?
+>R=-200; iterate("onepay",5000,10)
+% Terlihat bahwa saldo uang terus berkurang. Jelas sekali, jika kita hanya memperoleh bunga 150 pada
+% tahun pertama tetapi menarik 200, modal kita akan berkurang setiap tahun.
+% 
+% Bagaimana kita dapat menentukan berapa tahun uang tersebut akan bertahan? Kita bisa
+% menulis perulangan untuk ini. Cara termudah adalah melakukan iterasi dalam jangka waktu yang cukup panjang.
+>VKR=iterate("onepay",5000,50)
+% Menggunakan bahasa matriks, kita dapat menentukan kapan nilai negatif pertama kali muncul dengan
+% cara berikut.
+>min(nonzeros(VKR<0))
+% Alasannya adalah bahwa nonzeros(VKR<0) mengembalikan vektor indeks i
+% di mana VKR[i]<0, dan fungsi min mengambil indeks terkecilnya.
+% 
+% Karena indeks vektor selalu dimulai dari 1, jawabannya adalah 47 tahun.
+% 
+% Fungsi iterate() memiliki satu trik tambahan. Fungsi ini dapat menerima kondisi berhenti sebagai
+% argumen, lalu mengembalikan nilai akhir beserta jumlah iterasinya.
+>{x,n}=iterate("onepay",5000,till="x<0"); x, n,
+% Mari kita coba menjawab pertanyaan yang lebih menantang. Misalkan kita mengetahui bahwa saldo
+% menjadi 0 setelah 50 tahun. Berapakah besar suku bunganya?
+% 
+% Pertanyaan ini hanya dapat dijawab secara numerik. Di bawah ini kita akan
+% menurunkan rumus yang diperlukan, dan Anda akan melihat bahwa tidak ada rumus aljabar sederhana
+% untuk mencari suku bunga. Untuk saat ini, kita gunakan penyelesaian numerik.
+% 
+% Langkah pertama adalah mendefinisikan fungsi yang melakukan iterasi sebanyak n kali. Kita
+% masukkan semua parameter ke dalam fungsi ini.
+>function f(K,R,P,n) := iterate("x*(1+P/100)+R",K,n;P,R)[-1]
+% Iterasinya persis seperti rumus berikut:
+% 
+% latex: x_{n+1} = x_n \cdot \left(1+ \frac{P}{100}\right) + R
+% 
+% Namun kita tidak lagi memakai nilai global R di dalam ekspresi. Fungsi seperti
+% iterate() memiliki fitur khusus di Euler: Anda dapat meneruskan nilai variabel
+% ke dalam ekspresi sebagai parameter setelah titik koma, dalam hal ini P dan R.
+% 
+% Selain itu, kita hanya tertarik pada nilai terakhir, sehingga kita ambil indeks
+% [-1].
+% 
+% Mari kita lakukan pengujian.
+>f(5000,-200,3,47)
+% Sekarang kita dapat menyelesaikan masalah suku bunga tadi.
+>solve("f(5000,-200,x,50)",3)
+% Rutin solve mencari akar persamaan ekspresi=0 terhadap variabel x. Jawabannya adalah 3,15%
+% per tahun. Kita memakai nilai awal 3% untuk memulai algoritma. Fungsi solve()
+% selalu memerlukan nilai tebakan awal.
+% 
+% Kita dapat menggunakan fungsi yang sama untuk menjawab pertanyaan berikut: Berapa banyak uang yang dapat kita
+% tarik setiap tahun agar modal awal habis tepat setelah 20 tahun dengan asumsi
+% suku bunga 3% per tahun?
+>solve("f(5000,x,3,20)",-200)
+% Perhatikan bahwa Anda tidak dapat mencari nilai n (jumlah tahun) dengan fungsi f ini, karena fungsi tersebut
+% mensyaratkan n berupa bilangan bulat.
+% 
+% ** Solusi Simbolik untuk Masalah Suku Bunga
+% 
+% Kita dapat memanfaatkan fitur simbolik Euler untuk mengkaji masalah ini secara analitis. Pertama kita definisikan
+% fungsi onepay() secara simbolik.
+>function op(K) &= K*q+R; $&op(K)
+% Sekarang kita dapat mengiterasinya secara simbolik.
+>$&op(op(op(op(K)))), $&expand(%)
+% Kita melihat sebuah pola. Setelah n periode kita memiliki rumus:
+% 
+% latex: K_n = q^n K + R (1+q+\ldots+q^{n-1}) = q^n K + \frac{q^n-1}{q-1} R
+% 
+% Rumus tersebut merupakan deret geometri, yang sudah dikenali oleh Maxima.
+>&sum(q^k,k,0,n-1); $& % = ev(%,simpsum)
+% Bagian ini sedikit unik. Penjumlahan sigma dievaluasi dengan flag "simpsum" untuk menyederhanakannya
+% menjadi bentuk pecahan tertutup.
+% 
+% Mari kita buat fungsi simbolik untuk rumus ini.
+>function fs(K,R,P,n) &= (1+P/100)^n*K + ((1+P/100)^n-1)/(P/100)*R; $&fs(K,R,P,n)
+% Fungsi ini melakukan perhitungan yang sama dengan fungsi f sebelumnya, tetapi jauh lebih
+% efisien.
+>longest f(5000,-200,3,47), longest fs(5000,-200,3,47)
+% Sekarang kita dapat menggunakannya untuk mencari waktu n. Kapan modal kita habis? Tebakan
+% awal kita adalah 30 tahun.
+>solve("fs(5000,-330,3,x)",30)
+% Jawaban ini menunjukkan bahwa saldo akan bernilai negatif setelah 21 tahun.
+% 
+% Kita juga dapat menggunakan sisi simbolik Euler untuk menurunkan rumus
+% angsuran pinjaman.
+% 
+% Misalkan kita mengambil pinjaman sebesar K, dan membayar n kali angsuran sebesar R (dimulai setelah tahun
+% pertama) dengan menyisakan sisa utang sebesar Kn (pada saat pembayaran terakhir).
+% Persamaannya adalah:
+>equ &= fs(K,R,P,n)=Kn; $&equ
+% Biasanya rumus ini dinyatakan dalam suku bunga desimal:
+% 
+% latex: i = \frac{P}{100}
+>equ &= (equ with P=100*i); $&equ
+% Kita dapat menyelesaikannya terhadap variabel angsuran R secara simbolik.
+>$&solve(equ,R)
+% 
+% Seperti terlihat dari rumusnya, fungsi ini menghasilkan galat pembagian nol (floating point error)
+% ketika i=0. Meskipun demikian, Euler tetap dapat menggambar grafiknya.
+% 
+% Tentu saja, kita dapat mencari nilai limitnya saat suku bunga mendekati 0.
+>$&limit(R(5000,0,x,10),x,0)
+% Jelas bahwa tanpa bunga, kita harus mengembalikan pinjaman dalam 10 kali angsuran sebesar 500.
+% 
+% Persamaan di atas juga dapat diselesaikan terhadap n. Tampilannya akan lebih rapi jika kita menerapkan
+% penyederhanaan rasional padanya.
+>fn &= solve(equ,n) | ratsimp; $&fn
+% 
+% =========================================================================
+% * TAMBAHAN MATERI: TEORI ALJABAR, GRAFIK FUNGSI, DAN LATIHAN SOAL
+% =========================================================================
+% 
+% ** 1. Uraian Materi (Teori Aljabar)
+% 
+% Aljabar adalah cabang matematika yang mempelajari simbol-simbol matematika dan aturan
+% untuk memanipulasi simbol-simbol tersebut. Dalam aljabar dasar dan lanjut, beberapa konsep
+% fundamental meliputi:
+% 
+% 1. **Bentuk Aljabar dan Operasi Polinomial (Suku Banyak)**:
+%    Polinomial dalam satu variabel $x$ berderajat $n$ didefinisikan sebagai:
+%    $$P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0, \quad a_n \neq 0$$
+%    Operasi pada polinomial meliputi penjumlahan, pengurangan, perkalian (penjabaran/ekspansi),
+%    pembagian, serta pemfaktoran menjadi faktor-faktor linear maupun kuadratik.
+% 
+% 2. **Persamaan Kuadrat dan Fungsi Kuadrat**:
+%    Persamaan kuadrat memiliki bentuk umum $ax^2 + bx + c = 0$ dengan $a \neq 0$.
+%    Akar-akarnya ditentukan dengan rumus kuadratik (rumus ABC):
+%    $$x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+%    Grafik fungsi kuadrat $f(x) = ax^2 + bx + c$ berbentuk parabola yang terbuka ke atas jika
+%    $a > 0$ (memiliki titik balik minimum) dan terbuka ke bawah jika $a < 0$ (memiliki titik
+%    balik maksimum), dengan sumbu simetri $x = -\frac{b}{2a}$.
+% 
+% 3. **Pertidaksamaan Aljabar**:
+%    Pertidaksamaan memuat tanda ketaksamaan ($<, >, \le, \ge$). Penyelesaian pertidaksamaan
+%    kuadrat maupun rasional dilakukan dengan mencari pembuat nol pembilang dan penyebut,
+%    lalu menguji tanda interval pada garis bilangan untuk menentukan himpunan penyelesaian.
+% 
+% 4. **Sistem Persamaan Linear (SPL) dan Matriks**:
+%    Sistem persamaan linear dengan $n$ variabel dapat dituliskan dalam bentuk persamaan matriks:
+%    $$A\mathbf{x} = \mathbf{b}$$
+%    Jika matriks koefisien $A$ persegi dan nonsingular ($\det(A) \neq 0$), maka solusi tunggalnya
+%    diberikan oleh $\mathbf{x} = A^{-1}\mathbf{b}$ atau menggunakan eliminasi Gauss-Jordan.
+% 
+% ** 2. Penyelesaian Masalah Menggambar Kurva / Grafik Fungsi di EMT
+% 
+% Untuk memvisualisasikan perilaku fungsi aljabar, EMT menyediakan perintah `plot2d()`.
+% Berikut adalah contoh penggambaran grafik fungsi polinomial kubik dan fungsi kuadrat beserta
+% titik potongnya:
+% 
+% Misalkan diberikan fungsi kubik $f(x) = x^3 - 3x^2 - x + 3$ dan fungsi linear $g(x) = 2x - 1$.
+>plot2d(["x^3-3*x^2-x+3", "2*x-1"], -2, 4, color=[blue, red], thickness=2, ...
+>  title="Grafik Fungsi Kubik f(x) dan Garis Lurus g(x)", xl="x", yl="y"); ...
+>  label("f(x) = x^3 - 3x^2 - x + 3", 0.2, 4.5, color=blue); ...
+>  label("g(x) = 2x - 1", 2.2, 2.5, color=red):
+% **Penjelasan Hasil Kurva/Grafik:**
+% 1. Kurva berwarna biru merupakan grafik fungsi polinomial derajat tiga $f(x) = x^3 - 3x^2 - x + 3$.
+%    Jika difaktorkan menjadi $(x-1)(x+1)(x-3)$, terlihat jelas kurva memotong sumbu-x di tiga titik,
+%    yaitu $x = -1$, $x = 1$, dan $x = 3$, serta memotong sumbu-y di $(0, 3)$.
+% 2. Garis lurus berwarna merah merupakan fungsi linear $g(x) = 2x - 1$ dengan gradien $m = 2$ dan
+%    titik potong sumbu-y di $(0, -1)$.
+% 3. Perpotongan antara kurva biru dan garis merah menunjukkan solusi real dari sistem persamaan
+%    $x^3 - 3x^2 - x + 3 = 2x - 1$.
+% 
+% Contoh grafik kedua: Menggambar keluarga fungsi kuadrat $f(x) = x^2 - 4x + c$ untuk melihat
+% pengaruh konstanta $c$ terhadap pergeseran vertikal grafik dan banyaknya akar real.
+>plot2d(["x^2-4*x+1", "x^2-4*x+4", "x^2-4*x+6"], -1, 5, color=[green, blue, red], ...
+>  title="Pengaruh Diskriminan pada Grafik Fungsi Kuadrat", xl="x", yl="y"):
+% **Penjelasan Hasil Kurva/Grafik:**
+% - Kurva hijau ($c=1$, $D > 0$) memotong sumbu-x di dua titik berbeda (memiliki 2 akar real).
+% - Kurva biru ($c=4$, $D = 0$) menyinggung sumbu-x tepat di titik puncak $(2, 0)$ (akar kembar).
+% - Kurva merah ($c=6$, $D < 0$) berada sepenuhnya di atas sumbu-x (definit positif, tidak memiliki akar real).
+% 
+% ** 3. Penyelesaian 5 Contoh Soal Latihan Aljabar
+% 
+% Berikut adalah 5 soal latihan Aljabar yang diselesaikan menggunakan perintah simbolik dan
+% numerik di EMT beserta penjelasan output-nya:
+% 
+% ---
+% **Soal 1 (Penyederhanaan dan Ekspansi Bentuk Aljabar)**
+% Jabarkan dan sederhanakan bentuk aljabar berikut:
+% 
+% latex: (2x - 3y)^3 - (x + 2y)(4x^2 - 5xy + y^2)
+% 
+>$&showev('expand((2*x - 3*y)^3 - (x + 2*y)*(4*x^2 - 5*x*y + y^2)))
+% **Penjelasan Output Soal 1:**
+% Perintah `expand` mengalikan setiap suku secara distributif dan menggabungkan suku-suku sejenis.
+% Hasilnya adalah polinomial homogen derajat tiga: $4x^3 - 39x^2y + 63xy^2 - 29y^3$.
+% 
+% ---
+% **Soal 2 (Pemfaktoran Polinomial dan Akar Persamaan)**
+% Faktorkan polinomial berikut secara lengkap dan tentukan seluruh akar-akarnya:
+% 
+% latex: P(x) = x^4 - 5x^3 + 5x^2 + 5x - 6 = 0
+% 
+>$&factor(x^4 - 5*x^3 + 5*x^2 + 5*x - 6), $&solve(x^4 - 5*x^3 + 5*x^2 + 5*x - 6 = 0, x)
+% **Penjelasan Output Soal 2:**
+% Perintah `factor` memfaktorkan suku banyak berderajat empat menjadi empat faktor linear:
+% $(x - 3)(x - 2)(x - 1)(x + 1)$.
+% Perintah `solve` memberikan himpunan penyelesaian eksak untuk $P(x)=0$, yaitu $x \in \{-1, 1, 2, 3\}$.
+% 
+% ---
+% **Soal 3 (Penyelesaian Pertidaksamaan Rasional)**
+% Tentukan himpunan penyelesaian dari pertidaksamaan rasional berikut:
+% 
+% latex: \frac{2x - 5}{x + 3} \le 1
+% 
+>&load(fourier_elim); $&fourier_elim([(2*x - 5)/(x + 3) <= 1], [x])
+% **Penjelasan Output Soal 3:**
+% Menggunakan paket `fourier_elim`, Maxima memindahkan konstanta 1 ke ruas kiri menjadi
+% $\frac{x - 8}{x + 3} \le 0$. Dengan memperhatikan syarat penyebut $x \neq -3$, diperoleh
+% himpunan penyelesaian $-3 < x \le 8$.
+% 
+% ---
+% **Soal 4 (Sistem Persamaan Linear Tiga Variabel / SPLTV)**
+% Tentukan nilai $x, y, z$ yang memenuhi sistem persamaan linear berikut:
+% 
+% latex: \begin{cases} 2x + y - z = 8 \\ -3x - y + 2z = -11 \\ -2x + y + 2z = -3 \end{cases}
+% 
+>$&solve([2*x + y - z = 8, -3*x - y + 2*z = -11, -2*x + y + 2*z = -3], [x, y, z])
+% **Penjelasan Output Soal 4:**
+% Perintah `solve` menyelesaikan SPLTV secara simbolik (eliminasi eksak) dan menghasilkan
+% solusi tunggal $x = 2$, $y = 3$, dan $z = -1$.
+% 
+% ---
+% **Soal 5 (Operasi Matriks, Determinan, dan Invers)**
+% Diketahui matriks $M = \begin{pmatrix} 3 & 1 & 2 \\ 2 & 4 & 1 \\ 1 & 2 & 3 \end{pmatrix}$.
+% Hitunglah determinan matriks $M$ serta matriks invers $M^{-1}$ secara eksak!
+% 
+>M &= [3,1,2; 2,4,1; 1,2,3]; $&det(M), $&invert(M)
+% **Penjelasan Output Soal 5:**
+% Perintah `det(M)` menghasilkan nilai determinan sebesar $25$ (karena $\det(M) \neq 0$, maka matriks
+% memiliki invers). Perintah `invert(M)` menghitung matriks invers dalam bentuk pecahan eksak, yaitu
+% $\frac{1}{25} \begin{pmatrix} 10 & 1 & -7 \\ -5 & 7 & 1 \\ 0 & -5 & 10 \end{pmatrix}$.
+>
+>

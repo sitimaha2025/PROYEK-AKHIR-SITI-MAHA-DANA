@@ -1,0 +1,348 @@
+﻿* Kalkulus dengan EMT
+% Materi Kalkulus mencakup di antaranya:
+% - Fungsi (fungsi aljabar, trigonometri, eksponensial, logaritma, komposisi fungsi),
+% - Limit Fungsi,
+% - Turunan Fungsi,
+% - Integral Tak Tentu,
+% - Integral Tentu dan Aplikasinya,
+% - Barisan dan Deret (kekonvergenan barisan dan deret).
+% 
+% Catatan Sintaks EMT: Kata kunci inti program Euler Math Toolbox (seperti function, plot2d,
+% limit, diff, integrate, iterate, sequence, sum) merupakan perintah baku perangkat lunak,
+% sedangkan seluruh penjelasan, komentar kode, nama fungsi buatan, dan penyelesaian latihan
+% berikut telah disesuaikan ke dalam Bahasa Indonesia.
+% Terdapat beberapa cara mendefinisikan fungsi pada EMT, yakni:
+% - Menggunakan format nama_fungsi := rumus_fungsi (untuk fungsi numerik),
+% - Menggunakan format nama_fungsi &= rumus_fungsi (untuk fungsi simbolik, dapat dihitung numerik),
+% - Menggunakan format nama_fungsi &&= rumus_fungsi (untuk fungsi simbolik murni),
+% - Fungsi sebagai program EMT.
+% Setiap format harus diawali dengan perintah function.
+>function f(x) := 2*x^2+exp(sin(x)) // fungsi numerik
+>f(0), f(1), f(pi)
+1
+4.31977682472
+20.7392088022
+>function g(x) := sqrt(x^2-3*x)/(x+1)
+>g(3), g(0)
+0
+0
+% Jika g(1) dijalankan akan menghasilkan error karena akar bilangan negatif (imajiner).
+>f(g(5)) // komposisi fungsi
+2.20920171961
+>g(f(5))
+0.950898070639
+>function h(x) := f(g(x)) // definisi komposisi fungsi
+>h(5) // sama dengan f(g(5))
+2.20920171961
+>f(0:10) // menghitung nilai f(0), f(1), ..., f(10) sekaligus
+[1,  4.31978,  10.4826,  19.1516,  32.4692,  50.3833,  72.7562,
+99.929,  130.69,  163.51,  200.58]
+>fmap(0:10) // berlaku untuk semua fungsi agar menerima input vektor
+[1,  4.31978,  10.4826,  19.1516,  32.4692,  50.3833,  72.7562,
+99.929,  130.69,  163.51,  200.58]
+% Mendefinisikan fungsi sepotong-sepotong (piecewise):
+% f(x) = x^3 untuk x > 0, dan x^2 untuk x <= 0.
+% Kata kunci "map" digunakan agar fungsi menerima vektor sebagai input.
+>function map f(x)
+$  if x>0 then return x^3
+$  else return x^2
+$  endif;
+$endfunction
+>f(1), f(-2), f(-5:5)
+1
+4
+[25,  16,  9,  4,  1,  0,  1,  8,  27,  64,  125]
+>aspect(1.5); plot2d("f(x)",-5,5):
+>function f(x) &= 2*E^x // fungsi simbolik
+
+                                    x
+                                 2 E
+
+>function g(x) &= 3*x+1
+
+                               3 x + 1
+
+>function h(x) &= f(g(x)) // komposisi fungsi simbolik
+
+                                 3 x + 1
+                              2 E
+
+% 1. Fungsi Polinomial (Aljabar): f1(x) = x^3 - 4*x + 1
+>function f1(x) := x^3 - 4*x + 1
+>f1(2), f1(-2:2)
+1
+[1,  4,  1,  -2,  1]
+>plot2d("f1(x)", -3, 3, title="1. Fungsi Polinomial: x^3 - 4x + 1"):
+% 2. Fungsi Rasional: f2(x) = (2*x + 1)/(x^2 + 1)
+>function f2(x) := (2*x + 1)/(x^2 + 1)
+>f2(0), f2(-3:3)
+1
+[-0.5,  -0.6,  -0.5,  1,  1.5,  1,  0.7]
+>plot2d("f2(x)", -5, 5, title="2. Fungsi Rasional: (2x+1)/(x^2+1)"):
+% 3. Fungsi Trigonometri: f3(x) = 2*sin(x) + cos(2*x)
+>function f3(x) := 2*sin(x) + cos(2*x)
+>f3(pi/2), f3(0:pi/2:2*pi)
+1
+[1,  1,  1,  -3,  1]
+>plot2d("f3(x)", -2*pi, 2*pi, title="3. Fungsi Trigonometri: 2sin(x) + cos(2x)"):
+% 4. Fungsi Eksponensial: f4(x) = 3*exp(-0.5*x)
+>function f4(x) := 3*exp(-0.5*x)
+>f4(0), f4(0:5)
+3
+[3,  1.81959,  1.10364,  0.66939,  0.406006,  0.246255]
+>plot2d("f4(x)", -2, 6, title="4. Fungsi Eksponensial: 3e^(-0.5x)"):
+% 5. Fungsi Logaritma: f5(x) = log(x^2 + 1)
+>function f5(x) := log(x^2 + 1)
+>f5(0), f5(1:5)
+0
+[0.693147,  1.60944,  2.30259,  2.83321,  3.2581]
+>plot2d("f5(x)", -4, 4, title="5. Fungsi Logaritma: ln(x^2 + 1)"):
+% 6. Fungsi Dua Variabel: f6(x, y) = sin(x)*cos(y)
+>function f6(x, y) := sin(x)*cos(y)
+>f6(pi/2, 0) // nilai tunggal
+1
+>x_vec = [0, pi/4, pi/2]; y_vec = [0, pi/4, pi/2]; f6(x_vec, y_vec) // nilai vektor
+Variable x not found!
+Error in:
+x_vec = [0, pi/4, pi/2]; y_vec = [0, pi/4, pi/2]; f6(x_vec, y_ ...
+      ^
+>plot3d("f6(x,y)", xmin=-pi, xmax=pi, ymin=-pi, ymax=pi, title="Fungsi Dua Variabel: sin(x)cos(y)"):
+
+* Menghitung Limit
+% Perhitungan limit pada EMT menggunakan fungsi Maxima "limit".
+% Nilai limit dapat dihitung di titik tertentu, tak hingga (inf, minf), maupun limit sepihak (plus, minus).
+>$showev('limit((x^3-13*x^2+51*x-63)/(x^3-4*x^2-3*x+18),x,3))
+% Fungsi diskontinu di x = 3. Berikut grafiknya:
+>aspect(1.5); plot2d("(x^3-13*x^2+51*x-63)/(x^3-4*x^2-3*x+18)",0,4); plot2d(3,-4/5,>points,style="ow",>add):
+
+>$showev('limit(2*x*sin(x)/(1-cos(x)),x,0))
+>plot2d("2*x*sin(x)/(1-cos(x))",-pi,pi); plot2d(0,4,>points,style="ow",>add):
+
+>$showev('limit(cot(7*h)/cot(5*h),h,0))
+>plot2d("cot(7*x)/cot(5*x)",-0.001,0.001); plot2d(0,5/7,>points,style="ow",>add):
+
+% Melengkapi grafik untuk contoh-contoh limit pada modul:
+>$showev('limit(((x/8)^(1/3)-1)/(x-8),x,8))
+>plot2d("((x/8)^(1/3)-1)/(x-8)",0,16); plot2d(8,1/24,>points,style="ow",>add):
+
+>$showev('limit((x^2-3*x-10)/(x-5),x,5))
+>plot2d("(x^2-3*x-10)/(x-5)",0,8); plot2d(5,7,>points,style="ow",>add):
+
+>$showev('limit(abs(x-1)/(x-1),x,1,minus))
+>plot2d("abs(x-1)/(x-1)",-1,3); plot2d(1,-1,>points,style="ow",>add):
+
+>$showev('limit(sin(x^3)/x,x,0))
+>plot2d("sin(x^3)/x",-2,2); plot2d(0,0,>points,style="ow",>add):
+
+>$showev('limit((x^2-9)/(2*x^2-5*x-3),x,3))
+>plot2d("(x^2-9)/(2*x^2-5*x-3)",0,5); plot2d(3,6/7,>points,style="ow",>add):
+
+>$showev('limit((1-cos(x))/x,x,0))
+>plot2d("(1-cos(x))/x",-pi,pi); plot2d(0,0,>points,style="ow",>add):
+
+>$showev('limit((x^2+abs(x))/(x^2-abs(x)),x,0))
+>plot2d("(x^2+abs(x))/(x^2-abs(x))",-2,2); plot2d(0,-1,>points,style="ow",>add):
+
+>$showev('limit((1+x)^(1/x),x,0))
+>plot2d("(1+x)^(1/x)",-0.5,2); plot2d(0,exp(1),>points,style="ow",>add):
+
+>$showev('limit((E^x-E^2)/(x-2),x,2))
+>plot2d("(exp(x)-exp(2))/(x-2)",0,4); plot2d(2,exp(2),>points,style="ow",>add):
+
+** Latihan 2: Limit 5 Jenis Fungsi di Titik Tertentu dan Tak Hingga
+% 1. Fungsi Rasional: g1(x) = (3*x^2 - 2*x + 1)/(x^2 + 4)
+>function g1(x) &= (3*x^2 - 2*x + 1)/(x^2 + 4)
+>$showev('limit(g1(x), x, 2))
+>$showev('limit(g1(x), x, inf))
+>plot2d("g1(x)", -10, 20, title="Limit g1(x) -> 3 saat x -> inf"):
+
+% 2. Fungsi Irasional (Akar): g2(x) = (sqrt(x + 4) - 2)/x
+>function g2(x) &= (sqrt(x + 4) - 2)/x
+>$showev('limit(g2(x), x, 0))
+>$showev('limit(g2(x), x, inf))
+>plot2d("g2(x)", -3, 15); plot2d(0, 1/4, >points, style="ow", >add):
+
+% 3. Fungsi Trigonometri: g3(x) = tan(3*x)/sin(2*x)
+>function g3(x) &= tan(3*x)/sin(2*x)
+>$showev('limit(g3(x), x, 0))
+>plot2d("g3(x)", -0.4, 0.4); plot2d(0, 3/2, >points, style="ow", >add):
+
+% 4. Fungsi Eksponensial: g4(x) = (exp(2*x) - 1)/x
+>function g4(x) &= (exp(2*x) - 1)/x
+>$showev('limit(g4(x), x, 0))
+>$showev('limit(g4(x), x, minf))
+>plot2d("g4(x)", -3, 2); plot2d(0, 2, >points, style="ow", >add):
+
+% 5. Fungsi Logaritma: g5(x) = log(1 + 3*x)/x
+>function g5(x) &= log(1 + 3*x)/x
+>$showev('limit(g5(x), x, 0))
+>$showev('limit(g5(x), x, inf))
+>plot2d("g5(x)", -0.2, 10); plot2d(0, 3, >points, style="ow", >add):
+
+* Turunan Fungsi
+% Definisi turunan: f'(x) = lim_{h->0} (f(x+h) - f(x)) / h
+>$showev('limit(((x+h)^n-x^n)/h,h,0)) // turunan x^n
+% Penjelasan Matematis (Teorema Binomial):
+% Berdasarkan ekspansi binomial, (x+h)^n = x^n + n*x^(n-1)*h + [n(n-1)/2]*x^(n-2)*h^2 + ... + h^n.
+% Jika dikurangi x^n lalu dibagi h, diperoleh: n*x^(n-1) + [n(n-1)/2]*x^(n-2)*h + ... + h^(n-1).
+% Saat h -> 0, seluruh suku yang masih memuat h bernilai 0, sehingga tersisa n*x^(n-1).
+>$showev('limit((sin(x+h)-sin(x))/h,h,0)) // turunan sin(x)
+% Penjelasan Matematis (Rumus Jumlah Dua Sudut):
+% Menggunakan identitas sin(x+h) = sin(x)cos(h) + cos(x)sin(h), bentuk limit menjadi:
+% lim_{h->0} [sin(x)(cos(h)-1)/h + cos(x)(sin(h)/h)].
+% Karena lim_{h->0} (cos(h)-1)/h = 0 dan lim_{h->0} sin(h)/h = 1, hasilnya adalah cos(x).
+>$showev('limit((log(x+h)-log(x))/h,h,0)) // turunan log(x)
+% Penjelasan Matematis (Sifat Logaritma):
+% Menggunakan sifat log(x+h) - log(x) = log((x+h)/x) = log(1 + h/x), bentuk limit menjadi:
+% lim_{h->0} (1/h)*log(1 + h/x) = lim_{h->0} log((1 + h/x)^(1/h)).
+% Misalkan u = h/x, saat h -> 0 maka u -> 0 dan 1/h = 1/(u*x), sehingga diperoleh:
+% (1/x)*log(lim_{u->0} (1 + u)^(1/u)) = (1/x)*log(e) = 1/x.
+>$showev('limit((1/(x+h)-1/x)/h,h,0)) // turunan 1/x
+>$showev('limit(factor((E^(x+h)-E^x)/h),h,0)) // turunan e^x
+
+>function f(x) &= x^x
+>&assume(x>0); $showev('limit((f(x+h)-f(x))/h,h,0)) // turunan x^x
+>&forget(x>0) // menghapus asumsi agar kembali ke pengaturan awal
+
+>function f(x) &= sinh(x)
+>function df(x) &= limit((f(x+h)-f(x))/h,h,0); $df(x)
+>plot2d(["f(x)","df(x)"],-pi,pi,color=[blue,red]):
+
+>function f(x) &= sin(3*x^5+7)^2
+>diff(f,3), diffc(f,3)
+% Perbedaan diff dan diffc:
+% - diff(f, x) menghitung turunan numerik menggunakan selisih maju/mundur standar.
+% - diffc(f, x) menghitung turunan numerik menggunakan selisih pusat (central difference),
+%   yakni [f(x+h) - f(x-h)] / (2h), yang umumnya memiliki galat lebih kecil (lebih akurat).
+% 1. Fungsi Polinomial: p1(x) = 2*x^3 - 5*x + 3
+>function p1(x) &= 2*x^3 - 5*x + 3
+>function dp1(x) &= limit((p1(x+h) - p1(x))/h, h, 0); $dp1(x)
+>plot2d(["p1(x)", "dp1(x)"], -2, 2, color=[blue, red], title="Polinomial & Turunannya"):
+
+% 2. Fungsi Rasional: p2(x) = (x - 1)/(x + 2)
+>function p2(x) &= (x - 1)/(x + 2)
+>function dp2(x) &= ratsimp(limit((p2(x+h) - p2(x))/h, h, 0)); $dp2(x)
+>plot2d(["p2(x)", "dp2(x)"], -1, 5, color=[blue, red], title="Rasional & Turunannya"):
+
+% 3. Fungsi Trigonometri: p3(x) = cos(2*x) + sin(x)
+>function p3(x) &= cos(2*x) + sin(x)
+>function dp3(x) &= limit((p3(x+h) - p3(x))/h, h, 0); $dp3(x)
+>plot2d(["p3(x)", "dp3(x)"], -pi, pi, color=[blue, red], title="Trigonometri & Turunannya"):
+
+% 4. Fungsi Eksponensial: p4(x) = exp(2*x)
+>function p4(x) &= exp(2*x)
+>function dp4(x) &= limit(factor((p4(x+h) - p4(x))/h), h, 0); $dp4(x)
+>plot2d(["p4(x)", "dp4(x)"], -1.5, 1.5, color=[blue, red], title="Eksponensial & Turunannya"):
+
+% 5. Fungsi Akar (Irasional): p5(x) = sqrt(x + 3)
+>function p5(x) &= sqrt(x + 3)
+>&assume(x > -3);
+>function dp5(x) &= limit((p5(x+h) - p5(x))/h, h, 0); $dp5(x)
+>&forget(x > -3);
+>plot2d(["p5(x)", "dp5(x)"], -2.5, 5, color=[blue, red], title="Fungsi Akar & Turunannya"):
+
+* Integral dan Aplikasinya
+% Integral tak tentu dan integral tentu menggunakan fungsi Maxima "integrate".
+>$showev('integrate(1/(1+x^2),x))
+>$showev('integrate(sin(x),x,0,pi))
+>$showev('integrate(x*exp(-x),x,0,1))
+
+** Latihan 4A: Integral 5 Fungsi Integrabel & 3 Fungsi Non-Integrabel Elementer
+% --- Bagian 1: 5 Fungsi yang Memiliki Antiturunan ---
+% 1. Polinomial: int(3*x^2 - 4*x + 2, x, 0, 3)
+>$showev('integrate(3*x^2 - 4*x + 2, x))
+>$showev('integrate(3*x^2 - 4*x + 2, x, 0, 3))
+>plot2d("3*x^2 - 4*x + 2", -0.5, 3.5); x_ar=linspace(0,3,100); plot2d(x_ar, 3*x_ar^2-4*x_ar+2, >filled, style="/", fillcolor=green, >add):
+
+% 2. Rasional: int(4/(1 + x^2), x, 0, 1)
+>$showev('integrate(4/(1 + x^2), x))
+>$showev('integrate(4/(1 + x^2), x, 0, 1))
+>plot2d("4/(1 + x^2)", -0.5, 1.5); x_ar=linspace(0,1,100); plot2d(x_ar, 4/(1+x_ar^2), >filled, style="/", fillcolor=cyan, >add):
+
+% 3. Trigonometri: int(sin(x)*cos(x), x, 0, pi/2)
+>$showev('integrate(sin(x)*cos(x), x))
+>$showev('integrate(sin(x)*cos(x), x, 0, pi/2))
+>plot2d("sin(x)*cos(x)", 0, pi); x_ar=linspace(0,pi/2,100); plot2d(x_ar, sin(x_ar)*cos(x_ar), >filled, style="/", fillcolor=yellow, >add):
+
+% 4. Eksponensial: int(2*exp(-x), x, 0, 2)
+>$showev('integrate(2*exp(-x), x))
+>$showev('integrate(2*exp(-x), x, 0, 2))
+>plot2d("2*exp(-x)", -0.2, 2.5); x_ar=linspace(0,2,100); plot2d(x_ar, 2*exp(-x_ar), >filled, style="/", fillcolor=orange, >add):
+
+% 5. Logaritma (Integral Parsial): int(log(x), x, 1, exp(1))
+>$showev('integrate(log(x), x))
+>$showev('integrate(log(x), x, 1, exp(1)))
+>plot2d("log(x)", 0.5, 3); x_ar=linspace(1,exp(1),100); plot2d(x_ar, log(x_ar), >filled, style="/", fillcolor=magenta, >add):
+
+% --- Bagian 2: 3 Fungsi yang Tidak Dapat Diintegralkan Secara Elementer (Numerik) ---
+% 1. Fungsi Gauss: exp(-x^2) pada [0, 2]
+>integrate("exp(-x^2)", 0, 2)
+>plot2d("exp(-x^2)", -0.5, 2.5); x_ar=linspace(0,2,100); plot2d(x_ar, exp(-x_ar^2), >filled, style="|", fillcolor=green, >add):
+
+% 2. Fungsi Sinus Kardinal: sin(x)/x pada [0.001, pi]
+>integrate("sin(x)/x", 0.001, pi)
+>plot2d("sin(x)/x", 0, 4); x_ar=linspace(0.001,pi,100); plot2d(x_ar, sin(x_ar)/x_ar, >filled, style="|", fillcolor=blue, >add):
+
+% 3. Fungsi Fresnel Sinus: sin(x^2) pada [0, 2]
+>integrate("sin(x^2)", 0, 2)
+>plot2d("sin(x^2)", 0, 2.5); x_ar=linspace(0,2,100); plot2d(x_ar, sin(x_ar^2), >filled, style="|", fillcolor=red, >add):
+
+** Latihan 4B: Luas Daerah Antara Dua Kurva, Volume Benda Putar, dan Panjang Kurva
+% 1. Luas daerah antara y = 4 - x^2 dan y = x + 2
+>titik_potong &= solve(4 - x^2 = x + 2, x); $titik_potong
+>$showev('integrate((4 - x^2) - (x + 2), x, -2, 1))
+>plot2d(["4 - x^2", "x + 2"], -2.5, 2, color=[blue, red]);
+>x_lu = linspace(-2, 1, 200); xi_lu = flipx(x_lu);
+>plot2d(x_lu|xi_lu, (4 - x_lu^2)|(xi_lu + 2), >filled, style="/", fillcolor=cyan, >add):
+
+% 2. Volume benda putar y = sqrt(x) diputar mengelilingi sumbu-x pada [0, 4]
+% Rumus: V = pi * int_0^4 (sqrt(x))^2 dx
+>$showev('integrate(pi*(sqrt(x))^2, x, 0, 4))
+>plot3d("x^2 + y^2", xmin=0, xmax=4, ymin=-2, ymax=2, title="Visualisasi Paraboloida Benda Putar"):
+
+% 3. Panjang kurva y = (2/3)*x^(3/2) dari x = 0 sampai x = 3
+>function kurva_s(x) &= (2/3)*x^(3/2)
+>$showev('integrate(sqrt(1 + diff(kurva_s(x), x)^2), x, 0, 3))
+>plot2d("kurva_s(x)", 0, 3.5, title="Kurva y = (2/3)x^(3/2) pada [0,3]"):
+
+** Latihan 4C: Empat Representasi Kurva & Kurvatur (Kelengkungan)
+% Kurva pilihan: Kurva Katenari y = cosh(x)
+% a. Kartesius: y = cosh(x)
+>function y_kart(x) &= cosh(x)
+>function k_kart(x) &= trigsimp(diff(y_kart(x), x, 2)/(1 + diff(y_kart(x), x)^2)^(3/2)); $'k_kart(x)=k_kart(x)
+
+% c. Parametrik: x(t) = t, y(t) = cosh(t)
+>function xp(t) &= t; function yp(t) &= cosh(t);
+>function k_param(t) &= trigsimp((diff(xp(t),t)*diff(yp(t),t,2) - diff(xp(t),t,2)*diff(yp(t),t))/(diff(xp(t),t)^2 + diff(yp(t),t)^2)^(3/2)); $'k_param(t)=k_param(t)
+
+% d. Implisit: F(x, y) = cosh(x) - y = 0
+>function F_imp(x, y) &= cosh(x) - y;
+>Fx &= diff(F_imp(x,y), x); Fxx &= diff(F_imp(x,y), x, 2);
+>Fy &= diff(F_imp(x,y), y); Fyy &= diff(F_imp(x,y), y, 2); Fxy &= diff(diff(F_imp(x,y), x), y);
+>function k_imp(x) &= trigsimp((Fy^2*Fxx - 2*Fx*Fy*Fxy + Fx^2*Fyy)/(Fx^2 + Fy^2)^(3/2)); $'k_imp(x)=k_imp(x)
+
+% b. Koordinat Kutub (Spiral Logaritmik r(theta) = exp(theta)):
+>function r_kut(th) &= exp(th);
+>function k_kut(th) &= radcan((r_kut(th)^2 + 2*diff(r_kut(th),th)^2 - r_kut(th)*diff(r_kut(th),th,2))/(r_kut(th)^2 + diff(r_kut(th),th)^2)^(3/2)); $'k_kut(th)=k_kut(th)
+
+% Plot Katenari y = cosh(x), kurva kurvatur k(x), radius kelengkungan 1/k(x), dan lingkaran oskulasi di puncak (0, 1):
+% Di x = 0: y(0) = 1, k(0) = 1, radius R = 1, sehingga pusat lingkaran oskulasi di (0, 2).
+>plot2d(["cosh(x)", "1/cosh(x)^2"], -2, 2, color=[blue, red]);
+>plot2d("cosh(x)^2", -1.2, 1.2, color=green, >add);
+>plot2d("cos(x)", "2 + sin(x)", xmin=0, xmax=2*pi, color=magenta, >add, title="Katenari, Kurvatur, Radius, & Lingkaran Oskulasi"):
+
+* Barisan dan Deret
+% Contoh perhitungan barisan, iterasi, dan deret tak hingga dengan EMT dan Maxima.
+>1:10 // barisan sederhana
+>q=1.05; iterate("x*q",1000,n=10)' // pertumbuhan 5% selama 10 periode
+>sequence("x[n-1]+x[n-2]",[1,1],15) // barisan Fibonacci
+>iterate("cos(x)",1) // iterasi titik tetap x = cos(x)
+>iterate("(x+2/x)/2",2) // metode Newton untuk akar(2)
+
+% Deret Taylor dan Jumlah Deret Tak Hingga:
+>$'sum(k,k,1,n) = factor(ev(sum(k,k,1,n),simpsum=true))
+>$'sum(1/x^2,x,1,inf) = ev(sum(1/x^2,x,1,inf),simpsum=true)
+>&assume(abs(x)<1); $'sum(a*x^k,k,0,inf) = ev(sum(a*x^k,k,0,inf),simpsum=true); &forget(abs(x)<1)
+>$'e^x = taylor(exp(x),x,0,10)
+>$'log(x) = taylor(log(x),x,1,10)
+>
