@@ -25,22 +25,22 @@ Klik pada tautan **PDF** di bawah ini untuk membuka laporan hasil akhir masing-m
 
 ---
 
-## Daftar Aset Gambar Grafik (`images/`)
+## Daftar Aset Gambar Grafik
 
 Berikut adalah kumpulan file gambar hasil render grafik dari Euler Math Toolbox (EMT):
 
 ### 1. Grafik Materi Kalkulus
-* ![EMT Kalkulus-001](images/EMT%20Kalkulus-001.png) — `EMT Kalkulus-001.png`
-* ![EMT Kalkulus-002](images/EMT%20Kalkulus-002.png) — `EMT Kalkulus-002.png`
-* ![EMT Kalkulus-003](images/EMT%20Kalkulus-003.png) — `EMT Kalkulus-003.png`
-* ![EMT Kalkulus-004](images/EMT%20Kalkulus-004.png) — `EMT Kalkulus-004.png`
-* ![EMT Kalkulus-005](images/EMT%20Kalkulus-005.png) — `EMT Kalkulus-005.png`
-* ![EMT Kalkulus-006](images/EMT%20Kalkulus-006.png) — `EMT Kalkulus-006.png`
+* ![EMT Kalkulus-001](EMT%20Kalkulus-001.png) — `EMT Kalkulus-001.png`
+* ![EMT Kalkulus-002](EMT%20Kalkulus-002.png) — `EMT Kalkulus-002.png`
+* ![EMT Kalkulus-003](EMT%20Kalkulus-003.png) — `EMT Kalkulus-003.png`
+* ![EMT Kalkulus-004](EMT%20Kalkulus-004.png) — `EMT Kalkulus-004.png`
+* ![EMT Kalkulus-005](EMT%20Kalkulus-005.png) — `EMT Kalkulus-005.png`
+* ![EMT Kalkulus-006](EMT%20Kalkulus-006.png) — `EMT Kalkulus-006.png`
 
 ### 2. Grafik Materi Geometri
-* ![EMT4Geometry-001](images/EMT4Geometry-001.png) — `EMT4Geometry-001.png`
-* ![EMT4Geometry-002](images/EMT4Geometry-002.png) — `EMT4Geometry-002.png`
-* ![EMT4Geometry-003](images/EMT4Geometry-003.png) — `EMT4Geometry-003.png`
-* ![EMT4Geometry-004](images/EMT4Geometry-004.png) — `EMT4Geometry-004.png`
-* ![EMT4Geometry-005](images/EMT4Geometry-005.png) — `EMT4Geometry-005.png`
-* ![EMT4Geometry-006](images/EMT4Geometry-006.png) — `EMT4Geometry-006.png`
+* ![EMT4Geometry-001](EMT4Geometry-001.png) — `EMT4Geometry-001.png`
+* ![EMT4Geometry-002](EMT4Geometry-002.png) — `EMT4Geometry-002.png`
+* ![EMT4Geometry-003](EMT4Geometry-003.png) — `EMT4Geometry-003.png`
+* ![EMT4Geometry-004](EMT4Geometry-004.png) — `EMT4Geometry-004.png`
+* ![EMT4Geometry-005](EMT4Geometry-005.png) — `EMT4Geometry-005.png`
+* ![EMT4Geometry-006](EMT4Geometry-006.png) — `EMT4Geometry-006.png`
