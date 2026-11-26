@@ -1,0 +1,522 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage[indonesian, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{english}
+\babelfont{rm}{Noto Sans}
+\babelfont{tt}{Noto Sans Mono}
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\definecolor{emtcomment}{RGB}{0, 128, 0}
+\definecolor{emtcommand}{RGB}{180, 0, 0}
+
+\newcommand{\emtcmd}[1]{\noindent\texttt{\textcolor{emtcommand}{>}\ #1}\par\smallskip}
+
+\begin{document}
+
+\section*{Pendahuluan dan Pengenalan Cara Kerja EMT}
+
+Selamat datang! Ini adalah pengantar pertama ke Euler Math Toolbox (disingkat EMT atau Euler). EMT adalah sistem terintegrasi yang merupakan perpaduan kernel numerik Euler dan program komputer aljabar Maxima.
+
+\begin{itemize}
+    \item Bagian numerik, GUI, dan komunikasi dengan Maxima telah dikembangkan oleh R. Grothmann, seorang profesor matematika di Universitas Eichst\"att, Jerman. Banyak algoritma numerik dan pustaka software open source yang digunakan di dalamnya.
+    \item Maxima adalah program open source yang matang dan sangat kaya untuk perhitungan simbolik dan aritmatika tak terbatas. Software ini dikelola oleh sekelompok pengembang di internet.
+    \item Beberapa program lain (LaTeX, Povray, Tiny C Compiler, Python) dapat digunakan di Euler untuk memungkinkan perhitungan yang lebih cepat maupun tampilan atau grafik yang lebih baik.
+\end{itemize}
+
+Yang sedang Anda baca (jika dibaca di EMT) ini adalah berkas notebook di EMT. Notebook aslinya bawaan EMT (dalam bahasa Inggris) dapat dibuka melalui menu \textbf{File}, kemudian pilih \textit{"Open Tutorials and Examples"}, lalu pilih file \texttt{"00 First Steps.en"}. Perhatikan, file notebook EMT memiliki ekstensi \texttt{".en"}. Melalui notebook ini Anda akan belajar menggunakan software Euler untuk menyelesaikan berbagai masalah matematika.
+
+Panduan ini ditulis dengan Euler dalam bentuk notebook Euler, yang berisi teks (deskriptif), baris-baris perintah, tampilan hasil perintah (numerik, ekspresi matematika, atau gambar/plot), dan gambar yang disisipkan dari file gambar.
+
+Untuk menambah jendela EMT, Anda dapat menekan \texttt{[F11]}. EMT akan menampilkan jendela grafik di layar desktop Anda. Tekan \texttt{[F11]} lagi untuk kembali ke tata letak favorit Anda. Tata letak disimpan untuk sesi berikutnya.
+
+Anda juga dapat menggunakan \texttt{[Ctrl]+[G]} untuk menyembunyikan jendela grafik. Selanjutnya Anda dapat beralih antara grafik dan teks dengan tombol \texttt{[TAB]}.
+
+Seperti yang Anda baca, notebook ini berisi tulisan (teks) berwarna \textcolor{emtcomment}{hijau}, yang dapat Anda edit dengan mengklik kanan teks atau tekan menu \textbf{Edit $\rightarrow$ Edit Comment} atau tekan \texttt{[F5]}, dan juga baris perintah EMT yang ditandai dengan \texttt{">"} dan berwarna \textcolor{emtcommand}{merah}. Anda dapat menyisipkan baris perintah baru dengan cara menekan tiga tombol bersamaan: \texttt{[Shift]+[Ctrl]+[Enter]}.
+
+\subsection*{Komentar (Teks Uraian)}
+
+Komentar atau teks penjelasan dapat berisi beberapa "markup" dengan sintaks sebagai berikut:
+\begin{verbatim}
+- * Judul
+- ** Sub-Judul
+- latex: F(x) = \int_a^x f(t) \, dt
+- mathjax: \frac{x^2-1}{x-1} = x + 1
+- maxima: 'integrate(x^3,x) = integrate(x^3,x) + C
+- http://www.euler-math-toolbox.de
+- See: http://www.google.de | Google
+- image: hati.png
+- ---
+\end{verbatim}
+
+Hasil sintaks-sintaks di atas (tanpa diawali tanda strip) adalah sebagai berikut.
+
+\section*{Judul}
+\subsection*{Sub-Judul}
+
+$$F(x) = \int_a^x f(t) \, dt$$
+$$\frac{x^2-1}{x-1} = x + 1$$
+
+\noindent\texttt{maxima: 'integrate(x\^{}3,x) = integrate(x\^{}3,x) + C}
+
+\noindent\url{http://www.euler-math-toolbox.de}
+
+\noindent\href{http://www.google.de}{Google}
+
+\noindent\texttt{image: hati.png}
+
+\noindent\hrulefill
+
+\medskip
+Gambar diambil dari folder \texttt{images} di tempat file notebook berada dan tidak dapat dibaca dari Web. Untuk \texttt{"See:"}, tautan (URL) web lokal dapat digunakan.
+
+Paragraf terdiri atas satu baris panjang di editor. Pergantian baris akan memulai baris baru. Paragraf harus dipisahkan dengan baris kosong.
+
+\emtcmd{\textcolor{emtcomment}{// baris perintah diawali dengan >, komentar (keterangan) diawali dengan //}}
+
+\section*{Baris Perintah}
+
+Mari kita tunjukkan cara menggunakan EMT sebagai kalkulator yang sangat canggih. EMT berorientasi pada baris perintah. Anda dapat menuliskan satu atau lebih perintah dalam satu baris perintah. Setiap perintah harus diakhiri dengan koma atau titik koma.
+
+\begin{itemize}
+    \item Titik koma menyembunyikan output (hasil) dari perintah.
+    \item Sebuah koma mencetak hasilnya.
+    \item Setelah perintah terakhir, koma diasumsikan secara otomatis (boleh tidak ditulis).
+\end{itemize}
+
+Dalam contoh berikut, kita mendefinisikan variabel $r$ yang diberi nilai $1,25$. Output dari definisi ini adalah nilai variabel. Tetapi karena tanda titik koma, nilai ini tidak ditampilkan. Pada kedua perintah di belakangnya, hasil kedua perhitungan tersebut ditampilkan.
+
+\emtcmd{r=1.25; pi*r\^{}2, 2*pi*r}
+\begin{verbatim}
+    4.90873852123
+    7.85398163397
+\end{verbatim}
+
+\subsection*{Latihan untuk Anda}
+
+\begin{itemize}
+    \item Sisipkan beberapa baris perintah baru
+    \item Tulis perintah-perintah baru untuk melakukan suatu perhitungan yang Anda inginkan, boleh menggunakan variabel, boleh tanpa variabel.
+\end{itemize}
+
+\noindent\hrulefill
+
+\medskip
+Beberapa catatan yang harus Anda perhatikan tentang penulisan sintaks perintah EMT:
+\begin{itemize}
+    \item Pastikan untuk menggunakan titik desimal, bukan koma desimal untuk bilangan!
+    \item Gunakan \texttt{*} untuk perkalian dan \texttt{\^{}} untuk eksponen (pangkat).
+    \item Seperti biasa, \texttt{*} dan \texttt{/} bersifat lebih kuat daripada \texttt{+} atau \texttt{-}.
+    \item \texttt{\^{}} mengikat lebih kuat dari \texttt{*}, sehingga \texttt{pi * r \^{} 2} merupakan rumus luas lingkaran.
+    \item Jika perlu, Anda harus menambahkan tanda kurung, seperti pada \texttt{2 \^{} (2 \^{} 3)}.
+\end{itemize}
+
+Perintah \texttt{r = 1.25} adalah menyimpan nilai ke variabel di EMT. Anda juga dapat menulis \texttt{r := 1.25} jika mau. Anda dapat menggunakan spasi sesuka Anda. Anda juga dapat mengakhiri baris perintah dengan komentar yang diawali dengan dua garis miring (\texttt{//}).
+
+\emtcmd{r := 1.25 \textcolor{emtcomment}{// Komentar: Menggunakan := sebagai ganti =}}
+\begin{verbatim}
+    1.25
+\end{verbatim}
+
+Argumen atau input untuk fungsi ditulis di dalam tanda kurung.
+\emtcmd{sin(45°), cos(pi), log(sqrt(E))}
+\begin{verbatim}
+    0.707106781187
+    -1
+    0.5
+\end{verbatim}
+
+Seperti yang Anda lihat, fungsi trigonometri bekerja dengan radian, dan derajat dapat diubah dengan \texttt{°}. Jika keyboard Anda tidak memiliki karakter derajat tekan \texttt{[F7]}, atau gunakan fungsi \texttt{deg()} untuk mengonversi.
+
+EMT menyediakan banyak sekali fungsi dan operator matematika. Hampir semua fungsi matematika sudah tersedia di EMT. Anda dapat melihat daftar lengkap fungsi-fungsi matematika di EMT pada berkas Referensi (klik menu \textbf{Help $\rightarrow$ Reference}).
+
+Untuk membuat rangkaian komputasi lebih mudah, Anda dapat merujuk ke hasil sebelumnya dengan \texttt{"\%"}. Cara ini sebaiknya hanya digunakan untuk merujuk hasil perhitungan dalam baris perintah yang sama.
+
+\emtcmd{(sqrt(5)+1)/2, \%\^{}2-\%+1 \textcolor{emtcomment}{// Memeriksa solusi x\^{}2-x+1=0}}
+\begin{verbatim}
+    1.61803398875
+    2
+\end{verbatim}
+
+\subsection*{Latihan untuk Anda}
+
+\begin{itemize}
+    \item Buka berkas Reference dan baca fungsi-fungsi matematika yang tersedia di EMT.
+    \item Sisipkan beberapa baris perintah baru.
+    \item Lakukan contoh-contoh perhitungan menggunakan fungsi-fungsi matematika di EMT.
+\end{itemize}
+
+\noindent\hrulefill
+
+\section*{Satuan}
+
+EMT dapat mengubah unit satuan menjadi sistem standar internasional (SI). Tambahkan satuan di belakang angka untuk konversi sederhana.
+
+\emtcmd{1miles \textcolor{emtcomment}{// 1 mil = 1609,344 m}}
+\begin{verbatim}
+    1609.344
+\end{verbatim}
+
+Beberapa satuan yang sudah dikenal di dalam EMT adalah sebagai berikut. Semua unit diakhiri dengan tanda dolar (\texttt{\$}), namun boleh tidak perlu ditulis dengan mengaktifkan \texttt{easyunits}.
+
+\begin{verbatim}
+kilometer$:=1000;   km$:=kilometer$;     cm$:=0.01;         mm$:=0.001;
+minute$:=60;        min$:=minute$;       minutes$:=minute$;
+hour$:=60*minute$;  h$:=hour$;           hours$:=hour$;
+day$:=24*hour$;     days$:=day$;         d$:=day$;
+year$:=365.2425*day$; years$:=year$;     y$:=year$;
+inch$:=0.0254;      in$:=inch$;
+feet$:=12*inch$;    foot$:=feet$;        ft$:=feet$;
+yard$:=3*feet$;     yards$:=yard$;       yd$:=yard$;
+mile$:=1760*yard$;  miles$:=mile$;
+kg$:=1;             sec$:=1;
+ha$:=10000;         Ar$:=100;            Tagwerk$:=3408;     Acre$:=4046.8564224;
+pt$:=0.376mm;
+\end{verbatim}
+
+Untuk konversi ke dan antar unit, EMT menggunakan operator khusus, yakni \texttt{->}.
+\emtcmd{4km -> miles, 4inch -> " mm"}
+\begin{verbatim}
+    2.48548476895
+    101.6 mm
+\end{verbatim}
+
+\section*{Format Tampilan Nilai}
+
+Akurasi internal untuk nilai bilangan di EMT adalah standar IEEE, sekitar 16 digit desimal. Aslinya, EMT tidak mencetak semua digit suatu bilangan. Ini untuk menghemat tempat dan agar terlihat lebih baik. Untuk mengatur tampilan satu bilangan, operator berikut dapat digunakan.
+
+\emtcmd{pi}
+\begin{verbatim}
+    3.14159265359
+\end{verbatim}
+
+\emtcmd{longest pi}
+\begin{verbatim}
+          3.141592653589793
+\end{verbatim}
+
+\emtcmd{long pi}
+\begin{verbatim}
+    3.14159265359
+\end{verbatim}
+
+\emtcmd{short pi}
+\begin{verbatim}
+    3.1416
+\end{verbatim}
+
+\emtcmd{shortest pi}
+\begin{verbatim}
+       3.1
+\end{verbatim}
+
+\emtcmd{fraction pi}
+\begin{verbatim}
+    312689/99532
+\end{verbatim}
+
+\emtcmd{short 1200*1.03\^{}10, long E, longest pi}
+\begin{verbatim}
+    1612.7
+    2.71828182846
+          3.141592653589793
+\end{verbatim}
+
+Format aslinya untuk menampilkan nilai menggunakan sekitar 10 digit. Format tampilan nilai dapat diatur secara global atau hanya untuk satu nilai. Anda dapat mengganti format tampilan bilangan untuk semua perintah selanjutnya. Untuk mengembalikan ke format aslinya dapat digunakan perintah \texttt{"defformat"} atau \texttt{"reset"}.
+
+\emtcmd{longestformat; pi, defformat; pi}
+\begin{verbatim}
+    3.141592653589793
+    3.14159265359
+\end{verbatim}
+
+Kernel numerik EMT bekerja dengan bilangan titik mengambang (floating point) dalam presisi ganda IEEE (berbeda dengan bagian simbolik EMT). Hasil numerik dapat ditampilkan dalam bentuk pecahan.
+
+\emtcmd{1/7+1/4, fraction \%}
+\begin{verbatim}
+    0.392857142857
+    11/28
+\end{verbatim}
+
+\section*{Perintah Multibaris}
+
+Perintah multi-baris membentang di beberapa baris yang terhubung dengan \texttt{"..."} di setiap akhir baris, kecuali baris terakhir. Untuk menghasilkan tanda pindah baris tersebut, gunakan tombol \texttt{[Ctrl]+[Enter]}. Ini akan menyambung perintah ke baris berikutnya dan menambahkan \texttt{"..."} di akhir baris sebelumnya. Untuk menggabungkan suatu baris ke baris sebelumnya, gunakan \texttt{[Ctrl]+[Backspace]}.
+
+Contoh perintah multi-baris berikut dapat dijalankan setiap kali kursor berada di salah satu barisnya. Ini juga menunjukkan bahwa \texttt{...} harus berada di akhir suatu baris meskipun baris tersebut memuat komentar.
+
+\emtcmd{a=4; b=15; c=2; \textcolor{emtcomment}{// menyelesaikan a*x\^{}2+b*x+c=0 secara manual} ... \\
+\hspace*{1em} D=sqrt(b\^{}2/(a\^{}2*4)-c/a); ... \\
+\hspace*{1em} -b/(2*a) + D, ... \\
+\hspace*{1em} -b/(2*a) - D}
+\begin{verbatim}
+    -0.138444501319
+    -3.61155549868
+\end{verbatim}
+
+\section*{Menampilkan Daftar Variabel}
+
+Untuk menampilkan semua variabel yang sudah pernah Anda definisikan sebelumnya (dan dapat dilihat kembali nilainya), gunakan perintah \texttt{"listvar"}.
+
+\emtcmd{listvar}
+\begin{verbatim}
+    r                   1.25
+    a                   4
+    b                   15
+    c                   2
+    D                   1.73655549868123
+\end{verbatim}
+
+Perintah \texttt{listvar} hanya menampilkan variabel buatan pengguna. Dimungkinkan untuk menampilkan variabel lain, dengan menambahkan string termuat di dalam nama variabel yang diinginkan. Perlu Anda perhatikan, bahwa EMT membedakan huruf besar dan huruf kecil. Jadi variabel \texttt{"d"} berbeda dengan variabel \texttt{"D"}.
+
+Contoh berikut ini menampilkan semua unit yang diakhiri dengan \texttt{"m"} dengan mencari semua variabel yang berisi \texttt{"m\$"}.
+
+\emtcmd{listvar m\$}
+\begin{verbatim}
+    km$                 1000
+    cm$                 0.01
+    mm$                 0.001
+    nm$                 1853.24496
+    gram$               0.001
+    m$                  1
+    hquantum$           6.62606957e-34
+    atm$                101325
+\end{verbatim}
+
+Untuk menghapus variabel tanpa harus memulai ulang EMT gunakan perintah \texttt{"remvalue"}.
+\emtcmd{remvalue a,b,c,D}
+\emtcmd{D}
+\begin{verbatim}
+    Variable D not found!
+    Error in:
+    D ...
+     ^
+\end{verbatim}
+
+\section*{Menampilkan Panduan}
+
+Untuk mendapatkan panduan tentang penggunaan perintah atau fungsi di EMT, buka jendela panduan dengan menekan \texttt{[F1]} dan cari fungsinya. Anda juga dapat mengklik dua kali pada fungsi yang tertulis di baris perintah atau di teks untuk membuka jendela panduan.
+
+Coba klik dua kali pada perintah \texttt{"intrandom"} berikut ini!
+\emtcmd{intrandom(10,6)}
+\begin{verbatim}
+    [4,  2,  6,  2,  4,  2,  3,  2,  2,  6]
+\end{verbatim}
+
+Di jendela panduan, Anda dapat mengklik kata apa saja untuk menemukan referensi atau fungsi. Misalnya, coba klik kata \texttt{"random"} di jendela panduan. Kata tersebut boleh ada dalam teks atau di bagian \texttt{"See:"} pada panduan. Anda akan menemukan penjelasan fungsi \texttt{"random"}, untuk menghasilkan bilangan acak berdistribusi uniform antara $0,0$ dan $1,0$. Dari panduan untuk \texttt{"random"} Anda dapat menampilkan panduan untuk fungsi \texttt{"normal"}, dll.
+
+\emtcmd{random(10)}
+\begin{verbatim}
+    [0.270906,  0.704419,  0.217693,  0.445363,  0.308411,  0.914541,  0.193585,
+    0.463387,  0.095153,  0.595017]
+\end{verbatim}
+
+\emtcmd{normal(10)}
+\begin{verbatim}
+    [-0.495418,  1.6463,  -0.390056,  -1.98151,  3.44132,  0.308178,  -0.733427,
+    -0.526167,  1.10018,  0.108453]
+\end{verbatim}
+
+\section*{Matriks dan Vektor}
+
+EMT merupakan suatu aplikasi matematika yang mengerti "bahasa matriks". Artinya, EMT menggunakan vektor dan matriks untuk perhitungan-perhitungan tingkat lanjut. Suatu vektor atau matriks dapat didefinisikan dengan tanda kurung siku. Elemen-elemennya dituliskan di dalam tanda kurung siku, antar elemen dalam satu baris dipisahkan oleh koma (\texttt{,}), antar baris dipisahkan oleh titik koma (\texttt{;}).
+
+Vektor dan matriks dapat diberi nama seperti variabel biasa.
+\emtcmd{v=[4,5,6,3,2,1]}
+\begin{verbatim}
+    [4,  5,  6,  3,  2,  1]
+\end{verbatim}
+
+\emtcmd{A=[1,2,3;4,5,6;7,8,9]}
+\begin{verbatim}
+                1             2             3 
+                4             5             6 
+                7             8             9 
+\end{verbatim}
+
+Karena EMT mengerti bahasa matriks, EMT memiliki kemampuan yang sangat canggih untuk melakukan perhitungan matematis untuk masalah-masalah aljabar linier, statistika, dan optimisasi.
+
+Vektor juga dapat didefinisikan dengan menggunakan rentang nilai dengan interval tertentu menggunakan tanda titik dua (\texttt{:}), seperti contoh berikut ini.
+\emtcmd{c=1:5}
+\begin{verbatim}
+    [1,  2,  3,  4,  5]
+\end{verbatim}
+
+\emtcmd{w=0:0.1:1}
+\begin{verbatim}
+    [0,  0.1,  0.2,  0.3,  0.4,  0.5,  0.6,  0.7,  0.8,  0.9,  1]
+\end{verbatim}
+
+\emtcmd{mean(w\^{}2)}
+\begin{verbatim}
+    0.35
+\end{verbatim}
+
+\section*{Bilangan Kompleks}
+
+EMT juga dapat menggunakan bilangan kompleks. Tersedia banyak fungsi untuk bilangan kompleks di EMT. Bilangan imajiner
+$$i = \sqrt{-1}$$
+dituliskan dengan huruf \texttt{I} (huruf besar I), namun akan ditampilkan dengan huruf \texttt{i} (i kecil).
+
+\begin{itemize}
+    \item \texttt{re(x)} : bagian riil pada bilangan kompleks $x$.
+    \item \texttt{im(x)} : bagian imajiner pada bilangan kompleks $x$.
+    \item \texttt{complex(x)} : mengubah bilangan riil $x$ menjadi bilangan kompleks.
+    \item \texttt{conj(x)} : konjugat untuk bilangan kompleks $x$.
+    \item \texttt{arg(x)} : argumen (sudut dalam radian) bilangan kompleks $x$.
+    \item \texttt{real(x)} : mengubah $x$ menjadi bilangan riil.
+\end{itemize}
+
+Apabila bagian imajiner $x$ terlalu besar, hasilnya akan menampilkan pesan kesalahan.
+\begin{verbatim}
+  >sqrt(-1) // Error!
+  >sqrt(complex(-1))
+\end{verbatim}
+
+\emtcmd{z=2+3*I, re(z), im(z), conj(z), arg(z), deg(arg(z)), deg(arctan(3/2))}
+\begin{verbatim}
+    2+3i
+    2
+    3
+    2-3i
+    0.982793723247
+    56.309932474
+    56.309932474
+\end{verbatim}
+
+\emtcmd{deg(arg(I)) \textcolor{emtcomment}{// 90°}}
+\begin{verbatim}
+    90
+\end{verbatim}
+
+\emtcmd{sqrt(-1)}
+\begin{verbatim}
+    Floating point error!
+    Error in sqrt
+    Error in:
+    sqrt(-1) ...
+            ^
+\end{verbatim}
+
+\emtcmd{sqrt(complex(-1))}
+\begin{verbatim}
+    0+1i
+\end{verbatim}
+
+EMT selalu menganggap semua hasil perhitungan berupa bilangan riil dan tidak akan secara otomatis mengubah ke bilangan kompleks. Jadi akar kuadrat $-1$ akan menghasilkan kesalahan, tetapi akar kuadrat kompleks didefinisikan untuk bidang koordinat dengan cara seperti biasa. Untuk mengubah bilangan riil menjadi kompleks, Anda dapat menambahkan \texttt{0i} atau menggunakan fungsi \texttt{"complex"}.
+
+\emtcmd{complex(-1), sqrt(\%)}
+\begin{verbatim}
+    -1+0i 
+    0+1i
+\end{verbatim}
+
+\section*{Matematika Simbolik}
+
+EMT dapat melakukan perhitungan matematika simbolis (eksak) dengan bantuan software Maxima. Software Maxima otomatis sudah terpasang di komputer Anda ketika Anda memasang EMT. Meskipun demikian, Anda dapat juga memasang software Maxima tersendiri (yang terpisah dengan instalasi Maxima di EMT).
+
+Pengguna Maxima yang sudah mahir harus memperhatikan bahwa terdapat sedikit perbedaan dalam sintaks antara sintaks asli Maxima dan sintaks ekspresi simbolik di EMT. Untuk melakukan perhitungan matematika simbolis di EMT, awali perintah Maxima dengan tanda \texttt{"\&"}. Setiap ekspresi yang dimulai dengan \texttt{"\&"} adalah ekspresi simbolis dan dikerjakan oleh Maxima.
+
+\emtcmd{\&(a+b)\^{}2}
+$$(b + a)^2$$
+
+\emtcmd{\&expand((a+b)\^{}2), \&factor(x\^{}2+5*x+6)}
+$$b^2 + 2ab + a^2$$
+$$(x + 2)(x + 3)$$
+
+\emtcmd{\&solve(a*x\^{}2+b*x+c,x) \textcolor{emtcomment}{// rumus abc}}
+$$\left[x = \frac{-\sqrt{b^2 - 4ac} - b}{2a}, \; x = \frac{\sqrt{b^2 - 4ac} - b}{2a}\right]$$
+
+\emtcmd{\&(a\^{}2-b\^{}2)/(a+b), \&ratsimp(\%) \textcolor{emtcomment}{// ratsimp menyederhanakan bentuk pecahan}}
+$$\frac{a^2 - b^2}{b + a}$$
+$$a - b$$
+
+\emtcmd{10! \textcolor{emtcomment}{// nilai faktorial (modus EMT)}}
+\begin{verbatim}
+    3628800
+\end{verbatim}
+
+\emtcmd{\&10! \textcolor{emtcomment}{// nilai faktorial (simbolik dengan Maxima)}}
+$$3628800$$
+
+Untuk menggunakan perintah Maxima secara langsung (seperti perintah pada layar Maxima) awali perintahnya dengan tanda \texttt{"::"} pada baris perintah EMT. Sintaks Maxima disesuaikan dengan sintaks EMT (disebut "modus kompatibilitas").
+
+\emtcmd{factor(1000) \textcolor{emtcomment}{// mencari semua faktor 1000 (EMT)}}
+\begin{verbatim}
+    [2,  2,  2,  5,  5,  5]
+\end{verbatim}
+
+\emtcmd{:: factor(1000) \textcolor{emtcomment}{// faktorisasi prima 1000 (dengan Maxima)}}
+$$2^3 \cdot 5^3$$
+
+\emtcmd{:: factor(20!)}
+$$2^{18} \cdot 3^8 \cdot 5^4 \cdot 7^2 \cdot 11 \cdot 13 \cdot 17 \cdot 19$$
+
+Jika Anda sudah mahir menggunakan Maxima, Anda dapat menggunakan sintaks asli perintah Maxima dengan menggunakan tanda \texttt{":::"} untuk mengawali setiap perintah Maxima di EMT. Perhatikan, harus ada spasi antara \texttt{":::"} dan perintahnya.
+
+\emtcmd{::: binomial(5,2); \textcolor{emtcomment}{// nilai C(5,2)}}
+$$10$$
+
+\emtcmd{::: binomial(m,4); \textcolor{emtcomment}{// C(m,4)=m!/(4!(m-4)!)}}
+$$\frac{(m - 3)(m - 2)(m - 1)m}{24}$$
+
+\emtcmd{::: trigexpand(cos(x+y)); \textcolor{emtcomment}{// rumus cos(x+y)=cos(x) cos(y)-sin(x)sin(y)}}
+$$\cos(x)\cos(y) - \sin(x)\sin(y)$$
+
+\emtcmd{::: trigexpand(sin(x+y));}
+$$\cos(x)\sin(y) + \sin(x)\cos(y)$$
+
+\emtcmd{::: trigsimp(((1-sin(x)\^{}2)*cos(x))/cos(x)\^{}2+tan(x)*sec(x)\^{}2) \textcolor{emtcomment}{// menyederhanakan fungsi trigonometri}}
+$$\frac{\sin(x) + \cos^4(x)}{\cos^3(x)}$$
+
+Untuk menyimpan ekspresi simbolik ke dalam suatu variabel digunakan tanda \texttt{"\&="}.
+\emtcmd{p1 \&= (x\^{}3+1)/(x+1)}
+$$\frac{x^3 + 1}{x + 1}$$
+
+\emtcmd{\&ratsimp(p1)}
+$$x^2 - x + 1$$
+
+Untuk mensubstitusikan suatu nilai ke dalam variabel dapat digunakan perintah \texttt{"with"}.
+\emtcmd{\&p1 with x=3 \textcolor{emtcomment}{// (3\^{}3+1)/(3+1)}}
+$$7$$
+
+\emtcmd{\&p1 with x=a+b, \&ratsimp(\%) \textcolor{emtcomment}{// substitusi dengan variabel baru}}
+$$\frac{(b + a)^3 + 1}{b + a + 1}$$
+$$b^2 + (2a - 1)b + a^2 - a + 1$$
+
+\emtcmd{\&diff(p1,x) \textcolor{emtcomment}{// turunan p1 terhadap x}}
+$$\frac{3x^2}{x + 1} - \frac{x^3 + 1}{(x + 1)^2}$$
+
+\emtcmd{\&integrate(p1,x) \textcolor{emtcomment}{// integral p1 terhadap x}}
+$$\frac{2x^3 - 3x^2 + 6x}{6}$$
+
+\section*{Tampilan Matematika Simbolik dengan LaTeX}
+
+Anda dapat menampilkan hasil perhitungan simbolik secara lebih bagus menggunakan LaTeX. Untuk melakukan hal ini, tambahkan tanda dolar (\texttt{\$}) di depan tanda \texttt{\&} pada setiap perintah Maxima. Perhatikan, hal ini hanya dapat menghasilkan tampilan yang diinginkan apabila komputer Anda sudah terpasang software LaTeX.
+
+\emtcmd{\$\&(a+b)\^{}2}
+\emtcmd{\$\&expand((a+b)\^{}2), \$\&factor(x\^{}2+5*x+6)}
+\emtcmd{\$\&solve(a*x\^{}2+b*x+c,x) \textcolor{emtcomment}{// rumus abc}}
+\emtcmd{\$\&(a\^{}2-b\^{}2)/(a+b), \$\&ratsimp(\%)}
+
+\section*{Selamat Belajar dan Berlatih!}
+
+Baik, itulah sekilas pengantar penggunaan software EMT. Masih banyak kemampuan EMT yang akan Anda pelajari dan praktikkan. Sebagai latihan untuk memperlancar penggunaan perintah-perintah EMT yang sudah dijelaskan di atas, silakan Anda lakukan hal-hal sebagai berikut:
+
+\begin{itemize}
+    \item Carilah soal-soal matematika dari buku-buku Matematika.
+    \item Tambahkan beberapa baris perintah EMT pada notebook ini.
+    \item Selesaikan soal-soal matematika tersebut dengan menggunakan EMT.
+    \item Pilih soal-soal yang sesuai dengan perintah-perintah yang sudah dijelaskan dan dicontohkan di atas.
+\end{itemize}
+
+\end{document}

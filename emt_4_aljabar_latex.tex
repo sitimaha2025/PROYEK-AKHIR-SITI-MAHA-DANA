@@ -1,0 +1,2115 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage[english, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{english}
+\babelfont{rm}{Noto Sans}
+\babelfont{tt}{Noto Sans Mono}
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\definecolor{emtcomment}{RGB}{0, 128, 0}
+\definecolor{emtcommand}{RGB}{180, 0, 0}
+
+\newcommand{\emtcmd}[1]{\noindent\texttt{\textcolor{emtcommand}{>}\ #1}\par\smallskip}
+
+\begin{document}
+
+\section*{EMT untuk Perhitungan Aljabar}
+
+Pada notebook ini Anda belajar menggunakan EMT untuk melakukan berbagai perhitungan terkait dengan materi atau topik dalam Aljabar. Kegiatan yang harus Anda lakukan adalah sebagai berikut:
+
+\begin{itemize}
+    \item Membaca secara cermat dan teliti notebook ini;
+    \item Menerjemahkan teks bahasa Inggris ke bahasa Indonesia;
+    \item Mencoba contoh-contoh perhitungan (perintah EMT) dengan cara meng-ENTER setiap perintah EMT yang ada (pindahkan kursor ke baris perintah);
+    \item Jika perlu Anda dapat memodifikasi perintah yang ada dan memberikan keterangan/penjelasan tambahan terkait hasilnya;
+    \item Menyisipkan baris-baris perintah baru untuk mengerjakan soal-soal Aljabar dari file PDF yang saya berikan;
+    \item Memberi catatan hasilnya;
+    \item Jika perlu tuliskan soalnya pada teks notebook (menggunakan format LaTeX);
+    \item Gunakan tampilan hasil semua perhitungan yang eksak atau simbolik dengan format LaTeX. (Seperti contoh-contoh pada notebook ini.)
+\end{itemize}
+
+\subsection*{Contoh pertama}
+
+Menyederhanakan bentuk aljabar:
+$$6x^{-3}y^5\times -7x^2y^{-9}$$
+\emtcmd{\$\&6*x\^{}(-3)*y\^{}5*-7*x\^{}2*y\^{}(-9)}
+
+Menjabarkan:
+$$(6x^{-3}+y^5)(-7x^2-y^{-9})$$
+\emtcmd{\$\&showev('expand((6*x\^{}(-3)+y\^{}5)*(-7*x\^{}2-y\^{}(-9))))}
+
+\subsection*{The Command Line}
+
+A command line of Euler consists of one or several Euler commands followed by a semicolon \texttt{";"} or a comma \texttt{","}. The semicolon prevents the printing of the result. The comma after the last command can be omitted.
+
+The following command line will only print the result of the expression, not the assignments or the format commands.
+\emtcmd{r:=2; h:=4; pi*r\^{}2*h/3}
+\begin{verbatim}
+    16.7551608191
+\end{verbatim}
+
+Commands must be separated with a blank. The following command line prints its two results.
+\emtcmd{pi*2*r*h, \%+2*pi*r*h \textcolor{emtcomment}{// Ingat tanda \% menyatakan hasil perhitungan terakhir sebelumnya}}
+\begin{verbatim}
+    50.2654824574
+    100.530964915
+\end{verbatim}
+
+Command lines are executed in the order the user presses return. So you get a new value each time you execute the second line.
+\emtcmd{x := 1;}
+\emtcmd{x := cos(x) \textcolor{emtcomment}{// nilai cosinus (x dalam radian)}}
+\begin{verbatim}
+    0.540302305868
+\end{verbatim}
+\emtcmd{x := cos(x)}
+\begin{verbatim}
+    0.857553215846
+\end{verbatim}
+
+If two lines are connected with \texttt{"..."} both lines will always execute simultaneously.
+\emtcmd{x := 1.5; ... \\
+\hspace*{1em} x := (x+2/x)/2, x := (x+2/x)/2, x := (x+2/x)/2,}
+\begin{verbatim}
+    1.41666666667
+    1.41421568627
+    1.41421356237
+\end{verbatim}
+
+This is also a good way to spread a long command over two or more lines. You can press \texttt{Ctrl+Return} to split a line in two at the current cursor position, or \texttt{Ctrl+Back} to join the lines.
+
+To fold all multi-lines press \texttt{Ctrl+L}. Then the subsequent lines will only be visible, if one of them has the focus. To fold a single multi-line start the first line with \texttt{"\%+ "}.
+\emtcmd{\%+ x=4+5; ... \\
+\hspace*{1em} \textcolor{emtcomment}{// This line will not be visible once the cursor is off the line}}
+
+A line starting with \texttt{\%\%} will be completely invisible.
+\begin{verbatim}
+    81
+\end{verbatim}
+
+Euler supports loops in command lines, as long as they fit into one single line or a multi-line. In programs, this restrictions does not hold, of course. For more information consult the following introduction.
+\emtcmd{x=1; for i=1 to 5; x := (x+2/x)/2, end; \textcolor{emtcomment}{// menghitung akar 2}}
+\begin{verbatim}
+    1.5
+    1.41666666667
+    1.41421568627
+    1.41421356237
+    1.41421356237
+\end{verbatim}
+
+It is okay to use a multi-line. Make sure the line ends with \texttt{" ..."}.
+\emtcmd{x := 1.5; \textcolor{emtcomment}{// comments go here before the ...} \\
+\hspace*{1em} repeat xnew:=(x+2/x)/2; until xnew\~=x; ... \\
+\hspace*{2em} x := xnew; ... \\
+\hspace*{1em} end; ... \\
+\hspace*{1em} x,}
+\begin{verbatim}
+    1.41421356237
+\end{verbatim}
+
+Conditional structures do also work.
+\emtcmd{if E\^{}pi>pi\^{}E; then "Thought so!", endif;}
+\begin{verbatim}
+    Thought so!
+\end{verbatim}
+
+When you execute a command, the cursor can be at any position in the command line. You can go back to a previous command or skip to the next command with the arrow keys. Or you can click into the comment section above the command to go to the command.
+
+When you move the cursor along the line the opening and closing pairs of brackets or parentheses will highlight. Also, watch the status line. After the opening bracket of the \texttt{sqrt()} function, the status line will display a help text for the function. Execute the command with the return key.
+\emtcmd{sqrt(sin(10°)/cos(20°))}
+\begin{verbatim}
+    0.429875017772
+\end{verbatim}
+
+To see help for the most recent command, open the help window with \texttt{F1}. There, you can enter text to search for. On an empty line, the help for the help window will be displayed. You can press escape to clear the line, or to close the help window.
+
+You can double click on any command to open the help for this command. Try double clicking the \texttt{exp} command below in the command line.
+\emtcmd{exp(log(2.5))}
+\begin{verbatim}
+    2.5
+\end{verbatim}
+
+You can copy and paste in Euler too. Use \texttt{Ctrl-C} and \texttt{Ctrl-V} for this. To mark a text, drag the mouse or use shift together with any cursor key. Moreover, you can copy the highlighted brackets.
+
+\subsection*{Basic Syntax}
+
+Euler knows the usual mathematical functions. As you have seen above, trigonometric functions work in radian or degree. To convert to degrees, append the degree symbol (with the \texttt{F7} key) to the value, or use the function \texttt{rad(x)}. The square root function is called \texttt{sqrt} in Euler. Of course, \texttt{x\^{}(1/2)} is also possible.
+
+To set variables, use either \texttt{"="} or \texttt{":="}. For the sake of clarity, this introduction uses the latter form. Spaces do not matter. But a space between commands is expected.
+
+Multiple commands in one line are separated with \texttt{","} or \texttt{";"}. The semicolon suppresses the output of the command. At the end of the command line a \texttt{","} is assumed, if \texttt{";"} is missing.
+\emtcmd{g:=9.81; t:=2.5; 1/2*g*t\^{}2}
+\begin{verbatim}
+    30.65625
+\end{verbatim}
+
+EMT uses a programming syntax for expressions. To enter
+$$e^2 \cdot \left( \frac{1}{3+4 \log(0.6)}+\frac{1}{7} \right)$$
+you have to set the correct brackets and use \texttt{/} for fractions. Watch the highlighted brackets for assistance. Note that the Euler constant $e$ is named \texttt{E} in EMT.
+\emtcmd{E\^{}2*(1/(3+4*log(0.6))+1/7)}
+\begin{verbatim}
+    8.77908249441
+\end{verbatim}
+
+To compute a complicate expression like
+$$\left(\frac{\frac{1}{7} + \frac{1}{8} + 2}{\frac{1}{3} + \frac{1}{2}}\right)^2 \pi$$
+you need to enter it in line form.
+\emtcmd{((1/7 + 1/8 + 2) / (1/3 + 1/2))\^{}2 * pi}
+\begin{verbatim}
+    23.2671801626
+\end{verbatim}
+
+Carefully put brackets around sub-expressions that need to be computed first. EMT assists you by highlighting the expression that the closing bracket finishes. You will also have to enter the name \texttt{"pi"} for the Greek letter $\pi$.
+
+The result of this computation is a floating point number. It is by default printed with about 12 digits accuracy. In the following command line, we also learn how we can refer to the previous result within the same line.
+\emtcmd{1/3+1/7, fraction \%}
+\begin{verbatim}
+    0.47619047619
+    10/21
+\end{verbatim}
+
+An Euler command can be an expression or a primitive command. An expression is made of operators and functions. If necessary, it must contain brackets to force the correct order of execution. In doubt, setting a bracket is a good idea. Note that EMT shows opening and closing brackets while editing the command line.
+\emtcmd{(cos(pi/4)+1)\^{}3*(sin(pi/4)+1)\^{}2}
+\begin{verbatim}
+    14.4978445072
+\end{verbatim}
+
+The numerical operators of Euler include:
+\begin{itemize}
+    \item \texttt{+} unary or operator plus
+    \item \texttt{-} unary or operator minus
+    \item \texttt{*}, \texttt{/}
+    \item \texttt{.} the matrix product
+    \item \texttt{a\^{}b} power for positive $a$ or integer $b$ (\texttt{a**b} works too)
+    \item \texttt{n!} the factorial operator
+\end{itemize}
+and many more.
+
+Here are some of the functions you might need. There are many more.
+\begin{verbatim}
+sin, cos, tan, atan, asin, acos, rad, deg
+log, exp, log10, sqrt, logbase
+bin, logbin, logfac, mod, floor, ceil, round, abs, sign
+conj, re, im, arg, conj, real, complex
+beta, betai, gamma, complexgamma, ellrf, ellf, ellrd, elle
+bitand, bitor, bitxor, bitnot
+\end{verbatim}
+
+Some commands have aliases, e.g. \texttt{ln} for \texttt{log}.
+\emtcmd{ln(E\^{}2), arctan(tan(0.5))}
+\begin{verbatim}
+    2
+    0.5
+\end{verbatim}
+\emtcmd{sin(30°)}
+\begin{verbatim}
+    0.5
+\end{verbatim}
+
+Make sure to use parentheses (round brackets), whenever there is doubt about the order of execution! The following is not the same as \texttt{(2\^{}3)\^{}4}, which is the default for \texttt{2\^{}3\^{}4} in EMT (some numerical systems do it the other way).
+\emtcmd{2\^{}3\^{}4, (2\^{}3)\^{}4, 2\^{}(3\^{}4)}
+\begin{verbatim}
+    2.41785163923e+24
+    4096
+    2.41785163923e+24
+\end{verbatim}
+
+\subsection*{Real Numbers}
+
+The primary data type in Euler is the real number. Reals are represented in IEEE format with about 16 decimal digits of accuracy.
+\emtcmd{longest 1/3}
+\begin{verbatim}
+         0.3333333333333333
+\end{verbatim}
+
+The internal dual representation takes 8 bytes.
+\emtcmd{printdual(1/3)}
+\begin{verbatim}
+    1.0101010101010101010101010101010101010101010101010101*2^-2
+\end{verbatim}
+\emtcmd{printhex(1/3)}
+\begin{verbatim}
+    5.5555555555554*16^-1
+\end{verbatim}
+
+\subsection*{Strings}
+
+A string in Euler is defined with \texttt{"..."}.
+\emtcmd{"A string can contain anything."}
+\begin{verbatim}
+    A string can contain anything.
+\end{verbatim}
+
+Strings can be concatenated with \texttt{|} or with \texttt{+}. This also works with numbers, which are converted to strings in that case.
+\emtcmd{"The area of the circle with radius " + 2 + " cm is " + pi*4 + " cm\^{}2."}
+\begin{verbatim}
+    The area of the circle with radius 2 cm is 12.5663706144 cm^2.
+\end{verbatim}
+
+The \texttt{print} function does also convert a number to a string. It can take a number of digits and a number of places (0 for dense output), and optimally a unit.
+\emtcmd{"Golden Ratio : " + print((1+sqrt(5))/2,5,0)}
+\begin{verbatim}
+    Golden Ratio : 1.61803
+\end{verbatim}
+
+There is a special string \texttt{none}, which does not print. It is returned by some functions, when the result does not matter. (It is returned automatically, if the function does not have a return statement.)
+\emtcmd{none}
+
+To convert a string to a number simply evaluate it. This works for expressions too (see below).
+\emtcmd{"1234.5"()}
+\begin{verbatim}
+    1234.5
+\end{verbatim}
+
+To define a string vector, use the vector \texttt{[...]} notation.
+\emtcmd{v:=["affe","charlie","bravo"]}
+\begin{verbatim}
+    affe
+    charlie
+    bravo
+\end{verbatim}
+
+The empty string vector is denoted by \texttt{[none]}. String vectors can be concatenated.
+\emtcmd{w:=[none]; w|v|v}
+\begin{verbatim}
+    affe
+    charlie
+    bravo
+    affe
+    charlie
+    bravo
+\end{verbatim}
+
+Strings can contain Unicode characters. Internally, these strings contain UTF-8 code. To generate such a string, use \texttt{u"..."} and one of the HTML entities. Unicode strings can be concatenated like other strings.
+\emtcmd{u"\&alpha; = " + 45 + u"\&deg;" \textcolor{emtcomment}{// pdfLaTeX mungkin gagal menampilkan secara benar}}
+\begin{verbatim}
+    α = 45°
+\end{verbatim}
+
+In comments, the same entities like $\alpha$, $\beta$ etc. can be used. This may be a quick alternative to Latex. (More details on comments below).
+
+There are some functions to create or analyze unicode strings. The function \texttt{strtochar()} will recognize Unicode strings, and translate them correctly.
+\emtcmd{v=strtochar(u"\&Auml; is a German letter")}
+\begin{verbatim}
+    [196,  32,  105,  115,  32,  97,  32,  71,  101,  114,  109,  97,  110,
+    32,  108,  101,  116,  116,  101,  114]
+\end{verbatim}
+
+The result is a vector of Unicode numbers. The converse function is \texttt{chartoutf()}.
+\emtcmd{v[1]=strtochar(u"\&Uuml;")[1]; chartoutf(v)}
+\begin{verbatim}
+    Ü is a German letter
+\end{verbatim}
+
+The function \texttt{utf()} can translate a string with entities in a variable into a Unicode string.
+\emtcmd{s="We have \&alpha;=\&beta;."; utf(s) \textcolor{emtcomment}{// pdfLaTeX mungkin gagal menampilkan secara benar}}
+\begin{verbatim}
+    We have α=β.
+\end{verbatim}
+
+It is also possible to use numerical entities.
+\emtcmd{u"\&\#196;hnliches"}
+\begin{verbatim}
+    Ähnliches
+\end{verbatim}
+
+\subsection*{Boolean Values}
+
+Boolean values are represented with \texttt{1=true} or \texttt{0=false} in Euler. Strings can be compared, just like numbers.
+\emtcmd{2<1, "apel"<"banana"}
+\begin{verbatim}
+    0
+    1
+\end{verbatim}
+
+\texttt{"and"} is the operator \texttt{"\&\&"} and \texttt{"or"} is the operator \texttt{"||"}, as in the C language. (The words \texttt{"and"} and \texttt{"or"} can only be used in conditions for \texttt{"if"}.)
+\emtcmd{2<E \&\& E<3}
+\begin{verbatim}
+    1
+\end{verbatim}
+
+Boolean operators obey the rules of the matrix language.
+\emtcmd{(1:10)>5, nonzeros(\%)}
+\begin{verbatim}
+    [0,  0,  0,  0,  0,  1,  1,  1,  1,  1]
+    [6,  7,  8,  9,  10]
+\end{verbatim}
+
+You can use the function \texttt{nonzeros()} to extract specific elements form a vector. In the example, we use the conditional \texttt{isprime(n)}.
+\emtcmd{N=2|3:2:99 \textcolor{emtcomment}{// N berisi elemen 2 dan bilangan2 ganjil dari 3 s.d. 99}}
+\begin{verbatim}
+    [2,  3,  5,  7,  9,  11,  13,  15,  17,  19,  21,  23,  25,  27,  29,
+    31,  33,  35,  37,  39,  41,  43,  45,  47,  49,  51,  53,  55,  57,
+    59,  61,  63,  65,  67,  69,  71,  73,  75,  77,  79,  81,  83,  85,
+    87,  89,  91,  93,  95,  97,  99]
+\end{verbatim}
+\emtcmd{N[nonzeros(isprime(N))] \textcolor{emtcomment}{// pilih anggota2 N yang prima}}
+\begin{verbatim}
+    [2,  3,  5,  7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47,
+    53,  59,  61,  67,  71,  73,  79,  83,  89,  97]
+\end{verbatim}
+
+\subsection*{Output Formats}
+
+The default output format of EMT prints 12 digits. To make sure that we see the default, we reset the format.
+\emtcmd{defformat; pi}
+\begin{verbatim}
+    3.14159265359
+\end{verbatim}
+
+Internally, EMT uses the IEEE standard for double numbers with about 16 decimal digits. To see the full number of digits, use the command \texttt{"longestformat"}, or we use the operator \texttt{"longest"} to display the result in the longest format.
+\emtcmd{longest pi}
+\begin{verbatim}
+          3.141592653589793
+\end{verbatim}
+
+Here is the internal hexadecimal representation of a double number.
+\emtcmd{printhex(pi)}
+\begin{verbatim}
+    3.243F6A8885A30*16^0
+\end{verbatim}
+
+The output format can be changed permanently with a format command.
+\emtcmd{format(12,5); 1/3, pi, sin(1)}
+\begin{verbatim}
+        0.33333
+        3.14159
+        0.84147
+\end{verbatim}
+
+The default is \texttt{format(12)}.
+\emtcmd{format(12); 1/3}
+\begin{verbatim}
+    0.333333333333
+\end{verbatim}
+
+Functions like \texttt{"shortestformat"}, \texttt{"shortformat"}, \texttt{"longformat"} work for vectors in the following way.
+\emtcmd{shortestformat; random(3,8)}
+\begin{verbatim}
+      0.66    0.2   0.89   0.28   0.53   0.31   0.44    0.3
+      0.28   0.88   0.27    0.7   0.22   0.45   0.31   0.91
+      0.19   0.46  0.095    0.6   0.43   0.73   0.47   0.32
+\end{verbatim}
+
+The default format for scalars is \texttt{format(12)}. But this can be changed.
+\emtcmd{setscalarformat(5); pi}
+\begin{verbatim}
+    3.1416
+\end{verbatim}
+
+The function \texttt{"longestformat"} set the scalar format too.
+\emtcmd{longestformat; pi}
+\begin{verbatim}
+    3.141592653589793
+\end{verbatim}
+
+For reference, here is a list of the most important output formats.
+\begin{verbatim}
+shortestformat  shortformat  longformat  longestformat
+format(length,digits)  goodformat(length)
+fracformat(length)
+defformat
+\end{verbatim}
+
+The internal accuracy of EMT is about 16 decimal places, which is the IEEE standard. Numbers are stored in this internal format. But the output format of EMT can be set in a flexible way.
+\emtcmd{longestformat; pi,}
+\begin{verbatim}
+    3.141592653589793
+\end{verbatim}
+\emtcmd{format(10,5); pi}
+\begin{verbatim}
+      3.14159
+\end{verbatim}
+
+The default is \texttt{defformat()}.
+\emtcmd{defformat; \textcolor{emtcomment}{// default}}
+
+There are short operators which print only one value. The operator \texttt{"longest"} will print all valid digits of a number.
+\emtcmd{longest pi\^{}2/2}
+\begin{verbatim}
+          4.934802200544679
+\end{verbatim}
+
+There is also a short operator for printing a result in fractional format. We have already used it above.
+\emtcmd{fraction 1+1/2+1/3+1/4}
+\begin{verbatim}
+    25/12
+\end{verbatim}
+
+Since the internal format uses a binary way to store numbers, the value $0.1$ will not be represented exactly. The error adds up a bit, as you see in the following computation.
+\emtcmd{longest 0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1-1}
+\begin{verbatim}
+     -1.110223024625157e-16
+\end{verbatim}
+
+But with the default \texttt{"longformat"} you will not notice this. For convenience, the output of very small numbers is 0.
+\emtcmd{0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1-1}
+\begin{verbatim}
+    0
+\end{verbatim}
+
+\section*{Expressions}
+
+Strings or names can be used to store mathematical expressions, which can be evaluated by EMT. For this, use parentheses after the expression. If you intend to use a string as an expression, use the convention to name it \texttt{"fx"} or \texttt{"fxy"} etc. Expressions take precedence over functions.
+
+Global variables can be used in the evaluation.
+\emtcmd{r:=2; fx:="pi*r\^{}2"; longest fx()}
+\begin{verbatim}
+          12.56637061435917
+\end{verbatim}
+
+Parameters are assigned to $x$, $y$, and $z$ in that order. Additional parameters can be added using assigned parameters.
+\emtcmd{fx:="a*sin(x)\^{}2"; fx(5,a=-1)}
+\begin{verbatim}
+    -0.919535764538
+\end{verbatim}
+
+Note that expression will always use global variables, even if there is a variable in a function with the same name. (Otherwise the evaluation of expressions in functions could have very confusing results for the user that called the function.)
+\emtcmd{at:=4; function f(expr,x,at) := expr(x); ... \\
+\hspace*{1em} f("at*x\^{}2",3,5) \textcolor{emtcomment}{// computes 4*3\^{}2 not 5*3\^{}2}}
+\begin{verbatim}
+    36
+\end{verbatim}
+
+If you want to use another value for \texttt{"at"} than the global value you need to add \texttt{"at=value"}.
+\emtcmd{at:=4; function f(expr,x,a) := expr(x,at=a); ... \\
+\hspace*{1em} f("at*x\^{}2",3,5)}
+\begin{verbatim}
+    45
+\end{verbatim}
+
+For reference, we remark that call collections (discussed elsewhere) can contain expressions. So we can make the above example as follows.
+\emtcmd{at:=4; function f(expr,x) := expr(x); ... \\
+\hspace*{1em} f(\{\{"at*x\^{}2",at=5\}\},3)}
+\begin{verbatim}
+    45
+\end{verbatim}
+
+Expressions in $x$ are often used just like functions. Note that defining a function with the same name like a global symbolic expression deletes this variable to avoid confusion between symbolic expressions and functions.
+\emtcmd{f \&= 5*x;}
+\emtcmd{function f(x) := 6*x;}
+\emtcmd{f(2)}
+\begin{verbatim}
+    12
+\end{verbatim}
+
+By way of convention, symbolic or numerical expressions should be named \texttt{fx}, \texttt{fxy} etc. This naming scheme should not be used for functions.
+\emtcmd{fx \&= diff(x\^{}x,x); \$\&fx}
+
+A special form of an expression allows any variable as an unnamed parameter to the evaluation of the expression, not just \texttt{"x"}, \texttt{"y"} etc. For this, start the expression with \texttt{"@(variables) ..."}.
+\emtcmd{"@(a,b) a\^{}2+b\^{}2", \%(4,5)}
+\begin{verbatim}
+    @(a,b) a^2+b^2
+    41
+\end{verbatim}
+
+This allows to manipulate expressions in other variables for functions of EMT which need an expression in \texttt{"x"}.
+
+The most elementary way to define a simple function is to store its formula in a symbolic or numerical expression. If the main variable is $x$, the expression can be evaluated just like a function. As you see in the following example, global variables are visible during the evaluation.
+\emtcmd{fx \&= x\^{}3-a*x; ... \\
+\hspace*{1em} a=1.2; fx(0.5)}
+\begin{verbatim}
+    -0.475
+\end{verbatim}
+
+All other variables in the expression can be specified in the evaluation using an assigned parameter.
+\emtcmd{fx(0.5,a=1.1)}
+\begin{verbatim}
+    -0.425
+\end{verbatim}
+
+An expression needs not be symbolic. This is necessary, if the expression contains functions, which are only known in the numerical kernel, not in Maxima.
+
+\section*{Symbolic Mathematics}
+
+EMT does symbolic math with the help of Maxima. For details, start with the following tutorial, or browse the reference for Maxima. Experts in Maxima should note that there are differences in the syntax between the original syntax of Maxima and the default syntax of symbolic expressions in EMT.
+
+Symbolic math is integrated seamlessly into Euler with \texttt{\&}. Any expression starting with \texttt{\&} is a symbolic expression. It is evaluated and printed by Maxima.
+
+First of all, Maxima has an "infinite" arithmetic which can handle very large numbers.
+\emtcmd{\$\&44!}
+
+This way, you can compute large results exactly. Let us compute
+$$C(44,10) = \frac{44!}{34! \cdot 10!}$$
+\emtcmd{\$\& 44!/(34!*10!) \textcolor{emtcomment}{// nilai C(44,10)}}
+
+Of course, Maxima has a more efficient function for this (as does the numerical part of EMT).
+\emtcmd{\$binomial(44,10) \textcolor{emtcomment}{// menghitung C(44,10) menggunakan fungsi binomial()}}
+
+To learn more about a specific function double click on it. E.g., try double clicking on \texttt{"\&binomial"} in the previous command line. This opens the documentation of Maxima as provided by the authors of that program.
+
+You will learn that the following works too.
+$$C(x,3)=\frac{x!}{(x-3)!3!}=\frac{(x-2)(x-1)x}{6}$$
+\emtcmd{\$binomial(x,3) \textcolor{emtcomment}{// C(x,3)}}
+
+If you want to replace $x$ with any specific value use \texttt{"with"}.
+\emtcmd{\$\&binomial(x,3) with x=10 \textcolor{emtcomment}{// substitusi x=10 ke C(x,3)}}
+
+That way you can use a solution of an equation in another equation.
+
+Symbolic expressions are printed by Maxima in 2D form. The reason for this is a special symbolic flag in the string. As you will have seen in previous and following examples, if you have LaTeX installed, you can print a symbolic expression with Latex. If not, the following command will issue an error message.
+
+To print a symbolic expression with LaTeX, use \texttt{\$} in front of \texttt{\&} (or you may omit \texttt{\&}) before the command. Do not run the Maxima commands with \texttt{\$}, if you don't have LaTeX installed.
+\emtcmd{\$(3+x)/(x\^{}2+1)}
+
+Symbolic expressions are parsed by Euler. If you need a complex syntax in one expression, you can enclose the expression in \texttt{"..."}. To use more than a simple expression is possible, but strongly discouraged.
+\emtcmd{\&"v := 5; v\^{}2"}
+$$25$$
+
+For completeness, we remark that symbolic expressions can be used in programs, but need to be enclosed in quotes. Moreover, it is much more effective to call Maxima at compile time if possible.
+\emtcmd{\$\&expand((1+x)\^{}4), \$\&factor(diff(\%,x)) \textcolor{emtcomment}{// diff: turunan, factor: faktor}}
+
+Again, \texttt{\%} refers to the previous result.
+
+To make things easier we save the solution to a symbolic variable. Symbolic variables are defined with \texttt{"\&="}.
+\emtcmd{fx \&= (x+1)/(x\^{}4+1); \$\&fx}
+
+Symbolic expressions can be used in other symbolic expressions.
+\emtcmd{\$\&factor(diff(fx,x))}
+
+A direct input of Maxima commands is available too. Start the command line with \texttt{"::"}. The syntax of Maxima is adapted to the syntax of EMT (called the "compatibility mode").
+\emtcmd{\&factor(20!)}
+$$2432902008176640000$$
+\emtcmd{::: factor(10!)}
+$$2^8 \cdot 3^4 \cdot 5^2 \cdot 7$$
+\emtcmd{:: factor(20!)}
+$$2^{18} \cdot 3^8 \cdot 5^4 \cdot 7^2 \cdot 11 \cdot 13 \cdot 17 \cdot 19$$
+
+If you are an expert in Maxima, you may wish to use the original syntax of Maxima. You can do this with \texttt{":::"}.
+\emtcmd{::: av:g\$ av\^{}2;}
+$$g^2$$
+\emtcmd{fx \&= x\^{}3*exp(x), \$fx}
+$$x^3 e^x$$
+
+Such variables can be used in other symbolic expressions. Note, that in the following command the right hand side of \texttt{\&=} is evaluated before the assignment to \texttt{fx}.
+\emtcmd{\&(fx with x=5), \$\%, \&float(\%)}
+$$125 e^5$$
+$$18551.64488782208$$
+\emtcmd{fx(5)}
+\begin{verbatim}
+    18551.6448878
+\end{verbatim}
+
+For the evaluation of an expression with specific values of the variables, you can use the \texttt{"with"} operator. The following command line also demonstrates that Maxima can evaluate an expression numerically with \texttt{float()}.
+\emtcmd{\&(fx with x=10)-(fx with x=5), \&float(\%)}
+$$1000 e^{10} - 125 e^5$$
+$$2.20079141499189 \times 10^7$$
+\emtcmd{\$factor(diff(fx,x,2))}
+
+To get the Latex code for an expression, you can use the \texttt{tex} command.
+\emtcmd{tex(fx)}
+\begin{verbatim}
+    x^3\,e^{x}
+\end{verbatim}
+
+Symbolic expressions can be evaluated just like numerical expressions.
+\emtcmd{fx(0.5)}
+\begin{verbatim}
+    0.206090158838
+\end{verbatim}
+
+In symbolic expressions, this does not work, since Maxima does not support it. Instead, use the \texttt{"with"} syntax (a nicer form of the \texttt{at(...)} command of Maxima).
+\emtcmd{\$\&fx with x=1/2}
+
+The assignment can also be symbolic.
+\emtcmd{\$\&fx with x=1+t}
+
+The command \texttt{solve} solves symbolic expressions for a variable in Maxima. The result is a vector of solutions.
+\emtcmd{\$\&solve(x\^{}2+x=4,x)}
+
+Compare with the numerical \texttt{"solve"} command in Euler, which needs a start value, and optionally a target value.
+\emtcmd{solve("x\^{}2+x",1,y=4)}
+\begin{verbatim}
+    1.56155281281
+\end{verbatim}
+
+The numerical values of the symbolic solution can be computed by evaluation of the symbolic result. Euler will read over the assignments \texttt{x=} etc. If you do not need the numerical results for further computations you can also let Maxima find the numerical values.
+\emtcmd{sol \&= solve(x\^{}2+2*x=4,x); \$\&sol, sol(), \$\&float(sol)}
+\begin{verbatim}
+    [-3.23607,  1.23607]
+\end{verbatim}
+
+To get a specific symbolic solution, one can use \texttt{"with"} and an index.
+\emtcmd{\$\&solve(x\^{}2+x=1,x), x2 \&= x with \%[2]; \$\&x2}
+
+To solve a system of equations, use a vector of equations. The result is a vector of solutions.
+\emtcmd{sol \&= solve([x+y=3,x\^{}2+y\^{}2=5],[x,y]); \$\&sol, \$\&x*y with sol[1]}
+
+Symbolic expressions can have flags, which indicate a special treatment in Maxima. Some flags can be used as commands too, others can't. Flags are appended with \texttt{|} (a nicer form of \texttt{"ev(...,flags)"}).
+\emtcmd{\$\& diff((x\^{}3-1)/(x+1),x) \textcolor{emtcomment}{// turunan bentuk pecahan}}
+\emtcmd{\$\& diff((x\^{}3-1)/(x+1),x) | ratsimp \textcolor{emtcomment}{// menyederhanakan pecahan}}
+\emtcmd{\$\&factor(\%)}
+
+\section*{Functions}
+
+In EMT, functions are programs defined with the command \texttt{"function"}. It can be a one-line function or multiline function. A one-line function can be numerical or symbolic. A numerical one-line function is defined by \texttt{":="}.
+\emtcmd{function f(x) := x*sqrt(x\^{}2+1)}
+
+For an overview, we show all possible definitions for one-line functions. A function can be evaluated just like any built-in Euler function.
+\emtcmd{f(2)}
+\begin{verbatim}
+    4.472135955
+\end{verbatim}
+
+This function will work for vectors too, obeying the matrix language of Euler, since the expressions used in the function are vectorized.
+\emtcmd{f(0:0.1:1)}
+\begin{verbatim}
+    [0,  0.100499,  0.203961,  0.313209,  0.430813,  0.559017,  0.699714,
+    0.854459,  1.0245,  1.21083,  1.41421]
+\end{verbatim}
+
+Functions can be plotted. Instead of expressions, we need only provide the function name. In contrast to symbolic or numerical expressions, the function name must be provided in a string.
+\emtcmd{solve("f",1,y=1)}
+\begin{verbatim}
+    0.786151377757
+\end{verbatim}
+
+By default, if you need to overwrite a built-in function, you must add the keyword \texttt{"overwrite"}. Overwriting built-in functions is dangerous and can cause problems for other functions depending on them. You can still call the built-in function as \texttt{"\_..."}, if it is function in the Euler core.
+\emtcmd{function overwrite sin (x) := \_sin(x°) \textcolor{emtcomment}{// redefine sine in degrees}}
+\emtcmd{sin(45)}
+\begin{verbatim}
+    0.707106781187
+\end{verbatim}
+
+We better remove this redefinition of \texttt{sin}.
+\emtcmd{forget sin; sin(pi/4)}
+\begin{verbatim}
+    0.707106781187
+\end{verbatim}
+
+\subsection*{Default Parameters}
+
+Numerical function can have default parameters.
+\emtcmd{function f(x,a=1) := a*x\^{}2}
+
+Omitting this parameter uses the default value.
+\emtcmd{f(4)}
+\begin{verbatim}
+    16
+\end{verbatim}
+
+Setting it overwrites the default value.
+\emtcmd{f(4,5)}
+\begin{verbatim}
+    80
+\end{verbatim}
+
+An assigned parameter overwrite it too. This is used by many Euler functions like \texttt{plot2d}, \texttt{plot3d}.
+\emtcmd{f(4,a=1)}
+\begin{verbatim}
+    16
+\end{verbatim}
+
+If a variable is not a parameter, it must be global. One-line functions can see global variables.
+\emtcmd{function f(x) := a*x\^{}2}
+\emtcmd{a=6; f(2)}
+\begin{verbatim}
+    24
+\end{verbatim}
+
+But an assigned parameter overrides the global value. If the argument is not in the list of pre-defined parameters, it must be declared with \texttt{":="}!
+\emtcmd{f(2,a:=5)}
+\begin{verbatim}
+    20
+\end{verbatim}
+
+Symbolic functions are defined with \texttt{"\&="}. They are defined in Euler and Maxima, and work in both worlds. The defining expression is run through Maxima before the definition.
+\emtcmd{function g(x) \&= x\^{}3-x*exp(-x); \$\&g(x)}
+
+Symbolic functions can be used in symbolic expressions.
+\emtcmd{\$\&diff(g(x),x), \$\&\% with x=4/3}
+
+They can also be used in numerical expressions. Of course, this will only work if EMT can interpret everything inside the function.
+\emtcmd{g(5+g(1))}
+\begin{verbatim}
+    178.635099908
+\end{verbatim}
+
+They can be used to define other symbolic functions or expressions.
+\emtcmd{function G(x) \&= factor(integrate(g(x),x)); \$\&G(c) \textcolor{emtcomment}{// integrate: mengintegralkan}}
+\emtcmd{solve(\&g(x),0.5)}
+\begin{verbatim}
+    0.703467422498
+\end{verbatim}
+
+The following works too, since Euler uses the symbolic expression in the function \texttt{g}, if it does not find a symbolic variable \texttt{g}, and if there is a symbolic function \texttt{g}.
+\emtcmd{solve(\&g,0.5)}
+\begin{verbatim}
+    0.703467422498
+\end{verbatim}
+\emtcmd{function P(x,n) \&= (2*x-1)\^{}n; \$\&P(x,n)}
+\emtcmd{function Q(x,n) \&= (x+2)\^{}n; \$\&Q(x,n)}
+\emtcmd{\$\&P(x,4), \$\&expand(\%)}
+\emtcmd{P(3,4)}
+\begin{verbatim}
+    625
+\end{verbatim}
+\emtcmd{\$\&P(x,4)+ Q(x,3), \$\&expand(\%)}
+\emtcmd{\$\&P(x,4)-Q(x,3), \$\&expand(\%), \$\&factor(\%)}
+\emtcmd{\$\&P(x,4)*Q(x,3), \$\&expand(\%), \$\&factor(\%)}
+\emtcmd{\$\&P(x,4)/Q(x,1), \$\&expand(\%), \$\&factor(\%)}
+\emtcmd{function f(x) \&= x\^{}3-x; \$\&f(x)}
+
+With \texttt{\&=} the function is symbolic, and can be used in other symbolic expressions.
+\emtcmd{\$\&integrate(f(x),x)}
+
+With \texttt{:=} the function is numerical. A good example is a definite integral like
+$$f(x) = \int_1^x t^t \, dt,$$
+which can not be evaluated symbolically.
+
+If we redefine the function with the keyword \texttt{"map"} it can be used for vectors $x$. Internally, the function is called for all values of $x$ once, and the results are stored in a vector.
+\emtcmd{function map f(x) := integrate("x\^{}x",1,x)}
+\emtcmd{f(0:0.5:2)}
+\begin{verbatim}
+    [-0.783431,  -0.410816,  0,  0.676863,  2.05045]
+\end{verbatim}
+
+Functions can have default values for parameters.
+\emtcmd{function mylog (x,base=10) := ln(x)/ln(base);}
+
+Now the function can be called with or without a parameter \texttt{"base"}.
+\emtcmd{mylog(100), mylog(2\^{}6.7,2)}
+\begin{verbatim}
+    2
+    6.7
+\end{verbatim}
+
+Moreover, it is possible to use assigned parameters.
+\emtcmd{mylog(E\^{}2,base=E)}
+\begin{verbatim}
+    2
+\end{verbatim}
+
+Often, we want to use functions for vectors at one place, and for individual elements at other places. This is possible with vector parameters.
+\emtcmd{function f([a,b]) \&= a\^{}2+b\^{}2-a*b+b; \$\&f(a,b), \$\&f(x,y)}
+
+Such a symbolic function can be used for symbolic variables. But the function can also be used for a numerical vector.
+\emtcmd{v=[3,4]; f(v)}
+\begin{verbatim}
+    17
+\end{verbatim}
+
+There are also purely symbolic functions, which cannot be used numerically.
+\emtcmd{function lapl(expr,x,y) \&\&= diff(expr,x,2)+diff(expr,y,2) \textcolor{emtcomment}{// turunan parsial kedua}}
+$$\frac{\partial^2}{\partial y^2}\mathrm{expr} + \frac{\partial^2}{\partial x^2}\mathrm{expr}$$
+\emtcmd{\$\&realpart((x+I*y)\^{}4), \$\&lapl(\%,x,y)}
+
+But of course, they can be used in symbolic expressions or in the definition of symbolic functions.
+\emtcmd{function f(x,y) \&= factor(lapl((x+y\^{}2)\^{}5,x,y)); \$\&f(x,y)}
+
+To summarize:
+\begin{itemize}
+    \item \texttt{\&=} defines symbolic functions,
+    \item \texttt{:=} defines numerical functions,
+    \item \texttt{\&\&=} defines purely symbolic functions.
+\end{itemize}
+
+\section*{Solving Expressions}
+
+Expressions can be solved numerically and symbolically. To solve a simple expression of one variable, we can use the \texttt{solve()} function. It needs a start value to start the search. Internally, \texttt{solve()} uses the secant method.
+\emtcmd{solve("x\^{}2-2",1)}
+\begin{verbatim}
+    1.41421356237
+\end{verbatim}
+
+This works for symbolic expression too. Take the following function.
+\emtcmd{\$\&solve(x\^{}2=2,x)}
+\emtcmd{\$\&solve(x\^{}2-2,x)}
+\emtcmd{\$\&solve(a*x\^{}2+b*x+c=0,x)}
+\emtcmd{\$\&solve([a*x+b*y=c,d*x+e*y=f],[x,y])}
+\emtcmd{px \&= 4*x\^{}8+x\^{}7-x\^{}4-x; \$\&px}
+
+Now we search the point, where the polynomial is 2. In \texttt{solve()}, the default target value \texttt{y=0} can be changed with an assigned variable. We use \texttt{y=2} and check by evaluating the polynomial at the previous result.
+\emtcmd{solve(px,1,y=2), px(\%)}
+\begin{verbatim}
+    0.966715594851
+    2
+\end{verbatim}
+
+Solving a symbolic expression in symbolic form returns a list of solutions. We use the symbolic solver \texttt{solve()} provided by Maxima.
+\emtcmd{sol \&= solve(x\^{}2-x-1,x); \$\&sol}
+
+The easiest way to get the numerical values is to evaluate the solution numerically just like an expression.
+\emtcmd{longest sol()}
+\begin{verbatim}
+        -0.6180339887498949       1.618033988749895
+\end{verbatim}
+
+To use the solutions symbolically in other expressions, the easiest way is \texttt{"with"}.
+\emtcmd{\$\&x\^{}2 with sol[1], \$\&expand(x\^{}2-x-1 with sol[2])}
+
+Solving systems of equations symbolically can be done with vectors of equations and the symbolic solver \texttt{solve()}. The answer is a list of lists of equations.
+\emtcmd{\$\&solve([x+y=2,x\^{}3+2*y+x=4],[x,y])}
+
+The function \texttt{f()} can see global variables. But often we want to use local parameters:
+$$a^x-x^a = 0.1$$
+with $a=3$.
+\emtcmd{function f(x,a) := x\^{}a-a\^{}x;}
+
+One way to pass the additional parameter to \texttt{f()} is to use a list with the function name and the parameters (the other way are semicolon parameters).
+\emtcmd{solve(\{\{"f",3\}\},2,y=0.1)}
+\begin{verbatim}
+    2.54116291558
+\end{verbatim}
+
+This does also work with expressions. But then, a named list element has to be used. (More on lists in the tutorial about the syntax of EMT).
+\emtcmd{solve(\{\{"x\^{}a-a\^{}x",a=3\}\},2,y=0.1)}
+\begin{verbatim}
+    2.54116291558
+\end{verbatim}
+
+\section*{Menyelesaikan Pertidaksamaan}
+
+Untuk menyelesaikan pertidaksamaan, EMT tidak akan dapat melakukannya, melainkan dengan bantuan Maxima, artinya secara eksak (simbolik). Perintah Maxima yang digunakan adalah \texttt{fourier\_elim()}, yang harus dipanggil dengan perintah \texttt{"load(fourier\_elim)"} terlebih dahulu.
+\emtcmd{\&load(fourier\_elim)}
+\begin{verbatim}
+    C:/Program Files/Euler x64/maxima/share/maxima/5.35.1/share/fourier_elim/fourier_elim.lisp
+\end{verbatim}
+\emtcmd{\$\&fourier\_elim([x\^{}2 - 1>0],[x]) \textcolor{emtcomment}{// x\^{}2-1 > 0}}
+\emtcmd{\$\&fourier\_elim([x\^{}2 - 1<0],[x]) \textcolor{emtcomment}{// x\^{}2-1 < 0}}
+\emtcmd{\$\&fourier\_elim([x\^{}2 - 1 \# 0],[x]) \textcolor{emtcomment}{// x\^{}2-1 <> 0}}
+\emtcmd{\$\&fourier\_elim([x \# 6],[x])}
+\emtcmd{\$\&fourier\_elim([x < 1, x > 1],[x]) \textcolor{emtcomment}{// tidak memiliki penyelesaian}}
+\emtcmd{\$\&fourier\_elim([minf < x, x < inf],[x]) \textcolor{emtcomment}{// solusinya R}}
+\emtcmd{\$\&fourier\_elim([x\^{}3 - 1 > 0],[x])}
+\emtcmd{\$\&fourier\_elim([cos(x) < 1/2],[x]) \textcolor{emtcomment}{// ??? gagal}}
+\emtcmd{\$\&fourier\_elim([y-x < 5, x - y < 7, 10 < y],[x,y]) \textcolor{emtcomment}{// sistem pertidaksamaan}}
+\emtcmd{\$\&fourier\_elim([y-x < 5, x - y < 7, 10 < y],[y,x])}
+\emtcmd{\$\&fourier\_elim((x + y < 5) and (x - y >8),[x,y])}
+\emtcmd{\$\&fourier\_elim(((x + y < 5) and x < 1) or (x - y >8),[x,y])}
+\emtcmd{\&fourier\_elim([max(x,y) > 6, x \# 8, abs(y-1) > 12],[x,y])}
+\begin{verbatim}
+    [6 < x, x < 8, y < -11] or [8 < x, y < -11]
+    or [x < 8, 13 < y] or [x = y, 13 < y] or [8 < x, x < y, 13 < y]
+    or [y < x, 13 < y]
+\end{verbatim}
+\emtcmd{\$\&fourier\_elim([(x+6)/(x-9) <= 6],[x])}
+
+\section*{The Matrix Language}
+
+The documentation of the EMT core contains a detailed discussion on the matrix language of Euler. Vectors and matrices are entered with square brackets, elements separated by commas, rows separated by semicolons.
+\emtcmd{A=[1,2;3,4]}
+\begin{verbatim}
+                1             2
+                3             4
+\end{verbatim}
+
+The matrix product is denoted by a dot.
+\emtcmd{b=[3;4]}
+\begin{verbatim}
+                3
+                4
+\end{verbatim}
+\emtcmd{b' \textcolor{emtcomment}{// transpose b}}
+\begin{verbatim}
+    [3,  4]
+\end{verbatim}
+\emtcmd{inv(A) \textcolor{emtcomment}{// inverse A}}
+\begin{verbatim}
+               -2             1
+              1.5          -0.5
+\end{verbatim}
+\emtcmd{A.b \textcolor{emtcomment}{// perkalian matriks}}
+\begin{verbatim}
+               11
+               25
+\end{verbatim}
+\emtcmd{A.inv(A)}
+\begin{verbatim}
+                1             0
+                0             1
+\end{verbatim}
+
+The main point of a matrix language is that all functions and operators work element for element.
+\emtcmd{A.A}
+\begin{verbatim}
+                7            10
+               15            22
+\end{verbatim}
+\emtcmd{A\^{}2 \textcolor{emtcomment}{// perpangkatan elemen2 A}}
+\begin{verbatim}
+                1             4
+                9            16
+\end{verbatim}
+\emtcmd{A.A.A}
+\begin{verbatim}
+               37            54
+               81           118
+\end{verbatim}
+\emtcmd{power(A,3) \textcolor{emtcomment}{// perpangkatan matriks}}
+\begin{verbatim}
+               37            54
+               81           118
+\end{verbatim}
+\emtcmd{A/A \textcolor{emtcomment}{// pembagian elemen-elemen matriks yang seletak}}
+\begin{verbatim}
+                1             1
+                1             1
+\end{verbatim}
+\emtcmd{A/b \textcolor{emtcomment}{// pembagian elemen2 A oleh elemen2 b kolom demi kolom (karena b vektor kolom)}}
+\begin{verbatim}
+         0.333333      0.666667
+             0.75             1
+\end{verbatim}
+\emtcmd{A\textbackslash b \textcolor{emtcomment}{// hasilkali invers A dan b, A\^{}(-1)b}}
+\begin{verbatim}
+               -2
+              2.5
+\end{verbatim}
+\emtcmd{inv(A).b}
+\begin{verbatim}
+               -2
+              2.5
+\end{verbatim}
+\emtcmd{A\textbackslash A \textcolor{emtcomment}{// A\^{}(-1)A}}
+\begin{verbatim}
+                1             0
+                0             1
+\end{verbatim}
+\emtcmd{inv(A).A}
+\begin{verbatim}
+                1             0
+                0             1
+\end{verbatim}
+\emtcmd{A*A \textcolor{emtcomment}{// perkalian elemen-elemen matriks seletak}}
+\begin{verbatim}
+                1             4
+                9            16
+\end{verbatim}
+
+This is not the matrix product, but a multiplication element by element. The same works for vectors.
+\emtcmd{b\^{}2 \textcolor{emtcomment}{// perpangkatan elemen-elemen matriks/vektor}}
+\begin{verbatim}
+                9
+               16
+\end{verbatim}
+
+If one of the operands is a vector or a scalar it is expanded in the natural way.
+\emtcmd{2*A}
+\begin{verbatim}
+                2             4
+                6             8
+\end{verbatim}
+
+E.g., if the operand is a column vector its elements are applied to all rows of $A$.
+\emtcmd{[1,2]*A}
+\begin{verbatim}
+                1             4
+                3             8
+\end{verbatim}
+
+If it is a row vector it is applied to all columns of $A$.
+\emtcmd{A*[2,3]}
+\begin{verbatim}
+                2             6
+                6            12
+\end{verbatim}
+
+One can imagine this multiplication as if the row vector $v$ had been duplicated to form a matrix of the same size as $A$.
+\emtcmd{dup([1,2],2) \textcolor{emtcomment}{// dup: menduplikasi/menggandakan vektor [1,2] sebanyak 2 kali (baris)}}
+\begin{verbatim}
+                1             2
+                1             2
+\end{verbatim}
+\emtcmd{A*dup([1,2],2)}
+\begin{verbatim}
+                1             4
+                3             8
+\end{verbatim}
+
+This does also apply for two vectors where one is a row vector and the other is a column vector. We compute $i \cdot j$ for $i,j$ from 1 to 5. The trick is to multiply \texttt{1:5} with its transpose. The matrix language of Euler automatically generates a table of values.
+\emtcmd{(1:5)*(1:5)' \textcolor{emtcomment}{// hasilkali elemen-elemen vektor baris dan vektor kolom}}
+\begin{verbatim}
+                1             2             3             4             5
+                2             4             6             8            10
+                3             6             9            12            15
+                4             8            12            16            20
+                5            10            15            20            25
+\end{verbatim}
+
+Again, remember that this is not the matrix product!
+\emtcmd{(1:5).(1:5)' \textcolor{emtcomment}{// hasilkali vektor baris dan vektor kolom}}
+\begin{verbatim}
+    55
+\end{verbatim}
+\emtcmd{sum((1:5)*(1:5)) \textcolor{emtcomment}{// sama hasilnya}}
+\begin{verbatim}
+    55
+\end{verbatim}
+
+Even operators like \texttt{<} or \texttt{==} work in the same way.
+\emtcmd{(1:10)<6 \textcolor{emtcomment}{// menguji elemen-elemen yang kurang dari 6}}
+\begin{verbatim}
+    [1,  1,  1,  1,  1,  0,  0,  0,  0,  0]
+\end{verbatim}
+
+E.g., we can count the number of elements satisfying a certain condition with the function \texttt{sum()}.
+\emtcmd{sum((1:10)<6) \textcolor{emtcomment}{// banyak elemen yang kurang dari 6}}
+\begin{verbatim}
+    5
+\end{verbatim}
+
+Euler has comparison operators, like \texttt{"=="}, which checks for equality. We get a vector of 0 and 1, where 1 stands for true.
+\emtcmd{t=(1:10)\^{}2; t==25 \textcolor{emtcomment}{// menguji elemen2 t yang sama dengan 25 (hanya ada 1)}}
+\begin{verbatim}
+    [0,  0,  0,  0,  1,  0,  0,  0,  0,  0]
+\end{verbatim}
+
+From such a vector, \texttt{"nonzeros"} selects the non-zero elements. In this case, we get the indices of all elements greater than 50.
+\emtcmd{nonzeros(t>50) \textcolor{emtcomment}{// indeks elemen2 t yang lebih besar daripada 50}}
+\begin{verbatim}
+    [8,  9,  10]
+\end{verbatim}
+
+Of course, we can use this vector of indices to get the corresponding values in $t$.
+\emtcmd{t[nonzeros(t>50)] \textcolor{emtcomment}{// elemen2 t yang lebih besar daripada 50}}
+\begin{verbatim}
+    [64,  81,  100]
+\end{verbatim}
+
+As an example, let us find all squares of the numbers 1 to 1000, which are 5 modulo 11 and 3 modulo 13.
+\emtcmd{t=1:1000; nonzeros(mod(t\^{}2,11)==5 \&\& mod(t\^{}2,13)==3)}
+\begin{verbatim}
+    [4,  48,  95,  139,  147,  191,  238,  282,  290,  334,  381,  425,
+    433,  477,  524,  568,  576,  620,  667,  711,  719,  763,  810,  854,
+    862,  906,  953,  997]
+\end{verbatim}
+
+EMT is not completely effective for integer computations. It uses double precision floating point internally. However, it is often very useful. We can check for primality. Let us find out, how many squares plus 1 are primes.
+\emtcmd{t=1:1000; length(nonzeros(isprime(t\^{}2+1)))}
+\begin{verbatim}
+    112
+\end{verbatim}
+
+The function \texttt{nonzeros()} works only for vectors. For matrices, there is \texttt{mnonzeros()}.
+\emtcmd{seed(2); A=random(3,4)}
+\begin{verbatim}
+         0.765761      0.401188      0.406347      0.267829
+          0.13673      0.390567      0.495975      0.952814
+         0.548138      0.006085      0.444255      0.539246
+\end{verbatim}
+
+It returns the indices of the elements, which are not zeros.
+\emtcmd{k=mnonzeros(A<0.4) \textcolor{emtcomment}{// indeks elemen2 A yang kurang dari 0,4}}
+\begin{verbatim}
+                1             4
+                2             1
+                2             2
+                3             2
+\end{verbatim}
+
+These indices can be used to set the elements to some value.
+\emtcmd{mset(A,k,0) \textcolor{emtcomment}{// mengganti elemen2 suatu matriks pada indeks tertentu}}
+\begin{verbatim}
+         0.765761      0.401188      0.406347             0
+                0             0      0.495975      0.952814
+         0.548138             0      0.444255      0.539246
+\end{verbatim}
+
+The function \texttt{mset()} can also set the elements at the indices to the entries of some other matrix.
+\emtcmd{mset(A,k,-random(size(A)))}
+\begin{verbatim}
+         0.765761      0.401188      0.406347     -0.126917
+        -0.122404     -0.691673      0.495975      0.952814
+         0.548138     -0.483902      0.444255      0.539246
+\end{verbatim}
+
+And it is possible to get the elements in a vector.
+\emtcmd{mget(A,k)}
+\begin{verbatim}
+    [0.267829,  0.13673,  0.390567,  0.006085]
+\end{verbatim}
+
+Another useful function is \texttt{extrema}, which returns the minimal and maximal values in each row of the matrix and their positions.
+\emtcmd{ex=extrema(A)}
+\begin{verbatim}
+         0.267829             4      0.765761             1
+          0.13673             1      0.952814             4
+         0.006085             2      0.548138             1
+\end{verbatim}
+
+We can use this to extract the maximal values in each row.
+\emtcmd{ex[,3]'}
+\begin{verbatim}
+    [0.765761,  0.952814,  0.548138]
+\end{verbatim}
+
+This, of course, is the same as the function \texttt{max()}.
+\emtcmd{max(A)'}
+\begin{verbatim}
+    [0.765761,  0.952814,  0.548138]
+\end{verbatim}
+
+But with \texttt{mget()}, we can extract the indices and use this information to extract the elements at the same positions from another matrix.
+\emtcmd{j=(1:rows(A))'|ex[,4], mget(-A,j)}
+\begin{verbatim}
+                1             1
+                2             4
+                3             1
+    [-0.765761,  -0.952814,  -0.548138]
+\end{verbatim}
+
+\section*{Other Matrix Functions (Building Matrix)}
+
+To build a matrix, we can stack one matrix on top of another. If both do not have the same number of columns, the shorter one will be filled with 0.
+\emtcmd{v=1:3; v\_v}
+\begin{verbatim}
+                1             2             3
+                1             2             3
+\end{verbatim}
+
+Likewise, we can attach a matrix to another side by side, if both have the same number of rows.
+\emtcmd{A=random(3,4); A|v'}
+\begin{verbatim}
+         0.032444     0.0534171      0.595713      0.564454             1
+          0.83916      0.175552      0.396988       0.83514             2
+        0.0257573      0.658585      0.629832      0.770895             3
+\end{verbatim}
+
+If they do not have the same number of rows the shorter matrix is filled with 0. There is an exception to this rule. A real number attached to a matrix will be used as a column filled with that real number.
+\emtcmd{A|1}
+\begin{verbatim}
+         0.032444     0.0534171      0.595713      0.564454             1
+          0.83916      0.175552      0.396988       0.83514             1
+        0.0257573      0.658585      0.629832      0.770895             1
+\end{verbatim}
+
+It is possible to make a matrix of row and column vectors.
+\emtcmd{[v;v]}
+\begin{verbatim}
+                1             2             3
+                1             2             3
+\end{verbatim}
+\emtcmd{[v',v']}
+\begin{verbatim}
+                1             1
+                2             2
+                3             3
+\end{verbatim}
+
+The main purpose of this is to interpret a vector of expressions for column vectors.
+\emtcmd{"[x,x\^{}2]"(v')}
+\begin{verbatim}
+                1             1
+                2             4
+                3             9
+\end{verbatim}
+
+To get the size of $A$, we can use the following functions.
+\emtcmd{C=zeros(2,4); rows(C), cols(C), size(C), length(C)}
+\begin{verbatim}
+    2
+    4
+    [2,  4]
+    4
+\end{verbatim}
+
+For vectors, there is \texttt{length()}.
+\emtcmd{length(2:10)}
+\begin{verbatim}
+    9
+\end{verbatim}
+
+There are many other functions, which generate matrices.
+\emtcmd{ones(2,2)}
+\begin{verbatim}
+                1             1
+                1             1
+\end{verbatim}
+
+This can also be used with one parameter. To get a vector with another number than 1, use the following.
+\emtcmd{ones(5)*6}
+\begin{verbatim}
+    [6,  6,  6,  6,  6]
+\end{verbatim}
+
+Also a matrix of random numbers can be generated with \texttt{random} (uniform distribution) or \texttt{normal} (Gau\ss\ distribution).
+\emtcmd{random(2,2)}
+\begin{verbatim}
+          0.66566      0.831835
+            0.977      0.544258
+\end{verbatim}
+
+Here is another useful function, which restructures the elements of a matrix into another matrix.
+\emtcmd{redim(1:9,3,3) \textcolor{emtcomment}{// menyusun elemen2 1, 2, 3, ..., 9 ke bentuk matriks 3x3}}
+\begin{verbatim}
+                1             2             3
+                4             5             6
+                7             8             9
+\end{verbatim}
+
+With the following function, we can use this and the \texttt{dup} function to write a \texttt{rep()} function, which repeats a vector $n$ times.
+\emtcmd{function rep(v,n) := redim(dup(v,n),1,n*cols(v))}
+
+Let us test.
+\emtcmd{rep(1:3,5)}
+\begin{verbatim}
+    [1,  2,  3,  1,  2,  3,  1,  2,  3,  1,  2,  3,  1,  2,  3]
+\end{verbatim}
+
+The function \texttt{multdup()} duplicates elements of a vector.
+\emtcmd{multdup(1:3,5), multdup(1:3,[2,3,2])}
+\begin{verbatim}
+    [1,  1,  1,  1,  1,  2,  2,  2,  2,  2,  3,  3,  3,  3,  3]
+    [1,  1,  2,  2,  2,  3,  3]
+\end{verbatim}
+
+The functions \texttt{flipx()} and \texttt{flipy()} revert the order of the rows or columns of a matrix. I.e., the function \texttt{flipx()} flips horizontally.
+\emtcmd{flipx(1:5) \textcolor{emtcomment}{// membalik elemen2 vektor baris}}
+\begin{verbatim}
+    [5,  4,  3,  2,  1]
+\end{verbatim}
+
+For rotations, Euler has \texttt{rotleft()} and \texttt{rotright()}.
+\emtcmd{rotleft(1:5) \textcolor{emtcomment}{// memutar elemen2 vektor baris}}
+\begin{verbatim}
+    [2,  3,  4,  5,  1]
+\end{verbatim}
+
+A special function is \texttt{drop(v,i)}, which removes the elements with the indices in $i$ from the vector $v$.
+\emtcmd{drop(10:20,3)}
+\begin{verbatim}
+    [10,  11,  13,  14,  15,  16,  17,  18,  19,  20]
+\end{verbatim}
+
+Note that the vector $i$ in \texttt{drop(v,i)} refers to indices of elements in $v$, not the values of the elements. If you want to remove elements, you need to find the elements first. The function \texttt{indexof(v,x)} can be used to find elements $x$ in a sorted vector $v$.
+\emtcmd{v=primes(50), i=indexof(v,10:20), drop(v,i)}
+\begin{verbatim}
+    [2,  3,  5,  7,  11,  13,  17,  19,  23,  29,  31,  37,  41,  43,  47]
+    [0,  5,  0,  6,  0,  0,  0,  7,  0,  8,  0]
+    [2,  3,  5,  7,  23,  29,  31,  37,  41,  43,  47]
+\end{verbatim}
+
+As you see, it does not harm to include indices out of range (like 0), double indices, or unsorted indices.
+\emtcmd{drop(1:10,shuffle([0,0,5,5,7,12,12]))}
+\begin{verbatim}
+    [1,  2,  3,  4,  6,  8,  9,  10]
+\end{verbatim}
+
+There are some special functions to set diagonals or to generate a diagonal matrix. We start with the identity matrix.
+\emtcmd{A=id(5) \textcolor{emtcomment}{// matriks identitas 5x5}}
+\begin{verbatim}
+                1             0             0             0             0
+                0             1             0             0             0
+                0             0             1             0             0
+                0             0             0             1             0
+                0             0             0             0             1
+\end{verbatim}
+
+Then we set the lower diagonal (-1) to \texttt{1:4}.
+\emtcmd{setdiag(A,-1,1:4) \textcolor{emtcomment}{// mengganti diagonal di bawah diagonal utama}}
+\begin{verbatim}
+                1             0             0             0             0
+                1             1             0             0             0
+                0             2             1             0             0
+                0             0             3             1             0
+                0             0             0             4             1
+\end{verbatim}
+
+Note that we did not change the matrix $A$. We get a new matrix as result of \texttt{setdiag()}. Here is a function, which returns a tri-diagonal matrix.
+\emtcmd{function tridiag (n,a,b,c) := setdiag(setdiag(b*id(n),1,c),-1,a); ... \\
+\hspace*{1em} tridiag(5,1,2,3)}
+\begin{verbatim}
+                2             3             0             0             0
+                1             2             3             0             0
+                0             1             2             3             0
+                0             0             1             2             3
+                0             0             0             1             2
+\end{verbatim}
+
+The diagonal of a matrix can also be extracted from the matrix. To demonstrate this, we restructure the vector \texttt{1:9} to a $3 \times 3$ matrix.
+\emtcmd{A=redim(1:9,3,3)}
+\begin{verbatim}
+                1             2             3
+                4             5             6
+                7             8             9
+\end{verbatim}
+
+Now we can extract the diagonal.
+\emtcmd{d=getdiag(A,0)}
+\begin{verbatim}
+    [1,  5,  9]
+\end{verbatim}
+
+E.g. We can divide the matrix by its diagonal. The matrix language takes care that the column vector $d$ is applied to the matrix row by row.
+\emtcmd{fraction A/d'}
+\begin{verbatim}
+            1         2         3
+          4/5         1       6/5
+          7/9       8/9         1
+\end{verbatim}
+
+\section*{Vectorization}
+
+Almost all functions in Euler work for matrix and vector input too, whenever this makes sense. E.g., the \texttt{sqrt()} function computes the square root of all elements of the vector or matrix.
+\emtcmd{sqrt(1:3)}
+\begin{verbatim}
+    [1,  1.41421,  1.73205]
+\end{verbatim}
+
+So you can easily create a table of values. This is one way to plot a function (the alternative uses an expression).
+\emtcmd{x=1:0.01:5; y=log(x)/x\^{}2; \textcolor{emtcomment}{// terlalu panjang untuk ditampilkan}}
+
+With this and the colon operator \texttt{a:delta:b}, vectors of values of functions can be generated easily. In the following example, we generate a vector of values $t[i]$ with spacing $0.1$ from $-1$ to $1$. Then we generate a vector of values of the function
+$$s = t^3-t$$
+\emtcmd{t=-1:0.1:1; s=t\^{}3-t}
+\begin{verbatim}
+    [0,  0.171,  0.288,  0.357,  0.384,  0.375,  0.336,  0.273,  0.192,
+    0.099,  0,  -0.099,  -0.192,  -0.273,  -0.336,  -0.375,  -0.384,
+    -0.357,  -0.288,  -0.171,  0]
+\end{verbatim}
+
+EMT expands operators for scalars, vectors, and matrices in the obvious way. E.g., a column vector times a row vector expands to matrix, if an operator is applied. In the following, \texttt{v'} is the transposed vector (a column vector).
+\emtcmd{shortest (1:5)*(1:5)'}
+\begin{verbatim}
+         1      2      3      4      5
+         2      4      6      8     10
+         3      6      9     12     15
+         4      8     12     16     20
+         5     10     15     20     25
+\end{verbatim}
+
+Note, that this is quite different from the matrix product. The matrix product is denoted with a dot \texttt{"."} in EMT.
+\emtcmd{(1:5).(1:5)'}
+\begin{verbatim}
+    55
+\end{verbatim}
+
+By default, row vectors are printed in a compact format.
+\emtcmd{[1,2,3,4]}
+\begin{verbatim}
+    [1,  2,  3,  4]
+\end{verbatim}
+
+For matrices the special operator \texttt{.} denotes matrix multiplication, and \texttt{A'} denotes transposing. A $1 \times 1$ matrix can be used just like a real number.
+\emtcmd{v:=[1,2]; v.v', \%\^{}2}
+\begin{verbatim}
+    5
+    25
+\end{verbatim}
+
+To transpose a matrix we use the apostrophe.
+\emtcmd{v=1:4; v'}
+\begin{verbatim}
+                1
+                2
+                3
+                4
+\end{verbatim}
+
+So we can compute matrix $A$ times vector $b$.
+\emtcmd{A=[1,2,3,4;5,6,7,8]; A.v'}
+\begin{verbatim}
+               30
+               70
+\end{verbatim}
+
+Note that $v$ is still a row vector. So \texttt{v'.v} is different from \texttt{v.v'}.
+\emtcmd{v'.v}
+\begin{verbatim}
+                1             2             3             4
+                2             4             6             8
+                3             6             9            12
+                4             8            12            16
+\end{verbatim}
+
+\texttt{v.v'} computes the norm of $v$ squared for row vectors $v$. The result is a $1 \times 1$ vector, which works just like a real number.
+\emtcmd{v.v'}
+\begin{verbatim}
+    30
+\end{verbatim}
+
+There is also the function \texttt{norm} (along with many other function of Linear Algebra).
+\emtcmd{norm(v)\^{}2}
+\begin{verbatim}
+    30
+\end{verbatim}
+
+Operators and functions obey the matrix language of Euler. Here is a summary of the rules:
+\begin{itemize}
+    \item A function applied to a vector or matrix is applied to each element.
+    \item An operator operating on two matrices of same size is applied pairwise to the elements of the matrices.
+    \item If the two matrices have different dimensions, both are expanded in a sensible way, so that they have the same size.
+\end{itemize}
+
+E.g., a scalar value times a vector multiplies the value with each element of the vector. Or a matrix times a vector (with \texttt{*}, not \texttt{.}) expands the vector to the size of the matrix by duplicating it. The following is a simple case with the operator \texttt{\^{}}.
+\emtcmd{[1,2,3]\^{}2}
+\begin{verbatim}
+    [1,  4,  9]
+\end{verbatim}
+
+Here is a more complicated case. A row vector times a column vector expands both by duplicating.
+\emtcmd{v:=[1,2,3]; v*v'}
+\begin{verbatim}
+                1             2             3
+                2             4             6
+                3             6             9
+\end{verbatim}
+
+Note that the scalar product uses the matrix product, not the \texttt{*}!
+\emtcmd{v.v'}
+\begin{verbatim}
+    14
+\end{verbatim}
+
+There are numerous functions for matrices. We give a short list. You should consult the documentation for more information on these commands.
+\begin{verbatim}
+sum, prod       computes the sum and products of the rows
+cumsum, cumprod does the same cumulatively
+extrema         returns a vector with the extremal information
+diag(A,i)       returns the i-th diagonal
+setdiag(A,i,v)  sets the i-th diagonal
+id(n)           the identity matrix
+det(A)          the determinant
+charpoly(A)     the characteristic polynomial
+eigenvalues(A)  the eigenvalues
+\end{verbatim}
+\emtcmd{v*v, sum(v*v), cumsum(v*v)}
+\begin{verbatim}
+    [1,  4,  9]
+    14
+    [1,  5,  14]
+\end{verbatim}
+
+The \texttt{:} operator generates an equally spaces row vector, optionally with a step size.
+\emtcmd{1:4, 1:2:10}
+\begin{verbatim}
+    [1,  2,  3,  4]
+    [1,  3,  5,  7,  9]
+\end{verbatim}
+
+To concatenate matrices and vectors there are the operators \texttt{"|"} and \texttt{"\_"}.
+\emtcmd{[1,2,3]|[4,5], [1,2,3]\_1}
+\begin{verbatim}
+    [1,  2,  3,  4,  5]
+                1             2             3
+                1             1             1
+\end{verbatim}
+
+The elements of a matrix are referred with \texttt{"A[i,j]"}.
+\emtcmd{A:=[1,2,3;4,5,6;7,8,9]; A[2,3]}
+\begin{verbatim}
+    6
+\end{verbatim}
+
+For row or column vectors, \texttt{v[i]} is the $i$-th element of the vector. For matrices, this returns the complete $i$-th row of the matrix.
+\emtcmd{v:=[2,4,6,8]; v[3], A[3]}
+\begin{verbatim}
+    6
+    [7,  8,  9]
+\end{verbatim}
+
+The indices can also be row vectors of indices. \texttt{:} denotes all indices.
+\emtcmd{v[1:2], A[:,2]}
+\begin{verbatim}
+    [2,  4]
+                2
+                5
+                8
+\end{verbatim}
+
+A short form for \texttt{:} is omitting the index completely.
+\emtcmd{A[,2:3]}
+\begin{verbatim}
+                2             3
+                5             6
+                8             9
+\end{verbatim}
+
+For purposes of vectorization, the elements of a matrix can be accessed as if they were vectors.
+\emtcmd{A\{4\}}
+\begin{verbatim}
+    4
+\end{verbatim}
+
+A matrix can also be flattened, using the \texttt{redim()} function. This is implemented in the function \texttt{flatten()}.
+\emtcmd{redim(A,1,prod(size(A))), flatten(A)}
+\begin{verbatim}
+    [1,  2,  3,  4,  5,  6,  7,  8,  9]
+    [1,  2,  3,  4,  5,  6,  7,  8,  9]
+\end{verbatim}
+
+To use matrices for tables, let us reset to the default format, and compute a table of sine and cosine values. Note that angles are in radians by default.
+\emtcmd{defformat; w=0°:45°:360°; w=w'; deg(w)}
+\begin{verbatim}
+                0
+               45
+               90
+              135
+              180
+              225
+              270
+              315
+              360
+\end{verbatim}
+
+Now we append columns to a matrix.
+\emtcmd{M = deg(w)|w|cos(w)|sin(w)}
+\begin{verbatim}
+                0             0             1             0
+               45      0.785398      0.707107      0.707107
+               90        1.5708             0             1
+              135       2.35619     -0.707107      0.707107
+              180       3.14159            -1             0
+              225       3.92699     -0.707107     -0.707107
+              270       4.71239             0            -1
+              315       5.49779      0.707107     -0.707107
+              360       6.28319             1             0
+\end{verbatim}
+
+Using the matrix language, we can generate several tables of several functions at once. In the following example, we compute $t[j]^i$ for $i$ from 1 to $n$. We get a matrix, where each row is a table of $t^i$ for one $i$. I.e., the matrix has the elements
+$$a_{i,j} = t_j^i, \quad 1 \le j \le 101, \quad 1 \le i \le n$$
+
+A function which does not work for vector input should be "vectorized". This can be achieved by the \texttt{"map"} keyword in the function definition. Then the function will be evaluated for each element of a vector parameter. The numerical integration \texttt{integrate()} works only for scalar interval bounds. So we need to vectorize it.
+\emtcmd{function map f(x) := integrate("x\^{}x",1,x)}
+
+The \texttt{"map"} keyword vectorizes the function. The function will now work for vectors of numbers.
+\emtcmd{f([1:5])}
+\begin{verbatim}
+    [0,  2.05045,  13.7251,  113.336,  1241.03]
+\end{verbatim}
+
+\section*{Sub-Matrices and Matrix-Elements}
+
+To access a matrix element, use the bracket notation.
+\emtcmd{A=[1,2,3;4,5,6;7,8,9], A[2,2]}
+\begin{verbatim}
+                1             2             3
+                4             5             6
+                7             8             9
+    5
+\end{verbatim}
+
+We can access a complete line of a matrix.
+\emtcmd{A[2]}
+\begin{verbatim}
+    [4,  5,  6]
+\end{verbatim}
+
+In case of row or column vectors, this returns an element of the vector.
+\emtcmd{v=1:3; v[2]}
+\begin{verbatim}
+    2
+\end{verbatim}
+
+To make sure, you get the first row for a $1 \times n$ and a $m \times n$ matrix, specify all columns using an empty second index.
+\emtcmd{A[2,]}
+\begin{verbatim}
+    [4,  5,  6]
+\end{verbatim}
+
+If the index is a vector of indices, Euler will return the corresponding rows of the matrix. Here we want the first and second row of $A$.
+\emtcmd{A[[1,2]]}
+\begin{verbatim}
+                1             2             3
+                4             5             6
+\end{verbatim}
+
+We can even reorder $A$ using vectors of indices. To be precise, we do not change $A$ here, but compute a reordered version of $A$.
+\emtcmd{A[[3,2,1]]}
+\begin{verbatim}
+                7             8             9
+                4             5             6
+                1             2             3
+\end{verbatim}
+
+The index trick works with columns too. This example selects all rows of $A$ and the second and third column.
+\emtcmd{A[1:3,2:3]}
+\begin{verbatim}
+                2             3
+                5             6
+                8             9
+\end{verbatim}
+
+For abbreviation \texttt{":"} denotes all row or column indices.
+\emtcmd{A[:,3]}
+\begin{verbatim}
+                3
+                6
+                9
+\end{verbatim}
+
+Alternatively, leave the first index empty.
+\emtcmd{A[,2:3]}
+\begin{verbatim}
+                2             3
+                5             6
+                8             9
+\end{verbatim}
+
+We can also get the last line of $A$.
+\emtcmd{A[-1]}
+\begin{verbatim}
+    [7,  8,  9]
+\end{verbatim}
+
+Now let us change elements of $A$ by assigning a submatrix of $A$ to some value. This does in fact change the stored matrix $A$.
+\emtcmd{A[1,1]=4}
+\begin{verbatim}
+                4             2             3
+                4             5             6
+                7             8             9
+\end{verbatim}
+
+We can also assign a value to a row of $A$.
+\emtcmd{A[1]=[-1,-1,-1]}
+\begin{verbatim}
+               -1            -1            -1
+                4             5             6
+                7             8             9
+\end{verbatim}
+
+We can even assign to a sub-matrix if it has the proper size.
+\emtcmd{A[1:2,1:2]=[5,6;7,8]}
+\begin{verbatim}
+                5             6            -1
+                7             8             6
+                7             8             9
+\end{verbatim}
+
+Moreover, some shortcuts are allowed.
+\emtcmd{A[1:2,1:2]=0}
+\begin{verbatim}
+                0             0            -1
+                0             0             6
+                7             8             9
+\end{verbatim}
+
+A warning: Indices out of bounds return empty matrices, or an error message, depending on a system setting. The default is an error message. Remember, however, that negative indices may be used to access the elements of a matrix counting from the end.
+\emtcmd{A[4]}
+\begin{verbatim}
+    Row index 4 out of bounds!
+    Error in:
+    A[4] ...
+        ^
+\end{verbatim}
+
+\section*{Sorting and Shuffling}
+
+The function \texttt{sort()} sorts a row vector.
+\emtcmd{sort([5,6,4,8,1,9])}
+\begin{verbatim}
+    [1,  4,  5,  6,  8,  9]
+\end{verbatim}
+
+It is often necessary to know the indices of the sorted vector in the original vector. This can be used to reorder another vector in the same way. Let us shuffle a vector.
+\emtcmd{v=shuffle(1:10)}
+\begin{verbatim}
+    [4,  5,  10,  6,  8,  9,  1,  7,  2,  3]
+\end{verbatim}
+
+The indices contain the proper order of $v$.
+\emtcmd{\{vs,ind\}=sort(v); v[ind]}
+\begin{verbatim}
+    [1,  2,  3,  4,  5,  6,  7,  8,  9,  10]
+\end{verbatim}
+
+This works for string vectors too.
+\emtcmd{s=["a","d","e","a","aa","e"]}
+\begin{verbatim}
+    a
+    d
+    e
+    a
+    aa
+    e
+\end{verbatim}
+\emtcmd{\{ss,ind\}=sort(s); ss}
+\begin{verbatim}
+    a
+    a
+    aa
+    d
+    e
+    e
+\end{verbatim}
+
+As you see, the position of double entries is somewhat random.
+\emtcmd{ind}
+\begin{verbatim}
+    [4,  1,  5,  2,  6,  3]
+\end{verbatim}
+
+The function \texttt{unique} returns a sorted list of unique elements of a vector.
+\emtcmd{intrandom(1,10,10), unique(\%)}
+\begin{verbatim}
+    [4,  4,  9,  2,  6,  5,  10,  6,  5,  1]
+    [1,  2,  4,  5,  6,  9,  10]
+\end{verbatim}
+
+This works for string vectors too.
+\emtcmd{unique(s)}
+\begin{verbatim}
+    a
+    aa
+    d
+    e
+\end{verbatim}
+
+\section*{Linear Algebra}
+
+EMT has lots of functions to solve linear systems, sparse systems, or regression problems. For linear systems $Ax=b$, you can use the Gauss algorithm, the inverse matrix or a linear fit. The operator \texttt{A\textbackslash b} uses a version of the Gauss algorithm.
+\emtcmd{A=[1,2;3,4]; b=[5;6]; A\textbackslash b}
+\begin{verbatim}
+               -4
+              4.5
+\end{verbatim}
+
+For another example, we generate a $200 \times 200$ matrix and the sum of its rows. Then we solve $Ax=b$ using the inverse matrix. We measure the error as the maximal deviation of all elements from 1, which of course is the correct solution.
+\emtcmd{A=normal(200,200); b=sum(A); longest totalmax(abs(inv(A).b-1))}
+\begin{verbatim}
+      8.790745908981989e-13
+\end{verbatim}
+
+If the system does not have a solution, a linear fit minimizes the norm of the error $Ax-b$.
+\emtcmd{A=[1,2,3;4,5,6;7,8,9]}
+\begin{verbatim}
+                1             2             3
+                4             5             6
+                7             8             9
+\end{verbatim}
+
+The determinant of this matrix is 0.
+\emtcmd{det(A)}
+\begin{verbatim}
+    0
+\end{verbatim}
+
+\section*{Symbolic Matrices}
+
+Maxima has symbolic matrices. Of course, Maxima can be used for such simple linear algebra problems. We can define the matrix for Euler and Maxima with \texttt{\&:=}, and then use it in symbolic expressions. The usual \texttt{[...]} form to define matrices can be used in Euler to define symbolic matrices.
+\emtcmd{A \&= [a,1,1;1,a,1;1,1,a]; \$A}
+\emtcmd{\$\&det(A), \$\&factor(\%)}
+\emtcmd{\$\&invert(A) with a=0}
+\emtcmd{A \&= [1,a;b,2]; \$A}
+
+Like all symbolic variables, these matrices can be used in other symbolic expressions.
+\emtcmd{\$\&det(A-x*ident(2)), \$\&solve(\%,x)}
+
+The eigenvalues can also be computed automatically. The result is a vector with two vectors of eigenvalues and multiplicities.
+\emtcmd{\$\&eigenvalues([a,1;1,a])}
+
+To extract a specific eigenvector needs careful indexing.
+\emtcmd{\$\&eigenvectors([a,1;1,a]), \&\%[2][1][1]}
+\begin{verbatim}
+    [1, - 1]
+\end{verbatim}
+
+Symbolic matrices can be evaluated in Euler numerically just like other symbolic expressions.
+\emtcmd{A(a=4,b=5)}
+\begin{verbatim}
+                1             4
+                5             2
+\end{verbatim}
+
+In symbolic expressions, use \texttt{with}.
+\emtcmd{\$\&A with [a=4,b=5]}
+
+Access to rows of symbolic matrices work just like with numerical matrices.
+\emtcmd{\$\&A[1]}
+
+A symbolic expression can contain an assignment. And that changes the matrix $A$.
+\emtcmd{\&A[1,1]:=t+1; \$\&A}
+
+There are symbolic functions in Maxima to create vectors and matrices. For this, refer to the documentation of Maxima or to the tutorial about Maxima in EMT.
+\emtcmd{v \&= makelist(1/(i+j),i,1,3); \$v}
+\emtcmd{B \&:= [1,2;3,4]; \$B, \$\&invert(B)}
+
+The result can be evaluated numerically in Euler. For more information about Maxima, see the introduction to Maxima.
+\emtcmd{\$\&invert(B)()}
+\begin{verbatim}
+               -2             1
+              1.5          -0.5
+\end{verbatim}
+
+Euler has also a powerful function \texttt{xinv()}, which makes a bigger effort and gets more exact results. Note, that with \texttt{\&:=} the matrix $B$ has been defined as symbolic in symbolic expressions and as numerical in numerical expressions. So we can use it here.
+\emtcmd{longest B.xinv(B)}
+\begin{verbatim}
+                          1                       0
+                          0                       1
+\end{verbatim}
+
+E.g. the eigenvalues of $A$ can be computed numerically.
+\emtcmd{A=[1,2,3;4,5,6;7,8,9]; real(eigenvalues(A))}
+\begin{verbatim}
+    [16.1168,  -1.11684,  0]
+\end{verbatim}
+
+Or symbolically. See the tutorial about Maxima for details on this.
+\emtcmd{\$\&eigenvalues(@A)}
+
+\section*{Numerical Values in Symbolic Expressions}
+
+A symbolic expression is just a string containing an expression. If we want to define a value both for symbolic expressions and for numerical expressions, we must use \texttt{"\&:="}.
+\emtcmd{A \&:= [1,pi;4,5]}
+\begin{verbatim}
+                1       3.14159
+                4             5
+\end{verbatim}
+
+There is still a difference between the numerical and the symbolic form. When transferring the matrix to the symbolic form, fractional approximations for reals will be used.
+\emtcmd{\$\&A}
+
+To avoid this, there is the function \texttt{"mxmset(variable)"}.
+\emtcmd{mxmset(A); \$\&A}
+
+Maxima can also compute with floating point numbers, and even with big floating numbers with 32 digits. The evaluation is much slower, however.
+\emtcmd{\$\&bfloat(sqrt(2)), \$\&float(sqrt(2))}
+
+The precision of the big floating point numbers can be changed.
+\emtcmd{\&fpprec:=100; \&bfloat(pi)}
+\begin{verbatim}
+    3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068b0
+\end{verbatim}
+
+A numerical variable can be used in any symbolic expressions using \texttt{"@var"}. Note that this is only necessary, if the variable has been defined with \texttt{":="} or \texttt{"="} as a numerical variable.
+\emtcmd{B:=[1,pi;3,4]; \$\&det(@B)}
+
+\section*{Demo - Interest Rates}
+
+Below, we use Euler Math Toolbox (EMT) for the calculation of interest rates. We do that numerically and symbolically to show you how Euler can be used to solve real life problems.
+
+Assume you have a seed capital of 5000 (say in dollars).
+\emtcmd{K=5000}
+\begin{verbatim}
+    5000
+\end{verbatim}
+
+Now we assume an interest rate of $3\%$ per year. Let us add one simple rate and compute the result.
+\emtcmd{K*1.03}
+\begin{verbatim}
+    5150
+\end{verbatim}
+
+Euler would understand the following syntax too.
+\emtcmd{K+K*3\%}
+\begin{verbatim}
+    5150
+\end{verbatim}
+
+But it is easier to use the factor:
+\emtcmd{q=1+3\%, K*q}
+\begin{verbatim}
+    1.03
+    5150
+\end{verbatim}
+
+For 10 years, we can simply multiply the factors and get the final value with compound interest rates.
+\emtcmd{K*q\^{}10}
+\begin{verbatim}
+    6719.58189672
+\end{verbatim}
+
+For our purposes, we can set the format to 2 digits after the decimal dot.
+\emtcmd{format(12,2); K*q\^{}10}
+\begin{verbatim}
+        6719.58
+\end{verbatim}
+
+Let us print that rounded to 2 digits in a complete sentence.
+\emtcmd{"Starting from " + K + "\$ you get " + round(K*q\^{}10,2) + "\$."}
+\begin{verbatim}
+    Starting from 5000$ you get 6719.58$.
+\end{verbatim}
+
+What if we want to know the intermediate results from year 1 to year 9? For this, Euler's matrix language is a big help. You do not have to write a loop, but simply enter:
+\emtcmd{K*q\^{}(0:10)}
+\begin{verbatim}
+    Real 1 x 11 matrix
+        5000.00     5150.00     5304.50     5463.64     ...
+\end{verbatim}
+
+How does this miracle work? First the expression \texttt{0:10} returns a vector of integers.
+\emtcmd{short 0:10}
+\begin{verbatim}
+    [0,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10]
+\end{verbatim}
+
+Then all operators and functions in Euler can be applied to vectors element for element. So
+\emtcmd{short q\^{}(0:10)}
+\begin{verbatim}
+    [1,  1.03,  1.0609,  1.0927,  1.1255,  1.1593,  1.1941,  1.2299,
+    1.2668,  1.3048,  1.3439]
+\end{verbatim}
+is a vector of factors $q^0$ to $q^{10}$. This is multiplied by $K$, and we get the vector of values.
+\emtcmd{VK=K*q\^{}(0:10);}
+
+Of course, the realistic way to compute these interest rates would be to round to the nearest cent after each year. Let us add a function for this.
+\emtcmd{function oneyear (K) := round(K*q,2)}
+
+Let us compare the two results, with and without rounding.
+\emtcmd{longest oneyear(1234.57), longest 1234.57*q}
+\begin{verbatim}
+                    1271.61
+                  1271.6071
+\end{verbatim}
+
+Now there is no simple formula for the $n$-th year, and we must loop over the years. Euler provides many solutions for this. The easiest way is the function \texttt{iterate}, which iterates a given function a number of times.
+\emtcmd{VKr=iterate("oneyear",5000,10)}
+\begin{verbatim}
+    Real 1 x 11 matrix
+        5000.00     5150.00     5304.50     5463.64     ...
+\end{verbatim}
+
+We can print that in a friendly way, using our format with fixed decimal places.
+\emtcmd{VKr'}
+\begin{verbatim}
+        5000.00
+        5150.00
+        5304.50
+        5463.64
+        5627.55
+        5796.38
+        5970.27
+        6149.38
+        6333.86
+        6523.88
+        6719.60
+\end{verbatim}
+
+To get a specific element of the vector, we use indices in square brackets.
+\emtcmd{VKr[2], VKr[1:3]}
+\begin{verbatim}
+        5150.00
+        5000.00     5150.00     5304.50
+\end{verbatim}
+
+Surprisingly, we can also use a vector of indices. Remember that \texttt{1:3} produced the vector \texttt{[1,2,3]}. Let us compare the last element of the rounded values with the full values.
+\emtcmd{VKr[-1], VK[-1]}
+\begin{verbatim}
+        6719.60
+        6719.58
+\end{verbatim}
+
+The difference is very small.
+
+\section*{Solving Equations}
+
+Now we take a more advanced function, which adds a certain rate of money each year.
+\emtcmd{function onepay (K) := K*q+R}
+
+We do not have to specify $q$ or $R$ for the definition of the function. Only if we run the command, we have to define these values. We select $R=200$.
+\emtcmd{R=200; iterate("onepay",5000,10)}
+\begin{verbatim}
+    Real 1 x 11 matrix
+        5000.00     5350.00     5710.50     6081.82     ...
+\end{verbatim}
+
+What if we remove the same amount each year?
+\emtcmd{R=-200; iterate("onepay",5000,10)}
+\begin{verbatim}
+    Real 1 x 11 matrix
+        5000.00     4950.00     4898.50     4845.45     ...
+\end{verbatim}
+
+We see that the money decreases. Obviously, if we get only 150 of interest in the first year, but remove 200, we lose money each year. How can we determine the number of years the money will last? We would have to write a loop for this. The easiest way is to iterate long enough.
+\emtcmd{VKR=iterate("onepay",5000,50)}
+\begin{verbatim}
+    Real 1 x 51 matrix
+        5000.00     4950.00     4898.50     4845.45     ...
+\end{verbatim}
+
+Using the matrix language, we can determine the first negative value in the following way.
+\emtcmd{min(nonzeros(VKR<0))}
+\begin{verbatim}
+          48.00
+\end{verbatim}
+
+The reason for this is that \texttt{nonzeros(VKR<0)} returns a vector of indices $i$, where $\text{VKR}[i]<0$, and \texttt{min} computes the minimal index. Since vectors always start with index 1, the answer is 47 years.
+
+The function \texttt{iterate()} has one more trick. It can take an end condition as an argument. Then it will return the value and the number of iterations.
+\emtcmd{\{x,n\}=iterate("onepay",5000,till="x<0"); x, n,}
+\begin{verbatim}
+         -19.83
+          47.00
+\end{verbatim}
+
+Let us try to answer a more ambiguous question. Assume we know that the value is 0 after 50 years. What would be the interest rate? This is a question, which can only be answered numerically. Below, we will derive the necessary formulas. Then you will see that there is no easy formula for the interest rate. But for now, we aim for a numerical solution.
+
+The first step is to define a function which does the iteration $n$ times. We add all parameters to this function.
+\emtcmd{function f(K,R,P,n) := iterate("x*(1+P/100)+R",K,n;P,R)[-1]}
+
+The iteration is just as above:
+$$x_{n+1} = x_n \cdot \left(1+ \frac{P}{100}\right) + R$$
+
+But we no longer use the global value of $R$ in our expression. Functions like \texttt{iterate()} have a special trick in Euler. You can pass the values of variables in the expression as semicolon parameters. In this case $P$ and $R$. Moreover, we are only interested in the last value. So we take the index \texttt{[-1]}.
+
+Let us try a test.
+\emtcmd{f(5000,-200,3,47)}
+\begin{verbatim}
+         -19.83
+\end{verbatim}
+
+Now we can solve our problem.
+\emtcmd{solve("f(5000,-200,x,50)",3)}
+\begin{verbatim}
+           3.15
+\end{verbatim}
+
+The \texttt{solve} routine solves $\text{expression}=0$ for the variable $x$. The answer is $3.15\%$ per year. We take the start value of $3\%$ for the algorithm. The \texttt{solve()} function always needs a start value.
+
+We can use the same function to solve the following question: How much can we remove per year so that the seed capital is exhausted after 20 years assuming an interest rate of $3\%$ per year.
+\emtcmd{solve("f(5000,x,3,20)",-200)}
+\begin{verbatim}
+        -336.08
+\end{verbatim}
+
+Note that you cannot solve for the number of years, since our function assumes $n$ to be an integer value.
+
+\subsection*{Symbolic Solutions to the Interest Rate Problem}
+
+We can use the symbolic part of Euler to study the problem. First we define our function \texttt{onepay()} symbolically.
+\emtcmd{function op(K) \&= K*q+R; \$\&op(K)}
+
+We can now iterate this.
+\emtcmd{\$\&op(op(op(op(K)))), \$\&expand(\%)}
+
+We see a pattern. After $n$ periods we have:
+$$K_n = q^n K + R (1+q+\ldots+q^{n-1}) = q^n K + \frac{q^n-1}{q-1} R$$
+
+The formula is the formula for the geometric sum, which is known to Maxima.
+\emtcmd{\&sum(q\^{}k,k,0,n-1); \$\& \% = ev(\%,simpsum)}
+
+This is a bit tricky. The sum is evaluated with the flag \texttt{"simpsum"} to reduce it to the quotient. Let us make a function for this.
+\emtcmd{function fs(K,R,P,n) \&= (1+P/100)\^{}n*K + ((1+P/100)\^{}n-1)/(P/100)*R; \$\&fs(K,R,P,n)}
+
+The function does the same as our function $f$ before. But it is more effective.
+\emtcmd{longest f(5000,-200,3,47), longest fs(5000,-200,3,47)}
+\begin{verbatim}
+         -19.82504734650985
+         -19.82504734652684
+\end{verbatim}
+
+We can now use it to ask for the time $n$. When is our capital exhausted? Our initial guess is 30 years.
+\emtcmd{solve("fs(5000,-330,3,x)",30)}
+\begin{verbatim}
+          20.51
+\end{verbatim}
+
+This answer says that it will be negative after 21 years. We can also use the symbolic side of Euler to compute formulas for the payments. Assume we get a loan of $K$, and pay $n$ payments of $R$ (starting after the first year) leaving a residual debt of $K_n$ (at the time of the last payment). The formula for this is clearly
+\emtcmd{equ \&= fs(K,R,P,n)=Kn; \$\&equ}
+
+Usually this formula is given in terms of
+$$i = \frac{P}{100}$$
+\emtcmd{equ \&= (equ with P=100*i); \$\&equ}
+
+We can solve for the rate $R$ symbolically.
+\emtcmd{\$\&solve(equ,R)}
+
+As you can see from the formula, this function returns a floating point error for $i=0$. Euler plots it nevertheless. Of course, we have the following limit.
+\emtcmd{\$\&limit(R(5000,0,x,10),x,0)}
+
+Clearly, without interest we have to pay back 10 rates of 500. The equation can also be solved for $n$. It looks nicer, if we apply some simplification to it.
+\emtcmd{fn \&= solve(equ,n) | ratsimp; \$\&fn}
+
+\end{document}

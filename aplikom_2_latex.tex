@@ -1,0 +1,61 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+% Definisi warna khas Euler Math Toolbox (EMT)
+\definecolor{emtcomment}{RGB}{0, 128, 0}
+\definecolor{emtcommand}{RGB}{180, 0, 0}
+
+\begin{document}
+
+\section*{Aplikom 2}
+
+\subsection*{Pendahuluan dan Pengenalan Cara Kerja EMT}
+
+Selamat datang! Ini adalah pengantar pertama ke Euler Math Toolbox (disingkat EMT atau Euler). EMT adalah sistem terintegrasi yang merupakan perpaduan kernel numerik Euler dan program komputer aljabar Maxima. Bagian numerik, GUI, dan komunikasi dengan Maxima telah dikembangkan oleh R. Grothmann, seorang profesor matematika di Universitas Eichst\"att, Jerman. Banyak algoritma numerik dan pustaka software open source yang digunakan di dalamnya.
+
+Maxima adalah program open source yang matang dan sangat kaya untuk perhitungan simbolik dan aritmatika tak terbatas. Software ini dikelola oleh sekelompok pengembang di internet. Beberapa program lain (LaTeX, Povray, Tiny C Compiler, Python) dapat digunakan di Euler untuk memungkinkan perhitungan yang lebih cepat maupun tampilan atau grafik yang lebih baik.
+
+Yang sedang Anda baca (jika dibaca di EMT) ini adalah berkas notebook di EMT. Notebook aslinya bawaan EMT (dalam bahasa Inggris) dapat dibuka melalui menu \textbf{File}, kemudian pilih \textit{"Open Tutorials and Examples"}, lalu pilih file \texttt{"00 First Steps.en"}. Perhatikan, file notebook EMT memiliki ekstensi \texttt{".en"}. Melalui notebook ini Anda akan belajar menggunakan software Euler untuk menyelesaikan berbagai masalah matematika.
+
+Panduan ini ditulis dengan Euler dalam bentuk notebook Euler, yang berisi teks (deskriptif), baris-baris perintah, tampilan hasil perintah (numerik, ekspresi matematika, atau gambar/plot), dan gambar yang disisipkan dari file gambar.
+
+Untuk menambah jendela EMT, Anda dapat menekan \texttt{[F11]}. EMT akan menampilkan jendela grafik di layar desktop Anda. Tekan \texttt{[F11]} lagi untuk kembali ke tata letak favorit Anda. Tata letak disimpan untuk sesi berikutnya. Anda juga dapat menggunakan \texttt{[Ctrl]+[G]} untuk menyembunyikan jendela grafik. Selanjutnya Anda dapat beralih antara grafik dan teks dengan tombol \texttt{[TAB]}.
+
+Seperti yang Anda baca, notebook ini berisi tulisan (teks) berwarna \textcolor{emtcomment}{hijau}, yang dapat Anda edit dengan mengklik kanan teks atau tekan menu \textbf{Edit $\rightarrow$ Edit Comment} atau tekan \texttt{[F5]}, dan juga baris perintah EMT yang ditandai dengan \texttt{">"} dan berwarna \textcolor{emtcommand}{merah}. Anda dapat menyisipkan baris perintah baru dengan cara menekan tiga tombol bersamaan: \texttt{[Shift]+[Ctrl]+[Enter]}.
+
+\subsubsection*{Komentar (Teks Uraian)}
+
+Komentar atau teks penjelasan dapat berisi beberapa "markup" dengan sintaks sebagai berikut:
+\begin{itemize}
+    \item \texttt{latex:} $F(x) = \int_a^x f(t)\,dt$
+    \item \texttt{mathjax:} $\frac{x^2-1}{x-1}=x+1$
+    \item \texttt{maxima:} \texttt{'integrate(x\^{}3,x) = integrate(x\^{}3,x) + C}
+    \item Tautan web: \url{http://www.euler-math-toolbox.de} dan \href{http://www.google.de}{Google}
+\end{itemize}
+
+\noindent\texttt{\textcolor{emtcommand}{>} \textcolor{emtcomment}{// baris perintah diawali dengan >, komentar (keterangan) diawali dengan //}}
+
+\subsection*{Baris Perintah}
+
+Mari kita tunjukkan cara menggunakan EMT sebagai kalkulator yang sangat canggih. EMT berorientasi pada baris perintah. Anda dapat menuliskan satu atau lebih perintah dalam satu baris perintah. Setiap perintah harus diakhiri dengan koma atau titik koma.
+\begin{itemize}
+    \item Titik koma menyembunyikan output (hasil) dari perintah.
+    \item Sebuah koma mencetak hasilnya.
+    \item Setelah perintah terakhir, koma diasumsikan secara otomatis (boleh tidak ditulis).
+\end{itemize}
+
+Dalam contoh berikut, kita mendefinisikan variabel $r$ yang diberi nilai $1.25$. Output dari
+
+\end{document}

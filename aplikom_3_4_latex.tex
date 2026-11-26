@@ -1,0 +1,1266 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{fontspec}
+\usepackage[indonesian, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{english}
+\babelfont{rm}{Noto Sans}
+\babelfont{tt}{Noto Sans Mono}
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+\usepackage{amsmath, amssymb}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\definecolor{emtcomment}{RGB}{0, 128, 0}
+\definecolor{emtcommand}{RGB}{180, 0, 0}
+
+\newcommand{\emtcmd}[1]{\noindent\texttt{\textcolor{emtcommand}{>}\ #1}\par\smallskip}
+
+\begin{document}
+
+\section*{EMT untuk Perhitungan Aljabar}
+
+Pada notebook ini Anda belajar menggunakan EMT untuk melakukan berbagai perhitungan terkait dengan materi atau topik dalam Aljabar. Kegiatan yang harus Anda lakukan adalah sebagai berikut:
+
+\begin{itemize}
+    \item Membaca secara cermat dan teliti notebook ini;
+    \item Menerjemahkan teks bahasa Inggris ke bahasa Indonesia;
+    \item Mencoba contoh-contoh perhitungan (perintah EMT) dengan cara meng-ENTER setiap perintah EMT yang ada (pindahkan kursor ke baris perintah);
+    \item Jika perlu Anda dapat memodifikasi perintah yang ada dan memberikan keterangan/penjelasan tambahan terkait hasilnya;
+    \item Menyisipkan baris-baris perintah baru untuk mengerjakan soal-soal Aljabar dari file PDF yang saya berikan;
+    \item Memberi catatan hasilnya;
+    \item Jika perlu tuliskan soalnya pada teks notebook (menggunakan format LaTeX);
+    \item Gunakan tampilan hasil semua perhitungan yang eksak atau simbolik dengan format LaTeX (seperti contoh-contoh pada notebook ini).
+\end{itemize}
+
+\subsection*{Contoh Pertama}
+
+Menyederhanakan bentuk aljabar:
+$$6x^{-3}y^5 \times -7x^2y^{-9}$$
+\emtcmd{\$\&6*x\^{}(-3)*y\^{}5*-7*x\^{}2*y\^{}(-9)}
+
+Menjabarkan:
+$$(6x^{-3}+y^5)(-7x^2-y^{-9})$$
+\emtcmd{\$\&showev('expand((6*x\^{}(-3)+y\^{}5)*(-7*x\^{}2-y\^{}(-9))))}
+
+\subsection*{Baris Perintah (The Command Line)}
+
+Sebuah baris perintah pada Euler terdiri dari satu atau beberapa perintah Euler yang diikuti oleh tanda titik koma \texttt{;} atau tanda koma \texttt{,}. Tanda titik koma mencegah pencetakan hasil perhitungan. Tanda koma setelah perintah terakhir dapat dihilangkan.
+
+Baris perintah berikut hanya akan mencetak hasil dari ekspresi matematika, bukan perintah pendefinisian variabel (assignment) atau perintah format.
+\emtcmd{r:=2; h:=4; pi*r\^{}2*h/3}
+
+Perintah-perintah harus dipisahkan dengan spasi. Baris perintah berikut mencetak kedua hasilnya.
+\emtcmd{pi*2*r*h, \%+2*pi*r*h \textcolor{emtcomment}{// Ingat tanda \% menyatakan hasil perhitungan terakhir sebelumnya}}
+
+Baris perintah dieksekusi sesuai urutan pengguna menekan tombol Enter (Return). Jadi Anda akan mendapatkan nilai baru setiap kali mengeksekusi baris kedua.
+\emtcmd{x := 1;}
+\emtcmd{x := cos(x) \textcolor{emtcomment}{// nilai cosinus (x dalam radian)}}
+\emtcmd{x := cos(x)}
+
+Jika dua baris dihubungkan dengan tanda \texttt{...}, kedua baris tersebut akan selalu dieksekusi secara bersamaan.
+\emtcmd{x := 1.5; ... \\
+\hspace*{1em} x := (x+2/x)/2, x := (x+2/x)/2, x := (x+2/x)/2,}
+
+Ini juga merupakan cara yang baik untuk memecah perintah yang panjang menjadi dua baris atau lebih. Anda dapat menekan \texttt{Ctrl+Return} untuk memisahkan baris menjadi dua pada posisi kursor saat ini, atau \texttt{Ctrl+Back} untuk menggabungkan baris kembali.
+
+Untuk melipat (menyembunyikan) semua baris ganda (multi-lines), tekan \texttt{Ctrl+L}. Baris-baris berikutnya hanya akan terlihat jika salah satunya sedang aktif (difokuskan). Untuk melipat satu baris ganda, mulailah baris pertama dengan \texttt{\%+ }.
+\emtcmd{\%+ x=4+5; ... \\
+\hspace*{1em} \textcolor{emtcomment}{// Baris ini tidak akan terlihat jika kursor berada di luar baris ini}}
+
+Baris yang diawali dengan tanda \texttt{\%\%} akan sepenuhnya disembunyikan (tidak terlihat).
+
+Euler mendukung perulangan (loops) di dalam baris perintah, selama muat dalam satu baris tunggal atau baris ganda. Dalam program penuh, batasan ini tentu saja tidak berlaku. Untuk informasi lebih lanjut, lihat panduan pengenalan berikut.
+\emtcmd{x=1; for i=1 to 5; x := (x+2/x)/2, end; \textcolor{emtcomment}{// menghitung akar 2}}
+
+Penggunaan baris ganda (multi-line) diperbolehkan. Pastikan setiap baris diakhiri dengan tanda \texttt{ ...}.
+\emtcmd{x := 1.5; \textcolor{emtcomment}{// komentar diletakkan di sini sebelum tanda ...} \\
+\hspace*{1em} repeat xnew:=(x+2/x)/2; until xnew\~=x; ... \\
+\hspace*{2em} x := xnew; ... \\
+\hspace*{1em} end; ... \\
+\hspace*{1em} x,}
+
+Struktur percabangan bersyarat (conditional) juga dapat digunakan.
+\emtcmd{if E\^{}pi>pi\^{}E; then "Thought so!", endif;}
+
+Saat Anda mengeksekusi suatu perintah, kursor dapat berada di posisi mana saja pada baris perintah tersebut. Anda dapat kembali ke perintah sebelumnya atau melompat ke perintah berikutnya menggunakan tombol panah. Atau Anda dapat mengeklik bagian komentar di atas perintah untuk menuju ke perintah tersebut.
+
+Ketika Anda menggerakkan kursor di sepanjang baris, pasangan tanda kurung buka dan kurung tutup akan disorot (highlight). Perhatikan juga baris status di bagian bawah. Setelah tanda kurung buka fungsi \texttt{sqrt()}, baris status akan menampilkan teks bantuan untuk fungsi tersebut. Eksekusi perintah dengan tombol Enter.
+\emtcmd{sqrt(sin(10°)/cos(20°))}
+
+Untuk melihat bantuan mengenai perintah terbaru, buka jendela bantuan dengan menekan \texttt{F1}. Di sana, Anda dapat mengetikkan teks untuk dicari. Pada baris yang kosong, bantuan mengenai cara menggunakan jendela bantuan akan ditampilkan. Anda dapat menekan \texttt{Escape} untuk menghapus baris pencarian, atau untuk menutup jendela bantuan.
+
+Anda dapat mengeklik ganda pada perintah apa pun untuk membuka bantuan mengenai perintah tersebut. Cobalah klik ganda pada perintah \texttt{exp} di bawah ini pada baris perintah.
+\emtcmd{exp(log(2.5))}
+
+Anda juga dapat menyalin dan menempel (copy and paste) di Euler. Gunakan \texttt{Ctrl-C} dan \texttt{Ctrl-V} untuk melakukannya. Untuk menandai teks, seret mouse atau gunakan tombol \texttt{Shift} bersamaan dengan tombol panah mana pun. Selain itu, Anda dapat menyalin tanda kurung yang sedang disorot.
+
+\subsection*{Sintaks Dasar (Basic Syntax)}
+
+Euler mengenali fungsi-fungsi matematika yang umum. Seperti yang telah Anda lihat di atas, fungsi trigonometri bekerja dalam satuan radian maupun derajat. Untuk mengonversi ke derajat, tambahkan simbol derajat (dengan tombol \texttt{F7}) pada nilainya, atau gunakan fungsi \texttt{rad(x)}. Fungsi akar kuadrat disebut \texttt{sqrt} di Euler. Tentu saja, penulisan \texttt{x\^{}(1/2)} juga dimungkinkan.
+
+Untuk mendefinisikan variabel, gunakan \texttt{=} atau \texttt{:=}. Demi kejelasan, pengenalan ini menggunakan bentuk yang kedua (\texttt{:=}). Spasi tidak berpengaruh dalam ekspresi, tetapi spasi antarperintah diperlukan.
+
+Beberapa perintah dalam satu baris dipisahkan dengan \texttt{,} atau \texttt{;}. Tanda titik koma menyembunyikan keluaran (output) dari perintah. Pada akhir baris perintah, tanda \texttt{,} dianggap ada secara otomatis jika \texttt{;} tidak dituliskan.
+\emtcmd{g:=9.81; t:=2.5; 1/2*g*t\^{}2}
+
+EMT menggunakan sintaks pemrograman untuk menulis ekspresi matematika. Untuk memasukkan
+$$e^2 \cdot \left( \frac{1}{3+4 \log(0.6)}+\frac{1}{7} \right)$$
+Anda harus memasang tanda kurung yang tepat dan menggunakan tanda \texttt{/} untuk pecahan. Perhatikan tanda kurung yang disorot sebagai bantuan. Perhatikan pula bahwa konstanta Euler $e$ dinamai \texttt{E} di EMT.
+\emtcmd{E\^{}2*(1/(3+4*log(0.6))+1/7)}
+
+Untuk menghitung ekspresi yang rumit seperti
+$$\left(\frac{\frac{1}{7} + \frac{1}{8} + 2}{\frac{1}{3} + \frac{1}{2}}\right)^2 \pi$$
+Anda perlu menuliskannya dalam bentuk satu baris mendatar.
+\emtcmd{((1/7 + 1/8 + 2) / (1/3 + 1/2))\^{}2 * pi}
+
+Letakkan tanda kurung secara hati-hati di sekitar sub-ekspresi yang perlu dihitung terlebih dahulu. EMT membantu Anda dengan menyorot ekspresi yang ditutup oleh tanda kurung tutup tersebut. Anda juga harus mengetikkan nama \texttt{"pi"} untuk huruf Yunani $\pi$.
+
+Hasil dari perhitungan ini adalah bilangan titik ambang (floating point). Secara baku (default), hasil dicetak dengan ketelitian sekitar 12 digit. Pada baris perintah berikut, kita juga mempelajari cara merujuk pada hasil sebelumnya di dalam baris yang sama menggunakan tanda \texttt{\%}.
+\emtcmd{1/3+1/7, fraction \%}
+
+Sebuah perintah Euler dapat berupa ekspresi matematika atau perintah primitif. Suatu ekspresi tersusun atas operator dan fungsi. Jika diperlukan, ekspresi harus memuat tanda kurung untuk memastikan urutan pengerjaan yang benar. Jika ragu, menambahkan tanda kurung adalah langkah yang tepat. Perhatikan bahwa EMT menampilkan pasangan kurung buka dan tutup saat baris perintah diedit.
+\emtcmd{(cos(pi/4)+1)\^{}3*(sin(pi/4)+1)\^{}2}
+
+Operator numerik di dalam Euler meliputi:
+\begin{itemize}
+    \item \texttt{+} tanda plus uner atau operator penjumlahan
+    \item \texttt{-} tanda minus uner atau operator pengurangan
+    \item \texttt{*}, \texttt{/} perkalian dan pembagian
+    \item \texttt{.} perkalian matriks (dot product)
+    \item \texttt{a\^{}b} perpangkatan untuk $a$ positif atau $b$ bilangan bulat (\texttt{a**b} juga berfungsi)
+    \item \texttt{n!} operator faktorial
+\end{itemize}
+dan masih banyak lagi.
+
+Berikut adalah beberapa fungsi yang mungkin Anda perlukan. Masih banyak fungsi lainnya di EMT:
+\begin{verbatim}
+sin, cos, tan, atan, asin, acos, rad, deg
+log, exp, log10, sqrt, logbase
+bin, logbin, logfac, mod, floor, ceil, round, abs, sign
+conj, re, im, arg, conj, real, complex
+beta, betai, gamma, complexgamma, ellrf, ellf, ellrd, elle
+bitand, bitor, bitxor, bitnot
+\end{verbatim}
+
+Beberapa perintah memiliki nama alias, misalnya \texttt{ln} untuk \texttt{log}.
+\emtcmd{ln(E\^{}2), arctan(tan(0.5))}
+\emtcmd{sin(30°)}
+
+Pastikan untuk menggunakan tanda kurung biasa (round brackets) setiap kali ada keraguan mengenai urutan eksekusi! Perhitungan berikut tidak sama dengan \texttt{(2\^{}3)\^{}4}, yang merupakan aturan baku untuk \texttt{2\^{}3\^{}4} di EMT (beberapa sistem numerik lain mengerjakannya dengan urutan berbeda).
+\emtcmd{2\^{}3\^{}4, (2\^{}3)\^{}4, 2\^{}(3\^{}4)}
+
+\subsection*{Bilangan Real (Real Numbers)}
+
+Tipe data utama di Euler adalah bilangan real. Bilangan real direpresentasikan dalam format IEEE dengan ketelitian sekitar 16 digit desimal.
+\emtcmd{longest 1/3}
+
+Representasi biner (dual) internalnya membutuhkan memori sebesar 8 byte.
+\emtcmd{printdual(1/3)}
+\emtcmd{printhex(1/3)}
+
+\subsection*{String (Teks)}
+
+Sebuah string di Euler didefinisikan dengan tanda kutip ganda \texttt{"..."}.
+\emtcmd{"A string can contain anything."}
+
+String dapat digabungkan menggunakan operator \texttt{|} atau \texttt{+}. Cara ini juga berlaku untuk angka, yang pada kasus tersebut akan otomatis dikonversi menjadi string.
+\emtcmd{"The area of the circle with radius " + 2 + " cm is " + pi*4 + " cm\^{}2."}
+
+Fungsi \texttt{print} juga dapat mengonversi angka menjadi string. Fungsi ini dapat menerima parameter jumlah digit dan jumlah tempat desimal (0 untuk keluaran rapat/padat), serta satuan yang opsional.
+\emtcmd{"Golden Ratio : " + print((1+sqrt(5))/2,5,0)}
+
+Terdapat string khusus bernama \texttt{none}, yang tidak akan dicetak. Nilai ini dikembalikan oleh beberapa fungsi ketika hasilnya tidak diperlukan. (Nilai ini dikembalikan secara otomatis jika suatu fungsi tidak memiliki pernyataan \texttt{return}.)
+\emtcmd{none}
+
+Untuk mengonversi string menjadi angka, cukup evaluasi string tersebut dengan tanda kurung \texttt{()}. Cara ini berlaku juga untuk ekspresi matematika (lihat di bawah).
+\emtcmd{"1234.5"()}
+
+Untuk mendefinisikan vektor string, gunakan notasi vektor \texttt{[...]}.
+\emtcmd{v:=["affe","charlie","bravo"]}
+
+Vektor string kosong dilambangkan dengan \texttt{[none]}. Vektor-vektor string dapat digabungkan.
+\emtcmd{w:=[none]; w|v|v}
+
+String dapat memuat karakter Unicode. Secara internal, string ini menggunakan pengodean UTF-8. Untuk membuat string semacam itu, gunakan awalan \texttt{u"..."} dan salah satu entitas HTML. String Unicode dapat digabungkan seperti string lainnya.
+\emtcmd{u"\&alpha; = " + 45 + u"\&deg;" \textcolor{emtcomment}{// pdfLaTeX mungkin gagal menampilkan secara benar}}
+
+Di dalam komentar, entitas yang sama seperti $\alpha$, $\beta$, dan sebagainya dapat digunakan. Ini bisa menjadi alternatif cepat selain LaTeX.
+
+Terdapat beberapa fungsi untuk membuat atau menganalisis string Unicode. Fungsi \texttt{strtochar()} akan mengenali string Unicode dan menerjemahkannya dengan benar ke kode karakter.
+\emtcmd{v=strtochar(u"\&Auml; is a German letter")}
+
+Hasilnya adalah vektor berisi bilangan Unicode. Fungsi kebalikannya adalah \texttt{chartoutf()}.
+\emtcmd{v[1]=strtochar(u"\&Uuml;")[1]; chartoutf(v)}
+
+Fungsi \texttt{utf()} dapat menerjemahkan string yang berisi entitas di dalam sebuah variabel menjadi string Unicode.
+\emtcmd{s="We have \&alpha;=\&beta;."; utf(s) \textcolor{emtcomment}{// pdfLaTeX mungkin gagal menampilkan secara benar}}
+
+Penggunaan entitas numerik juga dimungkinkan.
+\emtcmd{u"\&\#196;hnliches"}
+
+\subsection*{Nilai Boolean (Boolean Values)}
+
+Nilai Boolean direpresentasikan dengan angka 1 = benar (true) atau 0 = salah (false) di Euler. String dapat dibandingkan, sama seperti perbandingan pada angka.
+\emtcmd{2<1, "apel"<"banana"}
+
+Operator logika "dan" adalah \texttt{\&\&} sedangkan "atau" adalah \texttt{||}, seperti pada bahasa pemrograman C. (Kata \texttt{and} dan \texttt{or} hanya dapat digunakan di dalam kondisi pernyataan \texttt{if}.)
+\emtcmd{2<E \&\& E<3}
+
+Operator Boolean mematuhi aturan bahasa matriks di Euler.
+\emtcmd{(1:10)>5, nonzeros(\%)}
+
+Anda dapat menggunakan fungsi \texttt{nonzeros()} untuk mengekstrak elemen-elemen tertentu dari sebuah vektor. Pada contoh berikut, kita menggunakan fungsi kondisional \texttt{isprime(n)}.
+\emtcmd{N=2|3:2:99 \textcolor{emtcomment}{// N berisi elemen 2 dan bilangan-bilangan ganjil dari 3 s.d. 99}}
+\emtcmd{N[nonzeros(isprime(N))] \textcolor{emtcomment}{// pilih anggota-anggota N yang merupakan bilangan prima}}
+
+\subsection*{Format Keluaran (Output Formats)}
+
+Format keluaran baku dari EMT mencetak 12 digit. Untuk memastikan kita melihat format bakunya, kita atur ulang formatnya.
+\emtcmd{defformat; pi}
+
+Secara internal, EMT menggunakan standar IEEE untuk bilangan presisi ganda (double) dengan sekitar 16 digit desimal. Untuk melihat jumlah digit secara penuh, gunakan perintah \texttt{"longestformat"}, atau gunakan operator \texttt{"longest"} untuk menampilkan hasil dalam format terpanjang.
+\emtcmd{longest pi}
+
+Berikut adalah representasi heksadesimal internal dari sebuah bilangan double.
+\emtcmd{printhex(pi)}
+
+Format keluaran dapat diubah secara permanen menggunakan perintah \texttt{format}.
+\emtcmd{format(12,5); 1/3, pi, sin(1)}
+
+Format bakunya adalah \texttt{format(12)}.
+\emtcmd{format(12); 1/3}
+
+Fungsi-fungsi seperti \texttt{"shortestformat"}, \texttt{"shortformat"}, \texttt{"longformat"} bekerja untuk vektor dengan cara berikut.
+\emtcmd{shortestformat; random(3,8)}
+
+Format baku untuk skalar adalah \texttt{format(12)}, tetapi ini dapat diubah.
+\emtcmd{setscalarformat(5); pi}
+
+Fungsi \texttt{"longestformat"} juga mengatur format skalar tersebut.
+\emtcmd{longestformat; pi}
+
+Sebagai referensi, berikut adalah daftar format keluaran yang paling penting:
+\begin{verbatim}
+shortestformat  shortformat  longformat  longestformat
+format(length,digits)  goodformat(length)
+fracformat(length)
+defformat
+\end{verbatim}
+
+Ketelitian internal EMT adalah sekitar 16 tempat desimal, sesuai dengan standar IEEE. Angka disimpan dalam format internal ini. Namun, format tampilan keluaran EMT dapat diatur secara fleksibel.
+\emtcmd{longestformat; pi,}
+\emtcmd{format(10,5); pi}
+
+Format bakunya adalah \texttt{defformat()}.
+\emtcmd{defformat; \textcolor{emtcomment}{// default}}
+
+Terdapat operator singkat yang hanya mencetak satu nilai. Operator \texttt{"longest"} akan mencetak semua digit valid dari suatu bilangan.
+\emtcmd{longest pi\^{}2/2}
+
+Terdapat pula operator singkat untuk mencetak hasil dalam format pecahan. Kita telah menggunakannya di atas.
+\emtcmd{fraction 1+1/2+1/3+1/4}
+
+Karena format internal menggunakan cara biner untuk menyimpan bilangan, nilai $0.1$ tidak dapat direpresentasikan secara eksak. Galat pembulatan akan sedikit terakumulasi, seperti terlihat pada perhitungan berikut.
+\emtcmd{longest 0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1-1}
+
+Namun dengan format baku \texttt{"longformat"}, Anda tidak akan menyadari selisih kecil ini. Demi kenyamanan, keluaran bilangan yang sangat kecil akan ditampilkan sebagai 0.
+\emtcmd{0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1-1}
+
+\section*{Ekspresi (Expressions)}
+
+String atau nama variabel dapat digunakan untuk menyimpan ekspresi matematika, yang dapat dievaluasi oleh EMT. Untuk melakukannya, gunakan tanda kurung setelah nama ekspresi. Jika Anda ingin menggunakan string sebagai ekspresi, gunakan konvensi penamaan \texttt{"fx"} atau \texttt{"fxy"}, dan sebagainya. Ekspresi memiliki prioritas lebih tinggi daripada fungsi.
+
+Variabel global dapat digunakan dalam evaluasi ekspresi.
+\emtcmd{r:=2; fx:="pi*r\^{}2"; longest fx()}
+
+Parameter diberikan kepada variabel $x$, $y$, dan $z$ secara berurutan. Parameter tambahan dapat disertakan menggunakan parameter yang ditetapkan nilainya (assigned parameters).
+\emtcmd{fx:="a*sin(x)\^{}2"; fx(5,a=-1)}
+
+Perhatikan bahwa ekspresi akan selalu menggunakan variabel global, meskipun terdapat variabel di dalam fungsi dengan nama yang sama. (Jika tidak demikian, evaluasi ekspresi di dalam fungsi dapat memberikan hasil yang sangat membingungkan bagi pengguna yang memanggil fungsi tersebut.)
+\emtcmd{at:=4; function f(expr,x,at) := expr(x); ... \\
+\hspace*{1em} f("at*x\^{}2",3,5) \textcolor{emtcomment}{// menghitung 4*3\^{}2 bukan 5*3\^{}2}}
+
+Jika Anda ingin menggunakan nilai lain untuk \texttt{"at"} selain nilai globalnya, Anda perlu menambahkan \texttt{"at=nilai"}.
+\emtcmd{at:=4; function f(expr,x,a) := expr(x,at=a); ... \\
+\hspace*{1em} f("at*x\^{}2",3,5)}
+
+Sebagai referensi, perlu dicatat bahwa koleksi panggilan (call collections) dapat memuat ekspresi. Dengan demikian kita dapat membuat contoh di atas menjadi seperti berikut.
+\emtcmd{at:=4; function f(expr,x) := expr(x); ... \\
+\hspace*{1em} f(\{\{"at*x\^{}2",at=5\}\},3)}
+
+Ekspresi dalam variabel $x$ sering digunakan persis seperti fungsi. Perhatikan bahwa mendefinisikan fungsi dengan nama yang sama dengan ekspresi simbolik global akan menghapus variabel simbolik tersebut untuk menghindari kerancuan antara ekspresi simbolik dan fungsi.
+\emtcmd{f \&= 5*x;}
+\emtcmd{function f(x) := 6*x;}
+\emtcmd{f(2)}
+
+Sesuai konvensi, ekspresi simbolik maupun numerik sebaiknya dinamai \texttt{fx}, \texttt{fxy}, dan sebagainya. Skema penamaan ini sebaiknya tidak digunakan untuk fungsi.
+\emtcmd{fx \&= diff(x\^{}x,x); \$\&fx}
+
+Bentuk khusus dari sebuah ekspresi memungkinkan penggunaan variabel apa pun sebagai parameter tanpa nama untuk evaluasi ekspresi, tidak hanya \texttt{"x"}, \texttt{"y"}, dan seterusnya. Untuk itu, awali ekspresi dengan \texttt{"@(variabel) ..."}.
+\emtcmd{"@(a,b) a\^{}2+b\^{}2", \%(4,5)}
+
+Hal ini memungkinkan manipulasi ekspresi dalam variabel lain untuk fungsi-fungsi EMT yang membutuhkan ekspresi dalam variabel \texttt{"x"}.
+
+Cara paling dasar untuk mendefinisikan fungsi sederhana adalah dengan menyimpan rumusnya ke dalam ekspresi simbolik atau numerik. Jika variabel utamanya adalah $x$, ekspresi tersebut dapat dievaluasi persis seperti fungsi. Seperti yang terlihat pada contoh berikut, variabel global terbaca selama proses evaluasi.
+\emtcmd{fx \&= x\^{}3-a*x; ... \\
+\hspace*{1em} a=1.2; fx(0.5)}
+
+Semua variabel lain di dalam ekspresi dapat ditentukan nilainya saat evaluasi menggunakan parameter yang ditetapkan.
+\emtcmd{fx(0.5,a=1.1)}
+
+Sebuah ekspresi tidak harus bersifat simbolik. Hal ini diperlukan apabila ekspresi tersebut memuat fungsi-fungsi yang hanya dikenali oleh kernel numerik, dan tidak dikenali di dalam Maxima.
+
+\section*{Matematika Simbolik (Symbolic Mathematics)}
+
+EMT melakukan perhitungan matematika simbolik dengan bantuan Maxima. Pengguna yang sudah mahir Maxima perlu memperhatikan adanya perbedaan sintaks antara sintaks asli Maxima dengan sintaks baku ekspresi simbolik di EMT.
+
+Matematika simbolik terintegrasi secara mulus ke dalam Euler menggunakan tanda \texttt{\&}. Setiap ekspresi yang diawali dengan \texttt{\&} merupakan ekspresi simbolik. Ekspresi ini dievaluasi dan dicetak oleh Maxima.
+
+Pertama-tama, Maxima memiliki aritmetika "tak terhingga" yang dapat menangani bilangan yang sangat besar.
+\emtcmd{\$\&44!}
+
+Dengan cara ini, Anda dapat menghitung hasil bilangan besar secara eksak. Mari kita hitung
+$$C(44,10) = \frac{44!}{34! \cdot 10!}$$
+\emtcmd{\$\& 44!/(34!*10!) \textcolor{emtcomment}{// nilai C(44,10)}}
+
+Tentu saja, Maxima memiliki fungsi yang lebih efisien untuk perhitungan ini (begitu pula bagian numerik EMT).
+\emtcmd{\$binomial(44,10) \textcolor{emtcomment}{// menghitung C(44,10) menggunakan fungsi binomial()}}
+
+Untuk mempelajari lebih lanjut tentang fungsi tertentu, klik ganda pada fungsi tersebut. Misalnya, coba klik ganda pada \texttt{"\&binomial"} pada baris perintah sebelumnya. Tindakan ini akan membuka dokumentasi Maxima seperti yang disediakan oleh pembuat program tersebut.
+
+Anda akan mengetahui bahwa bentuk aljabar berikut juga dapat dikerjakan.
+$$C(x,3)=\frac{x!}{(x-3)!3!}=\frac{(x-2)(x-1)x}{6}$$
+\emtcmd{\$binomial(x,3) \textcolor{emtcomment}{// C(x,3)}}
+
+Jika Anda ingin mengganti $x$ dengan nilai tertentu, gunakan kata kunci \texttt{"with"}.
+\emtcmd{\$\&binomial(x,3) with x=10 \textcolor{emtcomment}{// substitusi x=10 ke C(x,3)}}
+
+Dengan cara tersebut, Anda dapat menggunakan solusi dari suatu persamaan ke dalam persamaan lainnya.
+
+Ekspresi simbolik dicetak oleh Maxima dalam bentuk 2D. Penyebabnya adalah adanya penanda simbolik khusus di dalam string tersebut. Untuk mencetak ekspresi simbolik dengan LaTeX, gunakan tanda \texttt{\$} di depan \texttt{\&} (atau Anda dapat menghilangkan \texttt{\&}) sebelum perintah. Jangan jalankan perintah Maxima dengan tanda \texttt{\$} jika Anda tidak memiliki LaTeX terpasang di komputer Anda.
+\emtcmd{\$(3+x)/(x\^{}2+1)}
+
+Ekspresi simbolik diuraikan (parsed) oleh Euler. Jika Anda memerlukan sintaks yang kompleks dalam satu ekspresi, Anda dapat mengapit ekspresi tersebut di dalam tanda kutip \texttt{"..."}. Menggunakan lebih dari satu ekspresi sederhana sebenarnya dimungkinkan, tetapi sangat tidak disarankan.
+\emtcmd{\&"v := 5; v\^{}2"}
+
+Sebagai pelengkap, perlu dicatat bahwa ekspresi simbolik dapat digunakan di dalam program, tetapi harus diapit tanda kutip. Selain itu, jauh lebih efektif memanggil Maxima pada waktu kompilasi (compile time) jika memungkinkan.
+\emtcmd{\$\&expand((1+x)\^{}4), \$\&factor(diff(\%,x)) \textcolor{emtcomment}{// diff: turunan, factor: pemfaktoran}}
+
+Sekali lagi, tanda \texttt{\%} merujuk pada hasil perhitungan sebelumnya.
+
+Untuk mempermudah pekerjaan, kita dapat menyimpan solusi ke dalam variabel simbolik. Variabel simbolik didefinisikan dengan operator \texttt{"\&="}.
+\emtcmd{fx \&= (x+1)/(x\^{}4+1); \$\&fx}
+
+Variabel ekspresi simbolik dapat digunakan di dalam ekspresi simbolik lainnya.
+\emtcmd{\$\&factor(diff(fx,x))}
+
+Input langsung perintah Maxima juga tersedia. Awali baris perintah dengan tanda \texttt{::}. Sintaks Maxima disesuaikan dengan sintaks EMT (yang disebut "mode kompatibilitas").
+\emtcmd{\&factor(20!)}
+\emtcmd{::: factor(10!)}
+\emtcmd{:: factor(20!)}
+
+Jika Anda sudah mahir menggunakan Maxima, Anda mungkin ingin memakai sintaks asli Maxima. Anda dapat melakukannya dengan awalan \texttt{:::}.
+\emtcmd{::: av:g\$ av\^{}2;}
+\emtcmd{fx \&= x\^{}3*exp(x), \$fx}
+
+Variabel semacam ini dapat digunakan dalam ekspresi simbolik lainnya. Perhatikan bahwa pada perintah berikut, ruas kanan dari \texttt{\&=} dievaluasi terlebih dahulu sebelum dimasukkan ke variabel.
+\emtcmd{\&(fx with x=5), \$\%, \&float(\%)}
+\emtcmd{fx(5)}
+
+Untuk mengevaluasi suatu ekspresi pada nilai variabel tertentu, Anda dapat menggunakan operator \texttt{"with"}. Baris perintah berikut juga menunjukkan bahwa Maxima dapat mengevaluasi ekspresi secara numerik menggunakan fungsi \texttt{float()}.
+\emtcmd{\&(fx with x=10)-(fx with x=5), \&float(\%)}
+\emtcmd{\$factor(diff(fx,x,2))}
+
+Untuk mendapatkan kode LaTeX dari suatu ekspresi, Anda dapat menggunakan perintah \texttt{tex}.
+\emtcmd{tex(fx)}
+
+Ekspresi simbolik dapat dievaluasi layaknya ekspresi numerik.
+\emtcmd{fx(0.5)}
+
+Di dalam ekspresi simbolik, pemanggilan langsung seperti di atas tidak berfungsi karena Maxima tidak mendukungnya. Sebagai gantinya, gunakan sintaks \texttt{"with"} (bentuk yang lebih rapi dari perintah \texttt{at(...)} milik Maxima).
+\emtcmd{\$\&fx with x=1/2}
+
+Substitusi nilai menggunakan \texttt{"with"} juga dapat berupa bentuk simbolik.
+\emtcmd{\$\&fx with x=1+t}
+
+Perintah \texttt{solve} menyelesaikan ekspresi simbolik terhadap suatu variabel di Maxima. Hasilnya berupa vektor solusi.
+\emtcmd{\$\&solve(x\^{}2+x=4,x)}
+
+Bandingkan dengan perintah numerik \texttt{"solve"} di Euler, yang membutuhkan nilai tebakan awal, dan secara opsional nilai target.
+\emtcmd{solve("x\^{}2+x",1,y=4)}
+
+Nilai numerik dari solusi simbolik dapat dihitung dengan mengevaluasi hasil simbolik tersebut. Euler akan membaca melewati tanda \texttt{x=} dan seterusnya. Jika Anda tidak membutuhkan hasil numerik untuk perhitungan lanjutan, Anda juga dapat membiarkan Maxima mencari nilai numeriknya.
+\emtcmd{sol \&= solve(x\^{}2+2*x=4,x); \$\&sol, sol(), \$\&float(sol)}
+
+Untuk mengambil satu solusi simbolik tertentu, seseorang dapat menggunakan \texttt{"with"} beserta indeksnya.
+\emtcmd{\$\&solve(x\^{}2+x=1,x), x2 \&= x with \%[2]; \$\&x2}
+
+Untuk menyelesaikan sistem persamaan, gunakan vektor persamaan. Hasilnya berupa vektor berisi himpunan solusi.
+\emtcmd{sol \&= solve([x+y=3,x\^{}2+y\^{}2=5],[x,y]); \$\&sol, \$\&x*y with sol[1]}
+
+Ekspresi simbolik dapat memiliki penanda (flags), yang menunjukkan perlakuan khusus di dalam Maxima. Beberapa flag dapat digunakan sebagai perintah mandiri, sementara yang lain tidak. Flag ditambahkan dengan tanda \texttt{|} (bentuk yang lebih ringkas dari \texttt{"ev(...,flags)"}).
+\emtcmd{\$\& diff((x\^{}3-1)/(x+1),x) \textcolor{emtcomment}{// turunan bentuk pecahan}}
+\emtcmd{\$\& diff((x\^{}3-1)/(x+1),x) | ratsimp \textcolor{emtcomment}{// menyederhanakan pecahan rasional}}
+\emtcmd{\$\&factor(\%)}
+
+\section*{Fungsi (Functions)}
+
+Di dalam EMT, fungsi adalah program yang didefinisikan dengan perintah \texttt{"function"}. Fungsi dapat berupa fungsi satu baris (one-line function) maupun fungsi multibaris (multiline function).
+
+Fungsi satu baris dapat bersifat numerik atau simbolik. Fungsi numerik satu baris didefinisikan dengan \texttt{:=}.
+\emtcmd{function f(x) := x*sqrt(x\^{}2+1)}
+
+Sebagai gambaran umum, kita tunjukkan semua kemungkinan definisi fungsi satu baris. Sebuah fungsi dapat dievaluasi persis seperti fungsi bawaan Euler.
+\emtcmd{f(2)}
+
+Fungsi ini juga akan bekerja untuk input vektor, mengikuti aturan bahasa matriks Euler, karena ekspresi yang digunakan di dalam fungsi sudah tervektorisasi.
+\emtcmd{f(0:0.1:1)}
+
+Fungsi dapat digambarkan grafiknya maupun dicari akarnya. Alih-alih menuliskan ekspresi, kita cukup memberikan nama fungsinya saja. Berbeda dengan ekspresi simbolik atau numerik, nama fungsi harus dituliskan di dalam tanda kutip (string).
+\emtcmd{solve("f",1,y=1)}
+
+Secara baku, jika Anda perlu menimpa (overwrite) fungsi bawaan, Anda harus menambahkan kata kunci \texttt{"overwrite"}. Menimpa fungsi bawaan cukup berisiko dan dapat menimbulkan masalah bagi fungsi lain yang bergantung padanya. Anda tetap dapat memanggil fungsi bawaan aslinya dengan awalan \texttt{\_...}, jika fungsi tersebut berada di dalam inti (core) Euler.
+\emtcmd{function overwrite sin (x) := \_sin(x°) \textcolor{emtcomment}{// mendefinisikan ulang sinus dalam derajat}}
+\emtcmd{sin(45)}
+
+Sebaiknya kita hapus pendefinisian ulang fungsi \texttt{sin} ini agar kembali normal.
+\emtcmd{forget sin; sin(pi/4)}
+
+\subsection*{Parameter Bawaan (Default Parameters)}
+
+Fungsi numerik dapat memiliki parameter bawaan (default).
+\emtcmd{function f(x,a=1) := a*x\^{}2}
+
+Mengabaikan parameter kedua akan membuat fungsi menggunakan nilai bawaannya.
+\emtcmd{f(4)}
+
+Mengisikan nilai parameter akan menimpa nilai bawaan tersebut.
+\emtcmd{f(4,5)}
+
+Parameter yang ditetapkan nilainya (assigned parameter) juga akan menimpanya. Cara ini digunakan oleh banyak fungsi Euler seperti \texttt{plot2d} dan \texttt{plot3d}.
+\emtcmd{f(4,a=1)}
+
+Jika suatu variabel bukan merupakan parameter, variabel tersebut harus bersifat global. Fungsi satu baris dapat membaca variabel global.
+\emtcmd{function f(x) := a*x\^{}2}
+\emtcmd{a=6; f(2)}
+
+Namun, parameter yang ditetapkan nilainya saat pemanggilan akan menimpa nilai global tersebut. Jika argumen tidak berada dalam daftar parameter yang telah didefinisikan sebelumnya, argumen tersebut harus dideklarasikan menggunakan \texttt{:=}!
+\emtcmd{f(2,a:=5)}
+
+Fungsi simbolik didefinisikan dengan \texttt{"\&="}. Fungsi ini dikenali baik di Euler maupun Maxima, dan bekerja di kedua lingkungan tersebut. Ekspresi pendefinisiannya diproses melalui Maxima terlebih dahulu sebelum disimpan.
+\emtcmd{function g(x) \&= x\^{}3-x*exp(-x); \$\&g(x)}
+
+Fungsi simbolik dapat digunakan di dalam ekspresi simbolik lainnya.
+\emtcmd{\$\&diff(g(x),x), \$\&\% with x=4/3}
+
+Fungsi simbolik juga dapat digunakan dalam ekspresi numerik. Tentu saja, ini hanya akan berhasil jika EMT dapat menerjemahkan semua komponen di dalam fungsi tersebut secara numerik.
+\emtcmd{g(5+g(1))}
+
+Fungsi simbolik dapat digunakan untuk mendefinisikan fungsi atau ekspresi simbolik lainnya.
+\emtcmd{function G(x) \&= factor(integrate(g(x),x)); \$\&G(c) \textcolor{emtcomment}{// integrate: mengintegralkan}}
+\emtcmd{solve(\&g(x),0.5)}
+
+Perintah berikut juga berfungsi, karena Euler akan menggunakan ekspresi simbolik di dalam fungsi \texttt{g} apabila tidak menemukan variabel simbolik \texttt{g}, selama terdapat fungsi simbolik bernama \texttt{g}.
+\emtcmd{solve(\&g,0.5)}
+\emtcmd{function P(x,n) \&= (2*x-1)\^{}n; \$\&P(x,n)}
+\emtcmd{function Q(x,n) \&= (x+2)\^{}n; \$\&Q(x,n)}
+\emtcmd{\$\&P(x,4), \$\&expand(\%)}
+\emtcmd{P(3,4)}
+\emtcmd{\$\&P(x,4)+ Q(x,3), \$\&expand(\%)}
+\emtcmd{\$\&P(x,4)-Q(x,3), \$\&expand(\%), \$\&factor(\%)}
+\emtcmd{\$\&P(x,4)*Q(x,3), \$\&expand(\%), \$\&factor(\%)}
+\emtcmd{\$\&P(x,4)/Q(x,1), \$\&expand(\%), \$\&factor(\%)}
+\emtcmd{function f(x) \&= x\^{}3-x; \$\&f(x)}
+
+Dengan \texttt{"\&="}, fungsi bersifat simbolik, dan dapat digunakan dalam ekspresi simbolik lainnya.
+\emtcmd{\$\&integrate(f(x),x)}
+
+Dengan \texttt{":="}, fungsi bersifat numerik. Contoh yang tepat adalah integral tentu seperti
+$$f(x) = \int_1^x t^t \, dt,$$
+yang tidak dapat dievaluasi secara simbolik.
+
+Jika kita mendefinisikan ulang fungsi tersebut dengan kata kunci \texttt{"map"}, fungsi dapat digunakan untuk vektor $x$. Secara internal, fungsi dipanggil satu per satu untuk setiap nilai $x$, dan hasilnya disimpan ke dalam sebuah vektor.
+\emtcmd{function map f(x) := integrate("x\^{}x",1,x)}
+\emtcmd{f(0:0.5:2)}
+
+Fungsi dapat memiliki nilai bawaan untuk parameternya.
+\emtcmd{function mylog (x,base=10) := ln(x)/ln(base);}
+
+Sekarang fungsi dapat dipanggil dengan atau tanpa menyertakan parameter \texttt{"base"}.
+\emtcmd{mylog(100), mylog(2\^{}6.7,2)}
+
+Selain itu, penggunaan parameter yang ditetapkan nilainya saat pemanggilan juga dimungkinkan.
+\emtcmd{mylog(E\^{}2,base=E)}
+
+Sering kali kita ingin menggunakan fungsi untuk vektor di satu tempat, dan untuk elemen individual di tempat lain. Hal ini dimungkinkan menggunakan parameter vektor.
+\emtcmd{function f([a,b]) \&= a\^{}2+b\^{}2-a*b+b; \$\&f(a,b), \$\&f(x,y)}
+
+Fungsi simbolik semacam ini dapat digunakan untuk variabel-variabel simbolik. Namun, fungsi tersebut juga dapat dipanggil menggunakan vektor numerik.
+\emtcmd{v=[3,4]; f(v)}
+
+Terdapat juga fungsi yang murni simbolik, yang tidak dapat dievaluasi secara numerik.
+\emtcmd{function lapl(expr,x,y) \&\&= diff(expr,x,2)+diff(expr,y,2) \textcolor{emtcomment}{// turunan parsial kedua}}
+\emtcmd{\$\&realpart((x+I*y)\^{}4), \$\&lapl(\%,x,y)}
+
+Namun tentu saja, fungsi murni simbolik dapat digunakan dalam ekspresi simbolik atau dalam pendefinisian fungsi simbolik lainnya.
+\emtcmd{function f(x,y) \&= factor(lapl((x+y\^{}2)\^{}5,x,y)); \$\&f(x,y)}
+
+Sebagai ringkasan:
+\begin{itemize}
+    \item \texttt{\&=} mendefinisikan fungsi simbolik,
+    \item \texttt{:=} mendefinisikan fungsi numerik,
+    \item \texttt{\&\&=} mendefinisikan fungsi murni simbolik.
+\end{itemize}
+
+\section*{Menyelesaikan Persamaan / Ekspresi (Solving Expressions)}
+
+Ekspresi matematika dapat diselesaikan baik secara numerik maupun simbolik.
+
+Untuk menyelesaikan ekspresi sederhana satu variabel, kita dapat menggunakan fungsi \texttt{solve()}. Fungsi ini membutuhkan nilai tebakan awal untuk memulai pencarian akar. Secara internal, \texttt{solve()} menggunakan metode sekan (secant method).
+\emtcmd{solve("x\^{}2-2",1)}
+
+Penyelesaian persamaan juga bekerja untuk ekspresi simbolik. Perhatikan fungsi berikut.
+\emtcmd{\$\&solve(x\^{}2=2,x)}
+\emtcmd{\$\&solve(x\^{}2-2,x)}
+\emtcmd{\$\&solve(a*x\^{}2+b*x+c=0,x)}
+\emtcmd{\$\&solve([a*x+b*y=c,d*x+e*y=f],[x,y])}
+\emtcmd{px \&= 4*x\^{}8+x\^{}7-x\^{}4-x; \$\&px}
+
+Sekarang kita mencari titik di mana polinomial tersebut bernilai 2. Di dalam \texttt{solve()}, nilai target baku \texttt{y=0} dapat diubah menggunakan variabel yang ditetapkan nilainya. Kita gunakan \texttt{y=2} dan memeriksa kebenarannya dengan mengevaluasi polinomial pada hasil yang diperoleh.
+\emtcmd{solve(px,1,y=2), px(\%)}
+
+Menyelesaikan ekspresi simbolik dalam bentuk simbolik akan mengembalikan daftar solusi. Kita menggunakan penyelesai simbolik \texttt{solve()} yang disediakan oleh Maxima.
+\emtcmd{sol \&= solve(x\^{}2-x-1,x); \$\&sol}
+
+Cara termudah untuk mendapatkan nilai numeriknya adalah dengan mengevaluasi solusi tersebut secara numerik layaknya suatu ekspresi.
+\emtcmd{longest sol()}
+
+Untuk menggunakan solusi simbolik tersebut di dalam ekspresi lain, cara termudah adalah memakai kata kunci \texttt{"with"}.
+\emtcmd{\$\&x\^{}2 with sol[1], \$\&expand(x\^{}2-x-1 with sol[2])}
+
+Penyelesaian sistem persamaan secara simbolik dapat dilakukan dengan vektor persamaan dan fungsi simbolik \texttt{solve()}. Jawabannya berupa daftar dari daftar persamaan solusi.
+\emtcmd{\$\&solve([x+y=2,x\^{}3+2*y+x=4],[x,y])}
+
+Fungsi \texttt{f()} dapat mengakses variabel global. Namun sering kali kita ingin menggunakan parameter lokal:
+$$a^x-x^a = 0.1$$
+dengan $a=3$.
+\emtcmd{function f(x,a) := x\^{}a-a\^{}x;}
+
+Salah satu cara meneruskan parameter tambahan ke \texttt{f()} adalah menggunakan daftar (list) berisi nama fungsi dan parameternya (cara lainnya adalah menggunakan parameter titik koma).
+\emtcmd{solve(\{\{"f",3\}\},2,y=0.1)}
+
+Cara ini juga berlaku untuk ekspresi. Namun pada kasus ekspresi, elemen daftar yang diberi nama harus digunakan. (Pembahasan lebih lanjut tentang list ada di tutorial sintaks EMT).
+\emtcmd{solve(\{\{"x\^{}a-a\^{}x",a=3\}\},2,y=0.1)}
+
+\section*{Menyelesaikan Pertidaksamaan}
+
+Untuk menyelesaikan pertidaksamaan, EMT tidak akan dapat melakukannya, melainkan dengan bantuan Maxima, artinya secara eksak (simbolik). Perintah Maxima yang digunakan adalah \texttt{fourier\_elim()}, yang harus dipanggil dengan perintah \texttt{"load(fourier\_elim)"} terlebih dahulu.
+\emtcmd{\&load(fourier\_elim)}
+\emtcmd{\$\&fourier\_elim([x\^{}2 - 1>0],[x]) \textcolor{emtcomment}{// x\^{}2-1 > 0}}
+\emtcmd{\$\&fourier\_elim([x\^{}2 - 1<0],[x]) \textcolor{emtcomment}{// x\^{}2-1 < 0}}
+\emtcmd{\$\&fourier\_elim([x\^{}2 - 1 \# 0],[x]) \textcolor{emtcomment}{// x\^{}2-1 <> 0}}
+\emtcmd{\$\&fourier\_elim([x \# 6],[x])}
+\emtcmd{\$\&fourier\_elim([x < 1, x > 1],[x]) \textcolor{emtcomment}{// tidak memiliki penyelesaian}}
+\emtcmd{\$\&fourier\_elim([minf < x, x < inf],[x]) \textcolor{emtcomment}{// solusinya R}}
+\emtcmd{\$\&fourier\_elim([x\^{}3 - 1 > 0],[x])}
+\emtcmd{\$\&fourier\_elim([cos(x) < 1/2],[x]) \textcolor{emtcomment}{// ??? gagal}}
+\emtcmd{\$\&fourier\_elim([y-x < 5, x - y < 7, 10 < y],[x,y]) \textcolor{emtcomment}{// sistem pertidaksamaan}}
+\emtcmd{\$\&fourier\_elim([y-x < 5, x - y < 7, 10 < y],[y,x])}
+\emtcmd{\$\&fourier\_elim((x + y < 5) and (x - y >8),[x,y])}
+\emtcmd{\$\&fourier\_elim(((x + y < 5) and x < 1) or (x - y >8),[x,y])}
+\emtcmd{\&fourier\_elim([max(x,y) > 6, x \# 8, abs(y-1) > 12],[x,y])}
+\emtcmd{\$\&fourier\_elim([(x+6)/(x-9) <= 6],[x])}
+
+\section*{Bahasa Matriks (The Matrix Language)}
+
+Dokumentasi inti EMT memuat pembahasan terperinci mengenai bahasa matriks di Euler. Vektor dan matriks dimasukkan menggunakan tanda kurung siku, elemen-elemen dipisahkan oleh tanda koma, dan baris-baris dipisahkan oleh tanda titik koma.
+\emtcmd{A=[1,2;3,4]}
+
+Perkalian matriks dilambangkan dengan tanda titik \texttt{"."}.
+\emtcmd{b=[3;4]}
+\emtcmd{b' \textcolor{emtcomment}{// transpos vektor b}}
+\emtcmd{inv(A) \textcolor{emtcomment}{// invers matriks A}}
+\emtcmd{A.b \textcolor{emtcomment}{// perkalian matriks}}
+\emtcmd{A.inv(A)}
+
+Poin utama dari bahasa matriks adalah bahwa semua fungsi dan operator bekerja elemen demi elemen (element-wise).
+\emtcmd{A.A}
+\emtcmd{A\^{}2 \textcolor{emtcomment}{// perpangkatan elemen-elemen A}}
+\emtcmd{A.A.A}
+\emtcmd{power(A,3) \textcolor{emtcomment}{// perpangkatan matriks}}
+\emtcmd{A/A \textcolor{emtcomment}{// pembagian elemen-elemen matriks yang seletak}}
+\emtcmd{A/b \textcolor{emtcomment}{// pembagian elemen-elemen A oleh elemen-elemen b kolom demi kolom (karena b vektor kolom)}}
+\emtcmd{A\textbackslash b \textcolor{emtcomment}{// hasil kali invers A dan b, A\^{}(-1)b}}
+\emtcmd{inv(A).b}
+\emtcmd{A\textbackslash A \textcolor{emtcomment}{// A\^{}(-1)A}}
+\emtcmd{inv(A).A}
+\emtcmd{A*A \textcolor{emtcomment}{// perkalian elemen-elemen matriks seletak}}
+
+Ini bukanlah perkalian matriks, melainkan perkalian elemen demi elemen. Hal yang sama berlaku untuk vektor.
+\emtcmd{b\^{}2 \textcolor{emtcomment}{// perpangkatan elemen-elemen matriks/vektor}}
+
+Jika salah satu operan berupa vektor atau skalar, operan tersebut diperluas dimensinya secara alami (broadcasting).
+\emtcmd{2*A}
+
+Misalnya, jika operannya adalah vektor kolom, elemen-elemennya diterapkan ke semua baris matriks $A$.
+\emtcmd{[1,2]*A}
+
+Jika operannya adalah vektor baris, elemen-elemennya diterapkan ke semua kolom matriks $A$.
+\emtcmd{A*[2,3]}
+
+Kita dapat membayangkan perkalian ini seolah-olah vektor baris $v$ telah diduplikasi membentuk matriks dengan ukuran yang sama dengan $A$.
+\emtcmd{dup([1,2],2) \textcolor{emtcomment}{// dup: menduplikasi/menggandakan vektor [1,2] sebanyak 2 kali (baris)}}
+\emtcmd{A*dup([1,2],2)}
+
+Hal ini juga berlaku untuk dua vektor di mana yang satu adalah vektor baris dan yang lainnya adalah vektor kolom. Kita hitung $i \cdot j$ untuk $i,j$ dari 1 sampai 5. Triknya adalah mengalikan \texttt{1:5} dengan transposnya. Bahasa matriks Euler secara otomatis menghasilkan tabel perkalian nilai-nilai tersebut.
+\emtcmd{(1:5)*(1:5)' \textcolor{emtcomment}{// hasil kali elemen-elemen vektor baris dan vektor kolom}}
+
+Sekali lagi, ingatlah bahwa ini bukanlah perkalian matriks!
+\emtcmd{(1:5).(1:5)' \textcolor{emtcomment}{// hasil kali titik (dot product) vektor baris dan vektor kolom}}
+\emtcmd{sum((1:5)*(1:5)) \textcolor{emtcomment}{// sama hasilnya}}
+
+Bahkan operator perbandingan seperti \texttt{<} atau \texttt{==} bekerja dengan cara yang sama.
+\emtcmd{(1:10)<6 \textcolor{emtcomment}{// menguji elemen-elemen yang kurang dari 6}}
+
+Misalnya, kita dapat menghitung banyaknya elemen yang memenuhi suatu kondisi tertentu menggunakan fungsi \texttt{sum()}.
+\emtcmd{sum((1:10)<6) \textcolor{emtcomment}{// banyak elemen yang kurang dari 6}}
+
+Euler memiliki operator perbandingan, seperti \texttt{"=="}, yang memeriksa kesamaan nilai. Kita akan mendapatkan vektor berisi angka 0 dan 1, di mana 1 berarti benar (true).
+\emtcmd{t=(1:10)\^{}2; t==25 \textcolor{emtcomment}{// menguji elemen-elemen t yang sama dengan 25 (hanya ada 1)}}
+
+Dari vektor semacam itu, fungsi \texttt{"nonzeros"} memilih indeks elemen yang tidak nol. Pada kasus ini, kita memperoleh indeks dari semua elemen yang lebih besar dari 50.
+\emtcmd{nonzeros(t>50) \textcolor{emtcomment}{// indeks elemen-elemen t yang lebih besar daripada 50}}
+
+Tentu saja, kita dapat menggunakan vektor indeks ini untuk mengambil nilai-nilai yang bersesuaian di dalam $t$.
+\emtcmd{t[nonzeros(t>50)] \textcolor{emtcomment}{// elemen-elemen t yang lebih besar daripada 50}}
+
+Sebagai contoh, mari kita temukan semua bilangan kuadrat dari 1 sampai 1000 yang bersisa 5 modulo 11 dan bersisa 3 modulo 13.
+\emtcmd{t=1:1000; nonzeros(mod(t\^{}2,11)==5 \&\& mod(t\^{}2,13)==3)}
+
+EMT tidak sepenuhnya dirancang khusus untuk komputasi bilangan bulat murni karena menggunakan titik ambang presisi ganda secara internal. Namun, fitur ini tetap sangat bermanfaat. Kita dapat menguji keprimaan suatu bilangan. Mari kita cari tahu berapa banyak bilangan kuadrat ditambah 1 yang merupakan bilangan prima.
+\emtcmd{t=1:1000; length(nonzeros(isprime(t\^{}2+1)))}
+
+Fungsi \texttt{nonzeros()} hanya bekerja untuk vektor. Untuk matriks, tersedia fungsi \texttt{mnonzeros()}.
+\emtcmd{seed(2); A=random(3,4)}
+
+Fungsi ini mengembalikan pasangan indeks baris dan kolom dari elemen yang tidak nol.
+\emtcmd{k=mnonzeros(A<0.4) \textcolor{emtcomment}{// indeks elemen-elemen A yang kurang dari 0,4}}
+
+Indeks-indeks ini dapat digunakan untuk mengubah nilai elemen pada posisi tersebut.
+\emtcmd{mset(A,k,0) \textcolor{emtcomment}{// mengganti elemen-elemen suatu matriks pada indeks tertentu}}
+
+Fungsi \texttt{mset()} juga dapat mengisi elemen pada indeks tersebut dengan entri dari matriks lain.
+\emtcmd{mset(A,k,-random(size(A)))}
+
+Kita juga dapat mengambil elemen-elemen pada indeks tersebut ke dalam bentuk vektor.
+\emtcmd{mget(A,k)}
+
+Fungsi lain yang berguna adalah \texttt{extrema}, yang mengembalikan nilai minimum dan maksimum pada setiap baris matriks beserta posisi kolomnya.
+\emtcmd{ex=extrema(A)}
+
+Kita dapat menggunakannya untuk mengambil nilai maksimum pada setiap baris.
+\emtcmd{ex[,3]'}
+
+Hasil ini tentu saja sama dengan fungsi \texttt{max()}.
+\emtcmd{max(A)'}
+
+Namun dengan \texttt{mget()}, kita dapat mengekstrak indeksnya dan menggunakan informasi ini untuk mengambil elemen-elemen pada posisi yang sama dari matriks lain.
+\emtcmd{j=(1:rows(A))'|ex[,4], mget(-A,j)}
+
+\section*{Fungsi Matriks Lainnya (Membangun Matriks)}
+
+Untuk menyusun matriks, kita dapat menumpuk satu matriks di atas matriks lainnya menggunakan \texttt{"\_"}. Jika keduanya tidak memiliki jumlah kolom yang sama, matriks yang lebih pendek akan diisi dengan angka 0.
+\emtcmd{v=1:3; v\_v}
+
+Demikian pula, kita dapat menggabungkan matriks secara berdampingan menggunakan \texttt{"|"}, jika keduanya memiliki jumlah baris yang sama.
+\emtcmd{A=random(3,4); A|v'}
+
+Jika jumlah barisnya tidak sama, matriks yang lebih pendek akan diisi dengan angka 0. Ada pengecualian untuk aturan ini. Sebuah bilangan real yang digabungkan ke matriks akan dijadikan satu kolom penuh yang berisi bilangan real tersebut.
+\emtcmd{A|1}
+
+Kita juga dapat membentuk matriks dari kumpulan vektor baris maupun vektor kolom.
+\emtcmd{[v;v]}
+\emtcmd{[v',v']}
+
+Tujuan utama dari hal ini adalah untuk mengevaluasi vektor ekspresi terhadap vektor-vektor kolom.
+\emtcmd{"[x,x\^{}2]"(v')}
+
+Untuk mengetahui ukuran matriks $A$, kita dapat menggunakan fungsi-fungsi berikut.
+\emtcmd{C=zeros(2,4); rows(C), cols(C), size(C), length(C)}
+
+Untuk vektor, tersedia fungsi \texttt{length()}.
+\emtcmd{length(2:10)}
+
+Terdapat banyak fungsi lain yang membangkitkan matriks khusus.
+\emtcmd{ones(2,2)}
+
+Fungsi ini juga dapat dipanggil dengan satu parameter. Untuk memperoleh vektor dengan elemen selain angka 1, gunakan cara berikut.
+\emtcmd{ones(5)*6}
+
+Matriks berisi bilangan acak juga dapat dibangkitkan dengan \texttt{random} (distribusi seragam) atau \texttt{normal} (distribusi Gauss).
+\emtcmd{random(2,2)}
+
+Berikut adalah fungsi lain yang berguna, yang menyusun ulang elemen-elemen suatu matriks menjadi matriks dengan dimensi baru.
+\emtcmd{redim(1:9,3,3) \textcolor{emtcomment}{// menyusun elemen-elemen 1, 2, 3, ..., 9 ke bentuk matriks 3x3}}
+
+Dengan fungsi berikut, kita dapat memadukannya dengan fungsi \texttt{dup} untuk membuat fungsi \texttt{rep()}, yang mengulang sebuah vektor sebanyak $n$ kali.
+\emtcmd{function rep(v,n) := redim(dup(v,n),1,n*cols(v))}
+
+Mari kita uji fungsi tersebut.
+\emtcmd{rep(1:3,5)}
+
+Fungsi \texttt{multdup()} menggandakan setiap elemen dari sebuah vektor.
+\emtcmd{multdup(1:3,5), multdup(1:3,[2,3,2])}
+
+Fungsi \texttt{flipx()} dan \texttt{flipy()} membalik urutan kolom atau baris suatu matriks. Artinya, fungsi \texttt{flipx()} membalik secara horizontal.
+\emtcmd{flipx(1:5) \textcolor{emtcomment}{// membalik elemen-elemen vektor baris}}
+
+Untuk rotasi elemen, Euler menyediakan \texttt{rotleft()} dan \texttt{rotright()}.
+\emtcmd{rotleft(1:5) \textcolor{emtcomment}{// memutar elemen-elemen vektor baris ke kiri}}
+
+Fungsi khusus lainnya adalah \texttt{drop(v,i)}, yang menghapus elemen-elemen dengan indeks $i$ dari vektor $v$.
+\emtcmd{drop(10:20,3)}
+
+Perhatikan bahwa vektor $i$ pada \texttt{drop(v,i)} merujuk pada indeks posisi elemen di dalam $v$, bukan nilai elemennya. Jika Anda ingin menghapus nilai tertentu, Anda harus mencari indeksnya terlebih dahulu. Fungsi \texttt{indexof(v,x)} dapat digunakan untuk menemukan posisi elemen $x$ di dalam vektor terurut $v$.
+\emtcmd{v=primes(50), i=indexof(v,10:20), drop(v,i)}
+
+Seperti yang terlihat, tidak masalah jika menyertakan indeks di luar jangkauan (seperti 0), indeks ganda, maupun indeks yang tidak berurutan.
+\emtcmd{drop(1:10,shuffle([0,0,5,5,7,12,12]))}
+
+Terdapat beberapa fungsi khusus untuk mengisi diagonal atau membentuk matriks diagonal. Kita mulai dari matriks identitas.
+\emtcmd{A=id(5) \textcolor{emtcomment}{// matriks identitas 5x5}}
+
+Kemudian kita atur diagonal bawah (-1) menjadi nilai \texttt{1:4}.
+\emtcmd{setdiag(A,-1,1:4) \textcolor{emtcomment}{// mengganti diagonal di bawah diagonal utama}}
+
+Perhatikan bahwa perintah ini tidak mengubah matriks $A$ secara langsung, melainkan menghasilkan matriks baru sebagai keluaran dari \texttt{setdiag()}.
+
+Berikut adalah fungsi yang menghasilkan matriks tridiagonal.
+\emtcmd{function tridiag (n,a,b,c) := setdiag(setdiag(b*id(n),1,c),-1,a); ... \\
+\hspace*{1em} tridiag(5,1,2,3)}
+
+Diagonal suatu matriks juga dapat diekstrak dari matriks tersebut. Untuk mendemonstrasikannya, kita ubah vektor \texttt{1:9} menjadi matriks $3 \times 3$.
+\emtcmd{A=redim(1:9,3,3)}
+
+Sekarang kita dapat mengambil diagonal utamanya.
+\emtcmd{d=getdiag(A,0)}
+
+Misalnya, kita dapat membagi matriks dengan elemen diagonalnya. Bahasa matriks memastikan bahwa vektor kolom $d$ diterapkan ke matriks baris demi baris.
+\emtcmd{fraction A/d'}
+
+\section*{Vektorisasi (Vectorization)}
+
+Hampir semua fungsi di Euler juga bekerja untuk input berupa matriks dan vektor, selama operasi tersebut masuk akal secara matematis.
+
+Misalnya, fungsi \texttt{sqrt()} menghitung akar kuadrat dari setiap elemen vektor atau matriks.
+\emtcmd{sqrt(1:3)}
+
+Dengan demikian, Anda dapat dengan mudah membuat tabel nilai. Ini adalah salah satu cara untuk menggambar grafik fungsi (alternatif lainnya adalah menggunakan ekspresi).
+\emtcmd{x=1:0.01:5; y=log(x)/x\^{}2; \textcolor{emtcomment}{// terlalu panjang untuk ditampilkan}}
+
+Dengan cara ini serta operator titik dua \texttt{a:delta:b}, vektor nilai fungsi dapat dibangkitkan dengan sangat mudah. Pada contoh berikut, kita membangkitkan vektor nilai $t[i]$ dengan selang $0.1$ dari $-1$ hingga $1$. Lalu kita menghasilkan vektor nilai dari fungsi
+$$s = t^3-t$$
+\emtcmd{t=-1:0.1:1; s=t\^{}3-t}
+
+EMT memperluas operator untuk skalar, vektor, dan matriks secara intuitif. Misalnya, vektor kolom dikalikan dengan vektor baris akan meluas menjadi matriks jika operator \texttt{*} diterapkan. Pada perintah berikut, \texttt{v'} adalah vektor transpos (vektor kolom).
+\emtcmd{shortest (1:5)*(1:5)'}
+
+Perhatikan bahwa operasi ini sangat berbeda dengan perkalian matriks. Perkalian matriks dilambangkan dengan tanda titik \texttt{"."} di EMT.
+\emtcmd{(1:5).(1:5)'}
+
+Secara baku, vektor baris dicetak dalam format yang ringkas.
+\emtcmd{[1,2,3,4]}
+
+Untuk matriks, operator khusus \texttt{.} menyatakan perkalian matriks, dan \texttt{A'} menyatakan transpos matriks. Matriks berukuran $1 \times 1$ dapat diperlakukan persis seperti bilangan real.
+\emtcmd{v:=[1,2]; v.v', \%\^{}2}
+
+Untuk mentranspos matriks, kita gunakan tanda apostrof (\texttt{'}).
+\emtcmd{v=1:4; v'}
+
+Jadi kita dapat menghitung perkalian matriks $A$ dengan vektor $b$.
+\emtcmd{A=[1,2,3,4;5,6,7,8]; A.v'}
+
+Perhatikan bahwa $v$ tetap merupakan vektor baris. Oleh karena itu, \texttt{v'.v} berbeda dengan \texttt{v.v'}.
+\emtcmd{v'.v}
+
+\texttt{v.v'} menghitung kuadrat norma (norm) dari vektor baris $v$. Hasilnya adalah vektor $1 \times 1$ yang bekerja seperti bilangan real.
+\emtcmd{v.v'}
+
+Tersedia juga fungsi \texttt{norm} (bersama banyak fungsi Aljabar Linear lainnya).
+\emtcmd{norm(v)\^{}2}
+
+Operator dan fungsi mematuhi aturan bahasa matriks Euler. Berikut adalah ringkasan aturannya:
+\begin{itemize}
+    \item Fungsi yang diterapkan pada vektor atau matriks akan diterapkan pada setiap elemennya.
+    \item Operator yang bekerja pada dua matriks berukuran sama diterapkan secara berpasangan pada elemen-elemen matriks tersebut.
+    \item Jika kedua matriks memiliki dimensi berbeda, keduanya akan diperluas secara logis sehingga memiliki ukuran yang sama.
+\end{itemize}
+
+Misalnya, nilai skalar dikalikan vektor akan mengalikan skalar tersebut dengan setiap elemen vektor. Atau matriks dikalikan vektor (dengan \texttt{*}, bukan \texttt{.}) akan memperluas vektor agar sesuai ukuran matriks dengan cara menduplikasinya.
+
+Berikut adalah kasus sederhana dengan operator pangkat \texttt{\^{}}.
+\emtcmd{[1,2,3]\^{}2}
+
+Berikut adalah kasus yang lebih kompleks. Vektor baris dikalikan vektor kolom memperluas keduanya melalui duplikasi.
+\emtcmd{v:=[1,2,3]; v*v'}
+
+Perhatikan bahwa hasil kali skalar (dot product) menggunakan perkalian matriks \texttt{"."}, bukan \texttt{"*"}!
+\emtcmd{v.v'}
+
+Terdapat banyak fungsi untuk matriks. Berikut adalah daftar singkatnya:
+\begin{verbatim}
+sum, prod       menghitung jumlah dan hasil kali setiap baris
+cumsum, cumprod melakukan hal yang sama secara kumulatif
+extrema         mengembalikan vektor berisi informasi nilai ekstrem
+diag(A,i)       mengembalikan diagonal ke-i
+setdiag(A,i,v)  mengisi diagonal ke-i
+id(n)           matriks identitas berukuran n
+det(A)          determinan matriks
+charpoly(A)     polinomial karakteristik
+eigenvalues(A)  nilai-nilai eigen
+\end{verbatim}
+\emtcmd{v*v, sum(v*v), cumsum(v*v)}
+
+Operator \texttt{:} menghasilkan vektor baris dengan jarak antar-elemen yang sama, secara opsional dengan ukuran langkah (step).
+\emtcmd{1:4, 1:2:10}
+
+Untuk menggabungkan matriks dan vektor, tersedia operator \texttt{"|"} dan \texttt{"\_"}.
+\emtcmd{[1,2,3]|[4,5], [1,2,3]\_1}
+
+Elemen-elemen matriks dirujuk dengan notasi \texttt{"A[i,j]"}.
+\emtcmd{A:=[1,2,3;4,5,6;7,8,9]; A[2,3]}
+
+Untuk vektor baris atau kolom, \texttt{v[i]} adalah elemen ke-$i$ dari vektor. Untuk matriks, perintah ini mengembalikan seluruh baris ke-$i$ dari matriks tersebut.
+\emtcmd{v:=[2,4,6,8]; v[3], A[3]}
+
+Indeks juga dapat berupa vektor baris berisi indeks. Tanda \texttt{:} menyatakan seluruh indeks.
+\emtcmd{v[1:2], A[:,2]}
+
+Bentuk singkat dari \texttt{:} adalah mengosongkan posisi indeks tersebut sepenuhnya.
+\emtcmd{A[,2:3]}
+
+Untuk keperluan vektorisasi, elemen matriks dapat diakses seolah-olah matriks tersebut adalah vektor satu dimensi.
+\emtcmd{A\{4\}}
+
+Matriks juga dapat diratakan (flattened) menjadi vektor baris menggunakan fungsi \texttt{redim()}. Hal ini telah diimplementasikan dalam fungsi \texttt{flatten()}.
+\emtcmd{redim(A,1,prod(size(A))), flatten(A)}
+
+Untuk menggunakan matriks sebagai tabel, mari kita atur ulang ke format baku, lalu menghitung tabel nilai sinus dan kosinus. Perhatikan bahwa sudut secara baku berada dalam satuan radian.
+\emtcmd{defformat; w=0°:45°:360°; w=w'; deg(w)}
+
+Sekarang kita gabungkan kolom-kolomnya menjadi sebuah matriks.
+\emtcmd{M = deg(w)|w|cos(w)|sin(w)}
+
+Menggunakan bahasa matriks, kita dapat membangkitkan beberapa tabel dari beberapa fungsi sekaligus. Pada contoh berikut, kita menghitung $t[j]^i$ untuk $i$ dari 1 hingga $n$. Kita memperoleh matriks di mana setiap baris merupakan tabel $t^i$ untuk suatu nilai $i$. Artinya, matriks memiliki elemen:
+$$a_{i,j} = t_j^i, \quad 1 \le j \le 101, \quad 1 \le i \le n$$
+
+Fungsi yang tidak mendukung input vektor harus "divektorisasi". Hal ini dapat dicapai dengan kata kunci \texttt{"map"} pada definisi fungsi. Dengan demikian, fungsi akan dievaluasi untuk setiap elemen parameter vektor. Integrasi numerik \texttt{integrate()} hanya bekerja untuk batas interval berupa skalar. Jadi kita perlu memvektorisasinya.
+\emtcmd{function map f(x) := integrate("x\^{}x",1,x)}
+
+Kata kunci \texttt{"map"} memvektorisasi fungsi tersebut. Fungsi kini dapat bekerja untuk input berupa vektor bilangan.
+\emtcmd{f([1:5])}
+
+\section*{Sub-Matriks dan Elemen Matriks}
+
+Untuk mengakses elemen matriks, gunakan notasi kurung siku.
+\emtcmd{A=[1,2,3;4,5,6;7,8,9], A[2,2]}
+
+Kita dapat mengakses satu baris penuh dari matriks.
+\emtcmd{A[2]}
+
+Pada kasus vektor baris atau kolom, notasi ini mengembalikan satu elemen vektor tersebut.
+\emtcmd{v=1:3; v[2]}
+
+Untuk memastikan Anda memperoleh baris pertama dari matriks $1 \times n$ maupun $m \times n$, tentukan semua kolom dengan mengosongkan indeks kedua.
+\emtcmd{A[2,]}
+
+Jika indeksnya berupa vektor indeks, Euler akan mengembalikan baris-baris yang bersesuaian dari matriks. Di sini kita mengambil baris pertama dan kedua dari $A$.
+\emtcmd{A[[1,2]]}
+
+Kita bahkan dapat menyusun ulang urutan baris $A$ menggunakan vektor indeks. Tepatnya, kita tidak mengubah matriks $A$ asli di sini, melainkan menghitung versi susunan ulang dari $A$.
+\emtcmd{A[[3,2,1]]}
+
+Trik pengindeksan ini juga berlaku pada kolom. Contoh berikut memilih semua baris dari $A$ serta kolom kedua dan ketiga.
+\emtcmd{A[1:3,2:3]}
+
+Sebagai singkatan, tanda \texttt{":"} menyatakan seluruh indeks baris atau kolom.
+\emtcmd{A[:,3]}
+
+Sebagai alternatif, biarkan indeks pertama kosong.
+\emtcmd{A[,2:3]}
+
+Kita juga dapat mengambil baris terakhir dari $A$ menggunakan indeks $-1$.
+\emtcmd{A[-1]}
+
+Sekarang mari kita ubah elemen-elemen $A$ dengan mengisi sub-matriks $A$ dengan nilai tertentu. Langkah ini benar-benar mengubah matriks $A$ yang tersimpan di memori.
+\emtcmd{A[1,1]=4}
+
+Kita juga dapat menetapkan nilai baru untuk satu baris penuh dari $A$.
+\emtcmd{A[1]=[-1,-1,-1]}
+
+Kita bahkan dapat mengisi nilai ke suatu sub-matriks asalkan ukurannya sesuai.
+\emtcmd{A[1:2,1:2]=[5,6;7,8]}
+
+Selain itu, beberapa cara pintas (shortcuts) juga diperbolehkan.
+\emtcmd{A[1:2,1:2]=0}
+
+Peringatan: Indeks di luar batas ukuran matriks akan menghasilkan matriks kosong atau pesan galat, bergantung pada pengaturan sistem. Pengaturan bakunya adalah menampilkan pesan galat. Namun, perlu diingat bahwa indeks negatif dapat digunakan untuk mengakses elemen matriks yang dihitung dari bagian akhir.
+\emtcmd{A[4]}
+
+\section*{Pengurutan dan Pengacakan (Sorting and Shuffling)}
+
+Fungsi \texttt{sort()} mengurutkan elemen vektor baris.
+\emtcmd{sort([5,6,4,8,1,9])}
+
+Sering kali kita perlu mengetahui indeks asal dari elemen yang telah diurutkan di dalam vektor semula. Informasi ini dapat digunakan untuk menyusun ulang vektor lain dengan urutan yang sama. Mari kita acak urutan sebuah vektor.
+\emtcmd{v=shuffle(1:10)}
+
+Vektor indeks menyimpan urutan posisi yang tepat dari $v$.
+\emtcmd{\{vs,ind\}=sort(v); v[ind]}
+
+Fungsi ini juga bekerja untuk vektor string.
+\emtcmd{s=["a","d","e","a","aa","e"]}
+\emtcmd{\{ss,ind\}=sort(s); ss}
+
+Seperti yang terlihat, posisi entri yang kembar bersifat agak acak.
+\emtcmd{ind}
+
+Fungsi \texttt{unique} mengembalikan daftar terurut dari elemen-elemen unik suatu vektor.
+\emtcmd{intrandom(1,10,10), unique(\%)}
+
+Fungsi ini juga berlaku untuk vektor string.
+\emtcmd{unique(s)}
+
+\section*{Aljabar Linear (Linear Algebra)}
+
+EMT memiliki banyak fungsi untuk menyelesaikan sistem persamaan linear, matriks jarang (sparse systems), maupun masalah regresi. Untuk sistem linear $A\mathbf{x}=\mathbf{b}$, Anda dapat menggunakan algoritma eliminasi Gauss, matriks invers, atau pencocokan linear (linear fit). Operator \texttt{A\textbackslash b} menggunakan salah satu versi algoritma Gauss.
+\emtcmd{A=[1,2;3,4]; b=[5;6]; A\textbackslash b}
+
+Sebagai contoh lain, kita bangkitkan matriks berukuran $200 \times 200$ beserta jumlah setiap barisnya. Lalu kita selesaikan $A\mathbf{x}=\mathbf{b}$ menggunakan matriks invers. Kita ukur galatnya sebagai deviasi maksimum semua elemen terhadap angka 1, yang tentu saja merupakan solusi eksaknya.
+\emtcmd{A=normal(200,200); b=sum(A); longest totalmax(abs(inv(A).b-1))}
+
+Jika sistem persamaan tidak memiliki solusi eksak, pencocokan linear akan meminimalkan norma dari galat $A\mathbf{x}-\mathbf{b}$.
+\emtcmd{A=[1,2,3;4,5,6;7,8,9]}
+
+Determinan dari matriks ini adalah 0.
+\emtcmd{det(A)}
+
+\section*{Matriks Simbolik (Symbolic Matrices)}
+
+Maxima mendukung matriks simbolik. Tentu saja, Maxima dapat digunakan untuk persoalan aljabar linear sederhana semacam ini. Kita dapat mendefinisikan matriks untuk Euler dan Maxima menggunakan \texttt{\&:=}, lalu menggunakannya dalam ekspresi simbolik. Bentuk kurung siku \texttt{[...]} yang biasa digunakan untuk mendefinisikan matriks di Euler juga dipakai untuk mendefinisikan matriks simbolik.
+\emtcmd{A \&= [a,1,1;1,a,1;1,1,a]; \$A}
+\emtcmd{\$\&det(A), \$\&factor(\%)}
+\emtcmd{\$\&invert(A) with a=0}
+\emtcmd{A \&= [1,a;b,2]; \$A}
+
+Seperti semua variabel simbolik lainnya, matriks-matriks ini dapat digunakan dalam ekspresi simbolik lain.
+\emtcmd{\$\&det(A-x*ident(2)), \$\&solve(\%,x)}
+
+Nilai-nilai eigen juga dapat dihitung secara otomatis. Hasilnya adalah vektor yang berisi dua sub-vektor, yaitu nilai eigen dan multiplisitasnya.
+\emtcmd{\$\&eigenvalues([a,1;1,a])}
+
+Untuk mengekstrak vektor eigen tertentu diperlukan pengindeksan yang cermat.
+\emtcmd{\$\&eigenvectors([a,1;1,a]), \&\%[2][1][1]}
+
+Matriks simbolik dapat dievaluasi secara numerik di Euler persis seperti ekspresi simbolik lainnya.
+\emtcmd{A(a=4,b=5)}
+
+Di dalam ekspresi simbolik, gunakan kata kunci \texttt{"with"}.
+\emtcmd{\$\&A with [a=4,b=5]}
+
+Pengaksesan baris pada matriks simbolik bekerja persis seperti pada matriks numerik.
+\emtcmd{\$\&A[1]}
+
+Ekspresi simbolik dapat memuat pengisian nilai elemen, dan hal tersebut akan mengubah matriks $A$.
+\emtcmd{\&A[1,1]:=t+1; \$\&A}
+
+Terdapat pula fungsi simbolik di Maxima untuk membuat vektor dan matriks. Untuk hal ini, silakan merujuk pada dokumentasi Maxima atau tutorial mengenai Maxima di EMT.
+\emtcmd{v \&= makelist(1/(i+j),i,1,3); \$v}
+\emtcmd{B \&:= [1,2;3,4]; \$B, \$\&invert(B)}
+
+Hasilnya dapat dievaluasi secara numerik di Euler.
+\emtcmd{\$\&invert(B)()}
+
+Euler juga memiliki fungsi tangguh bernama \texttt{xinv()}, yang melakukan komputasi lebih mendalam untuk menghasilkan invers yang lebih akurat. Perhatikan bahwa dengan \texttt{\&:=}, matriks $B$ telah didefinisikan sebagai simbolik di dalam ekspresi simbolik dan sebagai numerik di dalam ekspresi numerik. Jadi kita dapat menggunakannya di sini.
+\emtcmd{longest B.xinv(B)}
+
+Misalnya, nilai-nilai eigen dari $A$ dapat dihitung secara numerik.
+\emtcmd{A=[1,2,3;4,5,6;7,8,9]; real(eigenvalues(A))}
+
+Atau secara simbolik.
+\emtcmd{\$\&eigenvalues(@A)}
+
+\section*{Nilai Numerik dalam Ekspresi Simbolik}
+
+Ekspresi simbolik pada dasarnya hanyalah string yang memuat ekspresi matematika. Jika kita ingin mendefinisikan nilai baik untuk ekspresi simbolik maupun ekspresi numerik secara bersamaan, kita harus menggunakan \texttt{"\&:="}.
+\emtcmd{A \&:= [1,pi;4,5]}
+
+Masih terdapat perbedaan antara bentuk numerik dan bentuk simboliknya. Saat memindahkan matriks ke bentuk simbolik, hampiran pecahan untuk bilangan real akan digunakan.
+\emtcmd{\$\&A}
+
+Untuk menghindari pembulatan pecahan tersebut, gunakan fungsi \texttt{"mxmset(variabel)"}.
+\emtcmd{mxmset(A); \$\&A}
+
+Maxima juga dapat menghitung menggunakan bilangan titik ambang, bahkan dengan bilangan titik ambang besar (big floating numbers) hingga 32 digit. Namun proses evaluasinya jauh lebih lambat.
+\emtcmd{\$\&bfloat(sqrt(2)), \$\&float(sqrt(2))}
+
+Ketelitian bilangan titik ambang besar ini dapat diubah sesuai kebutuhan.
+\emtcmd{\&fpprec:=100; \&bfloat(pi)}
+
+Variabel numerik dapat digunakan di dalam ekspresi simbolik mana pun menggunakan awalan \texttt{"@var"}. Perhatikan bahwa hal ini hanya diperlukan jika variabel tersebut didefinisikan dengan \texttt{":="} atau \texttt{"="} sebagai variabel numerik.
+\emtcmd{B:=[1,pi;3,4]; \$\&det(@B)}
+
+\section*{Demo - Suku Bunga (Interest Rates)}
+
+Di bawah ini, kita menggunakan Euler Math Toolbox (EMT) untuk menghitung suku bunga. Kita melakukannya secara numerik dan simbolik untuk menunjukkan bagaimana Euler dapat digunakan menyelesaikan permasalahan kehidupan nyata.
+
+Misalkan Anda memiliki modal awal sebesar 5000 (katakanlah dalam dolar).
+\emtcmd{K=5000}
+
+Sekarang kita asumsikan suku bunga sebesar $3\%$ per tahun. Mari kita tambahkan satu periode bunga sederhana dan hitung hasilnya.
+\emtcmd{K*1.03}
+
+Euler juga memahami penulisan sintaks persen berikut.
+\emtcmd{K+K*3\%}
+
+Namun jauh lebih mudah jika kita menggunakan faktor pengali bunga:
+\emtcmd{q=1+3\%, K*q}
+
+Untuk jangka waktu 10 tahun, kita cukup mengalikan faktornya dan memperoleh nilai akhir dengan bunga majemuk.
+\emtcmd{K*q\^{}10}
+
+Untuk keperluan tampilan, kita dapat mengatur format menjadi 2 angka di belakang titik desimal.
+\emtcmd{format(12,2); K*q\^{}10}
+
+Mari kita cetak hasil pembulatan 2 angka desimal tersebut dalam satu kalimat lengkap.
+\emtcmd{"Starting from " + K + "\$ you get " + round(K*q\^{}10,2) + "\$."}
+
+Bagaimana jika kita ingin mengetahui saldo pada setiap tahun dari tahun ke-1 hingga tahun ke-9? Untuk hal ini, bahasa matriks Euler sangat membantu. Anda tidak perlu menulis perulangan, cukup masukkan perintah:
+\emtcmd{K*q\^{}(0:10)}
+
+Bagaimana keajaiban ini bekerja? Pertama, ekspresi \texttt{0:10} menghasilkan vektor bilangan bulat.
+\emtcmd{short 0:10}
+
+Kemudian semua operator dan fungsi di Euler dapat diterapkan pada vektor elemen demi elemen. Jadi
+\emtcmd{short q\^{}(0:10)}
+
+adalah vektor yang berisi faktor $q^0$ sampai $q^{10}$. Vektor ini dikalikan dengan $K$, sehingga kita memperoleh vektor nilai saldo tiap tahun.
+\emtcmd{VK=K*q\^{}(0:10);}
+
+Tentu saja, cara yang realistis untuk menghitung bunga ini adalah dengan membulatkannya ke sen terdekat setiap akhir tahun. Mari kita buat fungsi untuk keperluan ini.
+\emtcmd{function oneyear (K) := round(K*q,2)}
+
+Mari kita bandingkan kedua hasil tersebut, dengan pembulatan dan tanpa pembulatan.
+\emtcmd{longest oneyear(1234.57), longest 1234.57*q}
+
+Sekarang tidak ada lagi rumus langsung untuk tahun ke-$n$, sehingga kita harus melakukan iterasi antar-tahun. Euler menyediakan banyak cara untuk melakukannya. Cara termudah adalah menggunakan fungsi \texttt{iterate}, yang mengulang pemanggilan suatu fungsi sebanyak jumlah tertentu.
+\emtcmd{VKr=iterate("oneyear",5000,10)}
+
+Kita dapat mencetaknya dengan tampilan yang rapi menggunakan format tempat desimal tetap.
+\emtcmd{VKr'}
+
+Untuk mengambil elemen tertentu dari vektor, kita gunakan indeks di dalam kurung siku.
+\emtcmd{VKr[2], VKr[1:3]}
+
+Menariknya, kita juga dapat menggunakan vektor indeks. Ingat bahwa \texttt{1:3} menghasilkan vektor \texttt{[1,2,3]}. Mari kita bandingkan elemen terakhir dari nilai yang dibulatkan dengan nilai penuh tanpa pembulatan.
+\emtcmd{VKr[-1], VK[-1]}
+
+Selisihnya sangat kecil.
+
+\section*{Menyelesaikan Persamaan Keuangan (Solving Equations)}
+
+Sekarang kita gunakan fungsi yang lebih lanjut, yang menambahkan sejumlah uang tetap setiap tahunnya.
+\emtcmd{function onepay (K) := K*q+R}
+
+Kita tidak perlu menentukan nilai $q$ atau $R$ saat mendefinisikan fungsi. Hanya ketika kita menjalankan perintahnya, barulah nilai-nilai ini harus didefinisikan. Kita pilih $R=200$.
+\emtcmd{R=200; iterate("onepay",5000,10)}
+
+Bagaimana jika kita menarik sejumlah uang yang sama setiap tahun?
+\emtcmd{R=-200; iterate("onepay",5000,10)}
+
+Terlihat bahwa saldo uang terus berkurang. Jelas sekali, jika kita hanya memperoleh bunga 150 pada tahun pertama tetapi menarik 200, modal kita akan berkurang setiap tahun.
+
+Bagaimana kita dapat menentukan berapa tahun uang tersebut akan bertahan? Kita bisa menulis perulangan untuk ini. Cara termudah adalah melakukan iterasi dalam jangka waktu yang cukup panjang.
+\emtcmd{VKR=iterate("onepay",5000,50)}
+
+Menggunakan bahasa matriks, kita dapat menentukan kapan nilai negatif pertama kali muncul dengan cara berikut.
+\emtcmd{min(nonzeros(VKR<0))}
+
+Alasannya adalah bahwa \texttt{nonzeros(VKR<0)} mengembalikan vektor indeks $i$ di mana $\text{VKR}[i]<0$, dan fungsi \texttt{min} mengambil indeks terkecilnya. Karena indeks vektor selalu dimulai dari 1, jawabannya adalah 47 tahun.
+
+Fungsi \texttt{iterate()} memiliki satu trik tambahan. Fungsi ini dapat menerima kondisi berhenti sebagai argumen, lalu mengembalikan nilai akhir beserta jumlah iterasinya.
+\emtcmd{\{x,n\}=iterate("onepay",5000,till="x<0"); x, n,}
+
+Mari kita coba menjawab pertanyaan yang lebih menantang. Misalkan kita mengetahui bahwa saldo menjadi 0 setelah 50 tahun. Berapakah besar suku bunganya?
+
+Pertanyaan ini hanya dapat dijawab secara numerik. Di bawah ini kita akan menurunkan rumus yang diperlukan, dan Anda akan melihat bahwa tidak ada rumus aljabar sederhana untuk mencari suku bunga. Untuk saat ini, kita gunakan penyelesaian numerik.
+
+Langkah pertama adalah mendefinisikan fungsi yang melakukan iterasi sebanyak $n$ kali. Kita masukkan semua parameter ke dalam fungsi ini.
+\emtcmd{function f(K,R,P,n) := iterate("x*(1+P/100)+R",K,n;P,R)[-1]}
+
+Iterasinya persis seperti rumus berikut:
+$$x_{n+1} = x_n \cdot \left(1+ \frac{P}{100}\right) + R$$
+
+Namun kita tidak lagi memakai nilai global $R$ di dalam ekspresi. Fungsi seperti \texttt{iterate()} memiliki fitur khusus di Euler: Anda dapat meneruskan nilai variabel ke dalam ekspresi sebagai parameter setelah titik koma, dalam hal ini $P$ dan $R$. Selain itu, kita hanya tertarik pada nilai terakhir, sehingga kita ambil indeks \texttt{[-1]}.
+
+Mari kita lakukan pengujian.
+\emtcmd{f(5000,-200,3,47)}
+
+Sekarang kita dapat menyelesaikan masalah suku bunga tadi.
+\emtcmd{solve("f(5000,-200,x,50)",3)}
+
+Rutin \texttt{solve} mencari akar persamaan $\text{ekspresi}=0$ terhadap variabel $x$. Jawabannya adalah $3,15\%$ per tahun. Kita memakai nilai awal $3\%$ untuk memulai algoritma. Fungsi \texttt{solve()} selalu memerlukan nilai tebakan awal.
+
+Kita dapat menggunakan fungsi yang sama untuk menjawab pertanyaan berikut: Berapa banyak uang yang dapat kita tarik setiap tahun agar modal awal habis tepat setelah 20 tahun dengan asumsi suku bunga $3\%$ per tahun?
+\emtcmd{solve("f(5000,x,3,20)",-200)}
+
+Perhatikan bahwa Anda tidak dapat mencari nilai $n$ (jumlah tahun) dengan fungsi $f$ ini, karena fungsi tersebut mensyaratkan $n$ berupa bilangan bulat.
+
+\subsection*{Solusi Simbolik untuk Masalah Suku Bunga}
+
+Kita dapat memanfaatkan fitur simbolik Euler untuk mengkaji masalah ini secara analitis. Pertama kita definisikan fungsi \texttt{onepay()} secara simbolik.
+\emtcmd{function op(K) \&= K*q+R; \$\&op(K)}
+
+Sekarang kita dapat mengiterasinya secara simbolik.
+\emtcmd{\$\&op(op(op(op(K)))), \$\&expand(\%)}
+
+Kita melihat sebuah pola. Setelah $n$ periode kita memiliki rumus:
+$$K_n = q^n K + R (1+q+\ldots+q^{n-1}) = q^n K + \frac{q^n-1}{q-1} R$$
+
+Rumus tersebut merupakan deret geometri, yang sudah dikenali oleh Maxima.
+\emtcmd{\&sum(q\^{}k,k,0,n-1); \$\& \% = ev(\%,simpsum)}
+
+Bagian ini sedikit unik. Penjumlahan sigma dievaluasi dengan flag \texttt{"simpsum"} untuk menyederhanakannya menjadi bentuk pecahan tertutup. Mari kita buat fungsi simbolik untuk rumus ini.
+\emtcmd{function fs(K,R,P,n) \&= (1+P/100)\^{}n*K + ((1+P/100)\^{}n-1)/(P/100)*R; \$\&fs(K,R,P,n)}
+
+Fungsi ini melakukan perhitungan yang sama dengan fungsi $f$ sebelumnya, tetapi jauh lebih efisien.
+\emtcmd{longest f(5000,-200,3,47), longest fs(5000,-200,3,47)}
+
+Sekarang kita dapat menggunakannya untuk mencari waktu $n$. Kapan modal kita habis? Tebakan awal kita adalah 30 tahun.
+\emtcmd{solve("fs(5000,-330,3,x)",30)}
+
+Jawaban ini menunjukkan bahwa saldo akan bernilai negatif setelah 21 tahun.
+
+Kita juga dapat menggunakan sisi simbolik Euler untuk menurunkan rumus angsuran pinjaman. Misalkan kita mengambil pinjaman sebesar $K$, dan membayar $n$ kali angsuran sebesar $R$ (dimulai setelah tahun pertama) dengan menyisakan sisa utang sebesar $K_n$ (pada saat pembayaran terakhir). Persamaannya adalah:
+\emtcmd{equ \&= fs(K,R,P,n)=Kn; \$\&equ}
+
+Biasanya rumus ini dinyatakan dalam suku bunga desimal:
+$$i = \frac{P}{100}$$
+\emtcmd{equ \&= (equ with P=100*i); \$\&equ}
+
+Kita dapat menyelesaikannya terhadap variabel angsuran $R$ secara simbolik.
+\emtcmd{\$\&solve(equ,R)}
+
+Seperti terlihat dari rumusnya, fungsi ini menghasilkan galat pembagian nol (floating point error) ketika $i=0$. Meskipun demikian, Euler tetap dapat menggambar grafiknya. Tentu saja, kita dapat mencari nilai limitnya saat suku bunga mendekati 0.
+\emtcmd{\$\&limit(R(5000,0,x,10),x,0)}
+
+Jelas bahwa tanpa bunga, kita harus mengembalikan pinjaman dalam 10 kali angsuran sebesar 500. Persamaan di atas juga dapat diselesaikan terhadap $n$. Tampilannya akan lebih rapi jika kita menerapkan penyederhanaan rasional padanya.
+\emtcmd{fn \&= solve(equ,n) | ratsimp; \$\&fn}
+
+\hrulefill
+\section*{Tambahan Materi: Teori Aljabar, Grafik Fungsi, dan Latihan Soal}
+\hrulefill
+
+\subsection*{1. Uraian Materi (Teori Aljabar)}
+
+Aljabar adalah cabang matematika yang mempelajari simbol-simbol matematika dan aturan untuk memanipulasi simbol-simbol tersebut. Dalam aljabar dasar dan lanjut, beberapa konsep fundamental meliputi:
+
+\begin{enumerate}
+    \item \textbf{Bentuk Aljabar dan Operasi Polinomial (Suku Banyak)}: \\
+    Polinomial dalam satu variabel $x$ berderajat $n$ didefinisikan sebagai:
+    $$P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0, \quad a_n \neq 0$$
+    Operasi pada polinomial meliputi penjumlahan, pengurangan, perkalian (penjabaran/ekspansi), pembagian, serta pemfaktoran menjadi faktor-faktor linear maupun kuadratik.
+
+    \item \textbf{Persamaan Kuadrat dan Fungsi Kuadrat}: \\
+    Persamaan kuadrat memiliki bentuk umum $ax^2 + bx + c = 0$ dengan $a \neq 0$. Akar-akarnya ditentukan dengan rumus kuadratik (rumus ABC):
+    $$x_{1,2} = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+    Grafik fungsi kuadrat $f(x) = ax^2 + bx + c$ berbentuk parabola yang terbuka ke atas jika $a > 0$ (memiliki titik balik minimum) dan terbuka ke bawah jika $a < 0$ (memiliki titik balik maksimum), dengan sumbu simetri $x = -\frac{b}{2a}$.
+
+    \item \textbf{Pertidaksamaan Aljabar}: \\
+    Pertidaksamaan memuat tanda ketaksamaan ($<, >, \le, \ge$). Penyelesaian pertidaksamaan kuadrat maupun rasional dilakukan dengan mencari pembuat nol pembilang dan penyebut, lalu menguji tanda interval pada garis bilangan untuk menentukan himpunan penyelesaian.
+
+    \item \textbf{Sistem Persamaan Linear (SPL) dan Matriks}: \\
+    Sistem persamaan linear dengan $n$ variabel dapat dituliskan dalam bentuk persamaan matriks:
+    $$A\mathbf{x} = \mathbf{b}$$
+    Jika matriks koefisien $A$ persegi dan nonsingular ($\det(A) \neq 0$), maka solusi tunggalnya diberikan oleh $\mathbf{x} = A^{-1}\mathbf{b}$ atau menggunakan eliminasi Gauss-Jordan.
+\end{enumerate}
+
+\subsection*{2. Penyelesaian Masalah Menggambar Kurva / Grafik Fungsi di EMT}
+
+Untuk memvisualisasikan perilaku fungsi aljabar, EMT menyediakan perintah \texttt{plot2d()}. Berikut adalah contoh penggambaran grafik fungsi polinomial kubik dan fungsi kuadrat beserta titik potongnya.
+
+Misalkan diberikan fungsi kubik $f(x) = x^3 - 3x^2 - x + 3$ dan fungsi linear $g(x) = 2x - 1$.
+\emtcmd{plot2d(["x\^{}3-3*x\^{}2-x+3", "2*x-1"], -2, 4, color=[blue, red], thickness=2, ... \\
+\hspace*{1em} title="Grafik Fungsi Kubik f(x) dan Garis Lurus g(x)", xl="x", yl="y"); ... \\
+\hspace*{1em} label("f(x) = x\^{}3 - 3x\^{}2 - x + 3", 0.2, 4.5, color=blue); ... \\
+\hspace*{1em} label("g(x) = 2x - 1", 2.2, 2.5, color=red):}
+
+\textbf{Penjelasan Hasil Kurva/Grafik:}
+\begin{enumerate}
+    \item Kurva berwarna biru merupakan grafik fungsi polinomial derajat tiga $f(x) = x^3 - 3x^2 - x + 3$. Jika difaktorkan menjadi $(x-1)(x+1)(x-3)$, terlihat jelas kurva memotong sumbu-$x$ di tiga titik, yaitu $x = -1$, $x = 1$, dan $x = 3$, serta memotong sumbu-$y$ di $(0, 3)$.
+    \item Garis lurus berwarna merah merupakan fungsi linear $g(x) = 2x - 1$ dengan gradien $m = 2$ dan titik potong sumbu-$y$ di $(0, -1)$.
+    \item Perpotongan antara kurva biru dan garis merah menunjukkan solusi real dari sistem persamaan $x^3 - 3x^2 - x + 3 = 2x - 1$.
+\end{enumerate}
+
+Contoh grafik kedua: Menggambar keluarga fungsi kuadrat $f(x) = x^2 - 4x + c$ untuk melihat pengaruh konstanta $c$ terhadap pergeseran vertikal grafik dan banyaknya akar real.
+\emtcmd{plot2d(["x\^{}2-4*x+1", "x\^{}2-4*x+4", "x\^{}2-4*x+6"], -1, 5, color=[green, blue, red], ... \\
+\hspace*{1em} title="Pengaruh Diskriminan pada Grafik Fungsi Kuadrat", xl="x", yl="y"):}
+
+\textbf{Penjelasan Hasil Kurva/Grafik:}
+\begin{itemize}
+    \item Kurva hijau ($c=1$, $D > 0$) memotong sumbu-$x$ di dua titik berbeda (memiliki 2 akar real).
+    \item Kurva biru ($c=4$, $D = 0$) menyinggung sumbu-$x$ tepat di titik puncak $(2, 0)$ (akar kembar).
+    \item Kurva merah ($c=6$, $D < 0$) berada sepenuhnya di atas sumbu-$x$ (definit positif, tidak memiliki akar real).
+\end{itemize}
+
+\subsection*{3. Penyelesaian 5 Contoh Soal Latihan Aljabar}
+
+Berikut adalah 5 soal latihan Aljabar yang diselesaikan menggunakan perintah simbolik dan numerik di EMT beserta penjelasan output-nya:
+
+\subsubsection*{Soal 1 (Penyederhanaan dan Ekspansi Bentuk Aljabar)}
+Jabarkan dan sederhanakan bentuk aljabar berikut:
+$$(2x - 3y)^3 - (x + 2y)(4x^2 - 5xy + y^2)$$
+\emtcmd{\$\&showev('expand((2*x - 3*y)\^{}3 - (x + 2*y)*(4*x\^{}2 - 5*x*y + y\^{}2)))}
+
+\textbf{Penjelasan Output Soal 1:} \\
+Perintah \texttt{expand} mengalikan setiap suku secara distributif dan menggabungkan suku-suku sejenis. Hasilnya adalah polinomial homogen derajat tiga: $4x^3 - 39x^2y + 63xy^2 - 29y^3$.
+
+\subsubsection*{Soal 2 (Pemfaktoran Polinomial dan Akar Persamaan)}
+Faktorkan polinomial berikut secara lengkap dan tentukan seluruh akar-akarnya:
+$$P(x) = x^4 - 5x^3 + 5x^2 + 5x - 6 = 0$$
+\emtcmd{\$\&factor(x\^{}4 - 5*x\^{}3 + 5*x\^{}2 + 5*x - 6), \$\&solve(x\^{}4 - 5*x\^{}3 + 5*x\^{}2 + 5*x - 6 = 0, x)}
+
+\textbf{Penjelasan Output Soal 2:} \\
+Perintah \texttt{factor} memfaktorkan suku banyak berderajat empat menjadi empat faktor linear: $(x - 3)(x - 2)(x - 1)(x + 1)$. Perintah \texttt{solve} memberikan himpunan penyelesaian eksak untuk $P(x)=0$, yaitu $x \in \{-1, 1, 2, 3\}$.
+
+\subsubsection*{Soal 3 (Penyelesaian Pertidaksamaan Rasional)}
+Tentukan himpunan penyelesaian dari pertidaksamaan rasional berikut:
+$$\frac{2x - 5}{x + 3} \le 1$$
+\emtcmd{\&load(fourier\_elim); \$\&fourier\_elim([(2*x - 5)/(x + 3) <= 1], [x])}
+
+\textbf{Penjelasan Output Soal 3:} \\
+Menggunakan paket \texttt{fourier\_elim}, Maxima memindahkan konstanta 1 ke ruas kiri menjadi $\frac{x - 8}{x + 3} \le 0$. Dengan memperhatikan syarat penyebut $x \neq -3$, diperoleh himpunan penyelesaian $-3 < x \le 8$.
+
+\subsubsection*{Soal 4 (Sistem Persamaan Linear Tiga Variabel / SPLTV)}
+Tentukan nilai $x, y, z$ yang memenuhi sistem persamaan linear berikut:
+$$\begin{cases} 2x + y - z = 8 \\ -3x - y + 2z = -11 \\ -2x + y + 2z = -3 \end{cases}$$
+\emtcmd{\$\&solve([2*x + y - z = 8, -3*x - y + 2*z = -11, -2*x + y + 2*z = -3], [x, y, z])}
+
+\textbf{Penjelasan Output Soal 4:} \\
+Perintah \texttt{solve} menyelesaikan SPLTV secara simbolik (eliminasi eksak) dan menghasilkan solusi tunggal $x = 2$, $y = 3$, dan $z = -1$.
+
+\subsubsection*{Soal 5 (Operasi Matriks, Determinan, dan Invers)}
+Diketahui matriks $M = \begin{pmatrix} 3 & 1 & 2 \\ 2 & 4 & 1 \\ 1 & 2 & 3 \end{pmatrix}$. Hitunglah determinan matriks $M$ serta matriks invers $M^{-1}$ secara eksak!
+\emtcmd{M \&= [3,1,2; 2,4,1; 1,2,3]; \$\&det(M), \$\&invert(M)}
+
+\textbf{Penjelasan Output Soal 5:} \\
+Perintah \texttt{det(M)} menghasilkan nilai determinan sebesar $25$ (karena $\det(M) \neq 0$, maka matriks memiliki invers). Perintah \texttt{invert(M)} menghitung matriks invers dalam bentuk pecahan eksak, yaitu $\frac{1}{25} \begin{pmatrix} 10 & 1 & -7 \\ -5 & 7 & 1 \\ 0 & -5 & 10 \end{pmatrix}$.
+
+\end{document}
